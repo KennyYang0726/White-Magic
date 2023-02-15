@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:id="@+id/linear1"
+		android:layout_width="match_parent"
+		android:layout_height="600dp"
+		android:background="#424242"
+		android:orientation="vertical"
+		android:layout_weight="1">
+		<LinearLayout
+			android:id="@+id/linear8"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="#455A64"
+			android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/imageview15"
+				android:layout_width="50dp"
+				android:layout_height="match_parent"
+				android:src="@drawable/ic_delete_white"
+				android:scaleType="fitXY" />
+			<TextView
+				android:id="@+id/textview1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="將下載的插件刪除"
+				android:textSize="20sp"
+				android:textColor="#FFFFFF" />
+			<Button
+				android:id="@+id/button1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="10dp"
+				android:padding="8dp"
+				android:text="刪除插件"
+				android:textSize="14sp"
+				android:textStyle="bold"
+				android:textColor="#F44336"
+				android:layout_gravity="center_horizontal"
+				android:layout_weight="1" />
+		</LinearLayout>
+		<ImageView
+			android:id="@+id/imageview16"
+			android:layout_width="match_parent"
+			android:layout_height="2dp"
+			android:src="@drawable/line"
+			android:scaleType="fitXY" />
+		<LinearLayout
+			android:id="@+id/linear9"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="#757575"
+			android:orientation="horizontal">
+			<ImageView
+				android:id="@+id/imageview14"
+				android:layout_width="50dp"
+				android:layout_height="match_parent"
+				android:src="@drawable/ic_delete_white"
+				android:scaleType="fitXY" />
+			<TextView
+				android:id="@+id/textview2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="還原大廳主題修改"
+				android:textSize="20sp"
+				android:textColor="#FFFFFF" />
+			<Button
+				android:id="@+id/button2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="10dp"
+				android:padding="15dp"
+				android:text="清除修改"
+				android:textSize="14sp"
+				android:textStyle="bold"
+				android:textColor="#F44336"
+				android:layout_gravity="center_horizontal"
+				android:layout_weight="1" />
+		</LinearLayout>
+		<ImageView
+			android:id="@+id/imageview17"
+			android:layout_width="match_parent"
+			android:layout_height="2dp"
+			android:src="@drawable/line"
+			android:scaleType="fitXY" />
+		<ScrollView
+			android:id="@+id/vscroll1"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			<LinearLayout
+				android:id="@+id/linear12"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				<LinearLayout
+					android:id="@+id/linear10"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:orientation="vertical">
+					<Button
+						android:id="@+id/button7"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="刀劍一次聯動"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button8"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="刀劍二次聯動"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button9"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="納克次元突破"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button10"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="WAVE 女團主題"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button11"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="2021新年主題"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button12"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="2022新年主題"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button13"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="奧特曼主題"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button14"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="泳裝派對主題"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button15"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="2020AIC"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button16"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="卡倫諾學院"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button17"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000" />
+					<Button
+						android:id="@+id/button18"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000"
+						android:textAllCaps="false" />
+					<Button
+						android:id="@+id/button19"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000"
+						android:textAllCaps="false" />
+					<Button
+						android:id="@+id/button20"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000"
+						android:textAllCaps="false" />
+				</LinearLayout>
+				<LinearLayout
+					android:id="@+id/bannerAd"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:padding="8dp"
+					android:orientation="horizontal" />
+			</LinearLayout>
+		</ScrollView>
+	</LinearLayout>
+	<LinearLayout
+		android:id="@+id/linear7"
+		android:layout_width="match_parent"
+		android:layout_height="47dp"
+		android:background="#383838"
+		android:orientation="horizontal">
+		<ImageView
+			android:id="@+id/imageview7"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/home"
+			android:scaleType="fitCenter"
+			android:layout_weight="1" />
+		<ImageView
+			android:id="@+id/imageview8"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/skin"
+			android:scaleType="fitCenter"
+			android:layout_weight="1" />
+		<ImageView
+			android:id="@+id/imageview9"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/voice"
+			android:scaleType="fitCenter"
+			android:layout_weight="1" />
+		<ImageView
+			android:id="@+id/imageview10"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/hall2"
+			android:scaleType="fitCenter"
+			android:scaleX="1.1"
+			android:scaleY="1.1"
+			android:layout_weight="1" />
+		<ImageView
+			android:id="@+id/imageview11"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:src="@drawable/other"
+			android:scaleType="fitCenter"
+			android:layout_weight="1" />
+	</LinearLayout>
+</LinearLayout>
