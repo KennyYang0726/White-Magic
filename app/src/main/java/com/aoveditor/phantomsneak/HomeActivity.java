@@ -1666,7 +1666,7 @@ public class HomeActivity extends AppCompatActivity {
 																public void onClick(View _view) {
 																	Intent browserintent = new Intent(
 																			Intent.ACTION_VIEW,
-																			Uri.parse("https://youtu.be/A8QSnw-WAEw"));
+																			Uri.parse("https://youtu.be/kw7AxRIRg3s"));
 																	startActivity(browserintent);
 																}
 															});

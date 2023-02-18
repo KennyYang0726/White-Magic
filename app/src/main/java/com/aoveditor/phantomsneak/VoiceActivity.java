@@ -460,7 +460,7 @@ public class VoiceActivity extends AppCompatActivity {
 					}
 					FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
 					FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
-					_Download_Plugins("https://www.dropbox.com".concat(JP_DLC),
+					_Download_Plugins("https://".concat(JP_DLC),
 							"Android/data/com.aoveditor.phantomsneak/files/2-voice/", "JP/");
 					showMessage("下載完成再次點擊以啟用");
 				}
@@ -639,7 +639,7 @@ public class VoiceActivity extends AppCompatActivity {
 					}
 					FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));
 					FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));
-					_Download_Plugins("https://www.dropbox.com".concat(EU_DLC),
+					_Download_Plugins("https://".concat(EU_DLC),
 							"Android/data/com.aoveditor.phantomsneak/files/2-voice/", "EN/");
 					showMessage("下載完成再次點擊以啟用");
 				}
@@ -1011,8 +1011,6 @@ public class VoiceActivity extends AppCompatActivity {
 						JP_DLC = map2.get((int) 0).get("jp").toString();
 						EU_Ver = map2.get((int) 0).get("eu_ver").toString();
 						JP_Ver = map2.get((int) 0).get("jp_ver").toString();
-						EU_Ver_Old = map2.get((int) 0).get("eu_ver_old").toString();
-						JP_Ver_Old = map2.get((int) 0).get("jp_ver_old").toString();
 						textview12.setText("最新版本：".concat(JP_Ver));
 						textview13.setText("最新版本：".concat(EU_Ver));
 						FileUtil.listDir(
