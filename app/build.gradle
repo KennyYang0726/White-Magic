@@ -11,7 +11,7 @@ android {
 		//noinspection ExpiredTargetSdkVersion
 		targetSdkVersion 33
 		versionCode 9
-		versionName "1.4.2"
+		versionName "1.4.3"
 		resourceConfigurations += []
 	}
 	
