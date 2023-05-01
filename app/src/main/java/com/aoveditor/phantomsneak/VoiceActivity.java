@@ -349,12 +349,18 @@ public class VoiceActivity extends AppCompatActivity {
 									showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
 									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
 								} catch (Exception e) {
-									if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")) {
-										_install_package();
-									}
-									else {
-										DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/1074236961570689034/MT_2.13.0.apk", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
-									}
+									showMessage("play商店政策因素\n暫時移除自行安裝功能");
+									showMessage("請自行下載MT管理器後安裝");
+									Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
+														startActivity(playstore);
+									/*
+if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")) {
+_install_package();
+}
+else {
+DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/1074236961570689034/MT_2.13.0.apk", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+}
+*/
 								}
 							}
 						});
@@ -522,12 +528,18 @@ public class VoiceActivity extends AppCompatActivity {
 									showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
 									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
 								} catch (Exception e) {
-									if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")) {
-										_install_package();
-									}
-									else {
-										DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/1074236961570689034/MT_2.13.0.apk", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
-									}
+									showMessage("play商店政策因素\n暫時移除自行安裝功能");
+									showMessage("請自行下載MT管理器後安裝");
+									Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
+														startActivity(playstore);
+									/*
+if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")) {
+_install_package();
+}
+else {
+DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/1074236961570689034/MT_2.13.0.apk", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+}
+*/
 								}
 							}
 						});
@@ -695,12 +707,18 @@ public class VoiceActivity extends AppCompatActivity {
 									showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
 									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
 								} catch (Exception e) {
-									if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")) {
-										_install_package();
-									}
-									else {
-										DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/1074236961570689034/MT_2.13.0.apk", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
-									}
+									showMessage("play商店政策因素\n暫時移除自行安裝功能");
+									showMessage("請自行下載MT管理器後安裝");
+									Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
+														startActivity(playstore);
+									/*
+if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")) {
+_install_package();
+}
+else {
+DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/1074236961570689034/MT_2.13.0.apk", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+}
+*/
 								}
 							}
 						});

@@ -90,7 +90,6 @@ public class HomeActivity extends AppCompatActivity {
 	private Toolbar _toolbar;
 	private AppBarLayout _app_bar;
 	private CoordinatorLayout _coordinator;
-	private boolean all_file_access = false;
 	private  Uri muri;
 	private  Uri parenturi;
 	private  Uri uri2;
@@ -762,17 +761,6 @@ public class HomeActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
-		
-		//解除安裝舊版app
-		try{
-			android.content.pm.PackageInfo pinfo = getPackageManager().getPackageInfo("com.aoveditor.phantom", android.content.pm.PackageManager.GET_ACTIVITIES);
-			Intent i2 = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
-			i2.setData(Uri.parse("package:com.aoveditor.phantom"));
-			startActivity(i2);
-			showMessage("正在解除安裝舊版白魔法");
-		} catch (Exception e){
-			//showMessage("無安裝");
-		}
 		FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/1-skin"));
 		FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice"));
 		FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"));
@@ -814,12 +802,6 @@ public class HomeActivity extends AppCompatActivity {
 				
 		}
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-			all_file_access = Environment.isExternalStorageManager();
-			if (!all_file_access) {
-				Intent allfile = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-				allfile.setData(Uri.parse("package:" + getPackageName()));
-				startActivity(allfile);
-			}
 			try {
 				muri = Uri.parse(sp.getString("DIRECT_FOLDER_URI", ""));
 				    mfile = DocumentFile.fromTreeUri(this, muri);
@@ -952,7 +934,8 @@ public class HomeActivity extends AppCompatActivity {
 			menu.add(0,0,0,menuIconWithText(getDrawable(R.drawable.youtube),"YouTube"));
 		    menu.add(0,1,1,menuIconWithText(getDrawable(R.drawable.discord),"Discord"));
 		    menu.add(0,2,2,menuIconWithText(getDrawable(R.drawable.github),"Github開源"));
-			menu.add(0,3,3,menuIconWithText(getDrawable(R.drawable.more_apps),"更多apps"));
+		    menu.add(0,3,3,menuIconWithText(getDrawable(R.drawable.rate),"評分"));
+			menu.add(0,4,4,menuIconWithText(getDrawable(R.drawable.more_apps),"更多apps"));
 			//menu.add(0,1,1,LoginActivity.more_apps);
 			return super.onCreateOptionsMenu(menu);
 	}
@@ -962,18 +945,22 @@ public class HomeActivity extends AppCompatActivity {
 			/*取得Item的ItemId，判斷點擊到哪個元件*/
 			switch (item.getItemId()){
 					case 0:
-					Intent browserintent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/channel/UCrBaHnJwilrSZ87hGU4AVfg"));
-					startActivity(browserintent1);
+					Intent browserintent0 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/channel/UCrBaHnJwilrSZ87hGU4AVfg"));
+					startActivity(browserintent0);
 					break;
 			        case 1:
-					Intent browserintent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/DkBFVFB6NQ"));
-					startActivity(browserintent2);
+					Intent browserintent1 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.gg/DkBFVFB6NQ"));
+					startActivity(browserintent1);
 			        break;
 			        case 2:
-					Intent browserintent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KennyYang0726/White-Magic"));
+					Intent browserintent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KennyYang0726/White-Magic"));
+					startActivity(browserintent2);
+			        break;
+			        case 3:
+					Intent browserintent3 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.aoveditor.phantomsneak"));
 					startActivity(browserintent3);
 			        break;
-					case 3:
+					case 4:
 			        Intent browserintent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KennyYang0726/"));
 					startActivity(browserintent4);
 					break;
@@ -1723,10 +1710,12 @@ alert2.show();*/
 				//下載更新或安裝
 				if(FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/".concat(apk_name))){
 					//安裝更新
-					_install_package();
+					//_install_package();
 				} else {
 					//下載更新
-					DownloadAndInstall("https://" + apk, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+					Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.aoveditor.phantomsneak"));
+					startActivity(playstore);
+					//DownloadAndInstall("https://" + apk, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
 				}
 			}
 		});
