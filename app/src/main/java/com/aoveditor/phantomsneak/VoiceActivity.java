@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.example.RootTools.*;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -84,8 +83,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdSize;
 
 import com.stericson.RootTools.*;
-import android.os.Looper;
-
+import android.os.Looper;
 
 public class VoiceActivity extends AppCompatActivity {
 	
@@ -176,8 +174,6 @@ public class VoiceActivity extends AppCompatActivity {
 		FirebaseApp.initializeApp(this);
 		MobileAds.initialize(this);
 		
-		List<String> testDeviceIds = Arrays.asList();
-		MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build());
 		
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
 		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -384,8 +380,7 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 								new Thread(new Runnable() {
 									@Override
 									public void run() {
-										for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
+										for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
 											try {
 												uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
 												try{
@@ -419,8 +414,7 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 														new Thread(new Runnable() {
 															@Override
 															public void run() {
-																for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
+																for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
 																	if (!Uri.parse(sound_list.get((count - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
 																		try {
 																			uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
@@ -563,8 +557,7 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 								new Thread(new Runnable() {
 									@Override
 									public void run() {
-										for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
+										for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
 											try {
 												uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
 												try{
@@ -598,8 +591,7 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 														new Thread(new Runnable() {
 															@Override
 															public void run() {
-																for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
+																for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
 																	if (!Uri.parse(sound_list.get((count - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
 																		try {
 																			uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
@@ -742,8 +734,7 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 								new Thread(new Runnable() {
 									@Override
 									public void run() {
-										for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
+										for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
 											try {
 												uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
 												try{
@@ -777,8 +768,7 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 														new Thread(new Runnable() {
 															@Override
 															public void run() {
-																for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
+																for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
 																	if (!Uri.parse(sound_list.get((count - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
 																		try {
 																			uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
@@ -845,11 +835,9 @@ DownloadAndInstallMT("https://cdn.discordapp.com/attachments/842221289464004608/
 			public void onClick(View _view) {
 				if (skin_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (skin_string.contains("停用")) {
+				}else if (skin_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (skin_string.contains("更新")) {
+				}else if (skin_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), SkinActivity.class);
@@ -864,11 +852,9 @@ else if (skin_string.contains("更新")) {
 			public void onClick(View _view) {
 				if (lobby_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (lobby_string.contains("停用")) {
+				}else if (lobby_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (lobby_string.contains("更新")) {
+				}else if (lobby_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), LobbyActivity.class);
@@ -883,11 +869,9 @@ else if (lobby_string.contains("更新")) {
 			public void onClick(View _view) {
 				if (other_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (other_string.contains("停用")) {
+				}else if (other_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (other_string.contains("更新")) {
+				}else if (other_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), OtherActivity.class);
@@ -1135,8 +1119,7 @@ else if (other_string.contains("更新")) {
 				finishAffinity();
 		}
 	}
-	
-
+	
 	public void _Internet() {
 		net.startRequestNetwork(RequestNetworkController.GET, "https://1.1.1.1", "", _net_request_listener);
 	}
@@ -1251,6 +1234,8 @@ else if (other_string.contains("更新")) {
 	}
 	
 	
+	public void _Extra() {
+	}
 	public boolean copyFileFromUri2(Context context, Uri fileUri, Uri targetUri)
 	    {
 		        		InputStream fis = null;
@@ -1532,7 +1517,10 @@ else if (other_string.contains("更新")) {
 			prog.dismiss();
 		}
 	}
-
+	
+	{
+	}
+	
 	
 	public void _copyFilePath2Uri(final String _OriginalFilePath) {
 		File mfile6 = new File(_OriginalFilePath);
@@ -1616,4 +1604,4 @@ else if (other_string.contains("更新")) {
 		}
 	}
 	
-}
+}

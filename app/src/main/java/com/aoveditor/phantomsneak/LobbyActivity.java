@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.example.RootTools.*;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -79,8 +78,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdSize;
-import android.widget.LinearLayout.LayoutParams;
-
+import android.widget.LinearLayout.LayoutParams;
 
 public class LobbyActivity extends AppCompatActivity {
 	
@@ -118,6 +116,7 @@ public class LobbyActivity extends AppCompatActivity {
 	private String AIC_2020_9 = "";
 	private String KaRenNo_10 = "";
 	private String TiLi_11 = "";
+	private boolean haveSU = false;
 	
 	private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
 	private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
@@ -179,8 +178,6 @@ public class LobbyActivity extends AppCompatActivity {
 		FirebaseApp.initializeApp(this);
 		MobileAds.initialize(this);
 		
-		List<String> testDeviceIds = Arrays.asList();
-		MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build());
 		
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
 		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -508,11 +505,9 @@ public class LobbyActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				if (skin_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (skin_string.contains("停用")) {
+				}else if (skin_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (skin_string.contains("更新")) {
+				}else if (skin_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), SkinActivity.class);
@@ -536,11 +531,9 @@ else if (skin_string.contains("更新")) {
 			public void onClick(View _view) {
 				if (other_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (other_string.contains("停用")) {
+				}else if (other_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (other_string.contains("更新")) {
+				}else if (other_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), OtherActivity.class);
@@ -784,8 +777,7 @@ else if (other_string.contains("更新")) {
 				finishAffinity();
 		}
 	}
-	
-
+	
 	public void _Internet() {
 		net.startRequestNetwork(RequestNetworkController.GET, "https://1.1.1.1", "", _net_request_listener);
 	}
@@ -851,7 +843,9 @@ else if (other_string.contains("更新")) {
 		        return s == -1 ? null : name.substring(0, s);
 	}
 	
-
+	
+	public void _extra() {
+	}
 	public boolean copyFileFromUri2(Context context, Uri fileUri, Uri targetUri)
 	    {
 		        		InputStream fis = null;
@@ -1004,6 +998,8 @@ else if (other_string.contains("更新")) {
 	public void showMessage(String _s) {
 		Toast.makeText(getApplicationContext(), _s, Toast.LENGTH_SHORT).show();
 	}
+	{
+	}
 	
 	
 	public void _LinkStart(final String _fileName) {
@@ -1081,4 +1077,4 @@ else if (other_string.contains("更新")) {
 		
 	}
 	
-}
+}

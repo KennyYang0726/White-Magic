@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.example.RootTools.*;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -81,6 +80,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.AdSize;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.stericson.RootTools.*;
+import android.os.Looper;
+import java.lang.Process;
 
 public class OtherActivity extends AppCompatActivity {
 	
@@ -106,6 +108,7 @@ public class OtherActivity extends AppCompatActivity {
 	private String soldier = "";
 	private String skin_string = "";
 	private String lobby_string = "";
+	private boolean haveSU = false;
 	
 	private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
 	private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
@@ -179,8 +182,6 @@ public class OtherActivity extends AppCompatActivity {
 		FirebaseApp.initializeApp(this);
 		MobileAds.initialize(this);
 		
-		List<String> testDeviceIds = Arrays.asList();
-		MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build());
 		
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
 		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -272,126 +273,137 @@ public class OtherActivity extends AppCompatActivity {
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
-										uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2FActor_194_Actions.pkg.bytes")));
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2F")));
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources/".concat(game_ver.concat("/Ages/Prefab_Characters/Prefab_Hero/Actor_194_Actions.pkg.bytes")));
-										} catch (Exception e) {
-											 
-										}
-										uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2Fassetbundle%2Ficon%2Fhero%2F194_sulie_icon.assetbundle")));
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2Fassetbundle%2Ficon%2Fhero%2F")));
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources/".concat(game_ver.concat("/assetbundle/icon/hero/194_sulie_icon.assetbundle")));
-										} catch (Exception e) {
-											 
-										}
-										uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F");
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_low_raw_h.assetbundle");
-										} catch (Exception e) {
-											 
-										}
-										uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F");
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_raw_h.assetbundle");
-										} catch (Exception e) {
-											 
-										}
-										uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2FlanguageMap_Newbie.txt")));
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources/".concat(game_ver.concat("/Languages/CHT_Garena_TW/languageMap_Newbie.txt")));
-										} catch (Exception e) {
-											 
-										}
-										uriC = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2FE08074BD2C22D7294436E68F0AEA0E90");
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriC);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2F");
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-										} catch (Exception e) {
-											 
-										}
-										uriD = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriD);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
-										} catch (Exception e) {
-											 
-										}
-										uriE = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriE);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
-										} catch (Exception e) {
-											 
-										}
-										uriF = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriF);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
-											showMessage("啟用成功");
+										if (haveSU) {
+											CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra", true);
+											CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/CDNImage", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage", true);
+											CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources", true);
 											FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/CDNImage");
 											FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra");
 											FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources");
-										} catch (Exception e) {
-											showMessage("啟用失敗");
+											showMessage("完成");
+										}
+										else {
+											uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2FActor_194_Actions.pkg.bytes")));
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2F")));
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources/".concat(game_ver.concat("/Ages/Prefab_Characters/Prefab_Hero/Actor_194_Actions.pkg.bytes")));
+											} catch (Exception e) {
+												 
+											}
+											uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2Fassetbundle%2Ficon%2Fhero%2F194_sulie_icon.assetbundle")));
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2Fassetbundle%2Ficon%2Fhero%2F")));
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources/".concat(game_ver.concat("/assetbundle/icon/hero/194_sulie_icon.assetbundle")));
+											} catch (Exception e) {
+												 
+											}
+											uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F");
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_low_raw_h.assetbundle");
+											} catch (Exception e) {
+												 
+											}
+											uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F");
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_raw_h.assetbundle");
+											} catch (Exception e) {
+												 
+											}
+											uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2FlanguageMap_Newbie.txt")));
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources/".concat(game_ver.concat("/Languages/CHT_Garena_TW/languageMap_Newbie.txt")));
+											} catch (Exception e) {
+												 
+											}
+											uriC = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2FE08074BD2C22D7294436E68F0AEA0E90");
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriC);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2F");
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
+											} catch (Exception e) {
+												 
+											}
+											uriD = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriD);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
+											} catch (Exception e) {
+												 
+											}
+											uriE = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriE);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
+											} catch (Exception e) {
+												 
+											}
+											uriF = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriF);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
+												showMessage("啟用成功");
+												FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/CDNImage");
+												FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Extra");
+												FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/Resources");
+											} catch (Exception e) {
+												showMessage("啟用失敗");
+											}
 										}
 									}
 								});
@@ -530,33 +542,40 @@ public class OtherActivity extends AppCompatActivity {
 								runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
-										uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2FActor_529_Actions.pkg.bytes")));
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2F")));
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/".concat(game_ver.concat("/Ages/Prefab_Characters/Prefab_Hero/Actor_529_Actions.pkg.bytes")));
-										} catch (Exception e) {
-											 
-										}
-										uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FPrefab_Characters%2FActor_529_Infos.pkg.bytes")));
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FPrefab_Characters%2F")));
-											_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/".concat(game_ver.concat("/Prefab_Characters/Actor_529_Infos.pkg.bytes")));
-											showMessage("啟用成功");
+										if (haveSU) {
+											CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/" + game_ver, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver, true);
 											FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/".concat(game_ver));
-										} catch (Exception e) {
-											showMessage("啟用失敗");
+											showMessage("完成");
+										}
+										else {
+											uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2FActor_529_Actions.pkg.bytes")));
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2F")));
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/".concat(game_ver.concat("/Ages/Prefab_Characters/Prefab_Hero/Actor_529_Actions.pkg.bytes")));
+											} catch (Exception e) {
+												 
+											}
+											uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FPrefab_Characters%2FActor_529_Infos.pkg.bytes")));
+											try {
+												try{
+													        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+													     
+													        } catch (FileNotFoundException e) {
+													         
+													    }             
+												uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FPrefab_Characters%2F")));
+												_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/".concat(game_ver.concat("/Prefab_Characters/Actor_529_Infos.pkg.bytes")));
+												showMessage("啟用成功");
+												FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/".concat(game_ver));
+											} catch (Exception e) {
+												showMessage("啟用失敗");
+											}
 										}
 									}
 								});
@@ -740,9 +759,9 @@ public class OtherActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				if (skin_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				} else if (skin_string.contains("停用")) {
+				}else if (skin_string.contains("停用")) {
 						showMessage("無法使用");
-				} else if (skin_string.contains("更新")) {
+				}else if (skin_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), SkinActivity.class);
@@ -766,9 +785,9 @@ public class OtherActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				if (lobby_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				} else if (lobby_string.contains("停用")) {
+				}else if (lobby_string.contains("停用")) {
 						showMessage("無法使用");
-				} else if (lobby_string.contains("更新")) {
+				}else if (lobby_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), LobbyActivity.class);
@@ -902,6 +921,18 @@ public class OtherActivity extends AppCompatActivity {
 						tower = map2.get((int)0).get("tower").toString();
 						monster = map2.get((int)0).get("monster").toString();
 						soldier = map2.get((int)0).get("solider").toString();
+						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //讓root的安卓11以上可用root模式啟用(もっと速く)
+							new Thread() {
+								public void run() {
+									if (_RootAccess()) {
+										haveSU = true;
+									}
+									else {
+										haveSU = false;
+									}
+								}
+							}.start();
+						}
 					}
 					@Override
 					public void onCancelled(DatabaseError _databaseError) {
@@ -943,32 +974,38 @@ public class OtherActivity extends AppCompatActivity {
 	private void initializeLogic() {
 		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png")) {
 			imageview12.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", 1024, 1024));
-		} else {
+		}
+		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245035180092/wiro.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview12);
 		}
 		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png")) {
 			imageview18.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png", 1024, 1024));
-		} else {
+		}
+		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244775129169/volkath.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview18);
 		}
 		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png")) {
 			imageview23.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png", 1024, 1024));
-		} else {
+		}
+		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244506701924/tower.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview23);
 		}
 		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png")) {
 			imageview21.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png", 1024, 1024));
-		} else {
+		}
+		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244242456656/soldier.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview21);
 		}
 		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png")) {
 			imageview27.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png", 1024, 1024));
-		} else {
+		}
+		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304243965628467/buff.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview27);
 		}
 		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png")) {
 			imageview33.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png", 1024, 1024));
-		} else {
+		}
+		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245303619635/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
 		}
 		if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"))) {
@@ -1001,8 +1038,7 @@ public class OtherActivity extends AppCompatActivity {
 				finishAffinity();
 		}
 	}
-	
-
+	
 	public void _Internet() {
 		net.startRequestNetwork(RequestNetworkController.GET, "https://1.1.1.1", "", _net_request_listener);
 	}
@@ -1063,7 +1099,10 @@ public class OtherActivity extends AppCompatActivity {
 		return s == -1 ? null : name.substring(0, s);
 		
 	}
-
+	
+	
+	public void _extra() {
+	}
 	// url = file path or whatever suitable URL you want.
 	public static String getMimeType(String url) {
 		    String type = null;
@@ -1268,6 +1307,40 @@ public class OtherActivity extends AppCompatActivity {
 		new Thread(updatethread).start();
 	}
 	
+	public void CopyWithhaveSU(String original, String target, boolean exist_in_target_dest) {
+		String comando;
+		try {
+			if (exist_in_target_dest){ //複製覆蓋
+				String a = "cp -r " + original + " " + target;
+				int len = a.lastIndexOf("/");
+				comando = a.substring(0, len+1);
+			} else {
+				comando = "cp -r " + original + " " + target;
+			}
+			Process suProcess = Runtime.getRuntime().exec("su");
+			DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
+			os.writeBytes(comando + "\n");
+			os.flush();
+			os.writeBytes("exit\n");
+			os.flush();
+			try {
+				suProcess.waitFor();
+				if (suProcess.exitValue() != 255) {
+					// TODO Code to run on success
+					//showMessage("YES");
+				}else {
+					// TODO Code to run on unsuccessful
+					//showMessage("No1");
+				}
+			} catch (InterruptedException e) {
+				// TODO Code to run in interrupted exception
+				//showMessage("No2");
+			}
+		} catch (IOException e) {
+			// TODO Code to run in input/output exception
+			//showMessage("No3");
+		}
+	}
 	public void Other(String Url, String Name, String Located){
 		final ProgressDialog prog = new ProgressDialog(this);
 		prog.setIcon(R.drawable.downloadlogo);
@@ -1325,39 +1398,49 @@ public class OtherActivity extends AppCompatActivity {
 						in.close();
 						prog.dismiss();
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-							if (Located.contains("Res")){
-								uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FPrefab_Characters%2F" + filename);
-								try {
-									try{
-										DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-									} catch (FileNotFoundException e) {
-									}
-									uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FPrefab_Characters%2F");
-									_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									showMessage("成功");
-								} catch (Exception e) {
-									uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FPrefab_Characters%2F");
-									_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									showMessage("成功");
+							if (haveSU){
+								if (Located.contains("Res")){
+									CopyWithhaveSU(Path + filename, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Prefab_Characters/" + filename, true);
+								} else if (Located.contains("Extra")){
+									CopyWithhaveSU(Path + filename, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + filename, true);
 								}
-							} else if (Located.contains("Extra")){
-								uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F" + filename);
-								try {
-									try{
-										DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-									} catch (FileNotFoundException e) {
+								showMessage("完成");
+								FileUtil.deleteFile(Path + filename);
+							} else {
+								if (Located.contains("Res")){
+									uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FPrefab_Characters%2F" + filename);
+									try {
+										try{
+											DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+										} catch (FileNotFoundException e) {
+										}
+										uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FPrefab_Characters%2F");
+										_copyFilePath2Uri(Path + filename);
+										FileUtil.deleteFile(Path + filename);
+										showMessage("成功");
+									} catch (Exception e) {
+										uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FPrefab_Characters%2F");
+										_copyFilePath2Uri(Path + filename);
+										FileUtil.deleteFile(Path + filename);
+										showMessage("成功");
 									}
-									uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-									_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									showMessage("成功");
-								} catch (Exception e) {
-									uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-									_copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/" + filename);
-									showMessage("成功");
+								} else if (Located.contains("Extra")){
+									uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F" + filename);
+									try {
+										try{
+											DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+										} catch (FileNotFoundException e) {
+										}
+										uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
+										_copyFilePath2Uri(Path + filename);
+										FileUtil.deleteFile(Path + filename);
+										showMessage("成功");
+									} catch (Exception e) {
+										uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
+										_copyFilePath2Uri(Path + filename);
+										FileUtil.deleteFile(Path + filename);
+										showMessage("成功");
+									}
 								}
 							}
 						} else {
@@ -1380,7 +1463,53 @@ public class OtherActivity extends AppCompatActivity {
 	public void showMessage(String _s) {
 		Toast.makeText(getApplicationContext(), _s, Toast.LENGTH_SHORT).show();
 	}
-
+	//背景運作Prog
+	private ProgressDialog prog2;
+	public static abstract class BackgroundTaskClass {
+		private Activity activity;
+		public BackgroundTaskClass(Context activity) {
+			this.activity = (Activity) activity;
+		}
+		private void startBackground() {
+			new Thread(new Runnable() {
+				public void run() {
+					doInBackground();
+					activity.runOnUiThread(new Runnable() {
+						public void run() {
+							onPostExecute();
+						}
+					});
+				}
+			}).start();
+		}
+		public void execute(){
+			startBackground();
+		}
+		
+		public abstract void doInBackground();
+		public abstract void onPostExecute();
+		
+	}
+	
+	private void ProgressBar_Show(String title){
+		prog2 = new ProgressDialog(OtherActivity.this);
+		prog2.setMax(100);
+		prog2.setMessage(title);
+		prog2.setIndeterminate(true);
+		prog2.setCancelable(false);
+		prog2.setCanceledOnTouchOutside(false);
+		prog2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		prog2.show();
+	}
+	
+	private void ProgressBar_Dismiss(){
+		if (prog2 != null){
+			prog2.dismiss();
+		}
+	}
+	{
+	}
+	
 	
 	public void _copyFilePath2Uri(final String _OriginalFilePath) {
 		File mfile6 = new File(_OriginalFilePath);
@@ -1404,4 +1533,22 @@ public class OtherActivity extends AppCompatActivity {
 		
 	}
 	
-}
+	
+	public boolean _RootAccess() {
+		if (RootTools.isRootAvailable()){
+			//該手機已root
+			try { //會跳出視窗
+				java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(new String[]{"/system/bin/su","-c","cd / && ls"}).getInputStream()).useDelimiter("\\A");
+				//true為有root且允許，false為有root但不允許
+				return !(s.hasNext() ? s.next() : "").equals("");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return false;
+		}else {
+			//該手機無root
+			return false;
+		}
+	}
+	
+}
