@@ -82,7 +82,17 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.stericson.RootTools.*;
 import android.os.Looper;
-import java.lang.Process;
+import java.lang.Process;
+
+import android.os.Build;
+//aes
+import java.security.Key;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.ByteBuffer;
+//120fps
+import android.hardware.display.DisplayManager;
 
 public class OtherActivity extends AppCompatActivity {
 	
@@ -109,6 +119,10 @@ public class OtherActivity extends AppCompatActivity {
 	private String skin_string = "";
 	private String lobby_string = "";
 	private boolean haveSU = false;
+	private String soldier0 = "";
+	private String monster0 = "";
+	private String tower0 = "";
+	private String Device_ID = "";
 	
 	private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
 	private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
@@ -137,6 +151,9 @@ public class OtherActivity extends AppCompatActivity {
 	private ImageView imageview36;
 	private ImageView imageview33;
 	private LinearLayout linear18;
+	private ImageView imageview39;
+	private ImageView imageview37;
+	private LinearLayout linear19;
 	private LinearLayout bannerAd;
 	private Button button1;
 	private ImageView imageview13;
@@ -156,6 +173,7 @@ public class OtherActivity extends AppCompatActivity {
 	private Button button16;
 	private ImageView imageview35;
 	private Button button17;
+	private Button button18;
 	private ImageView imageview7;
 	private ImageView imageview8;
 	private ImageView imageview9;
@@ -173,6 +191,7 @@ public class OtherActivity extends AppCompatActivity {
 	private ChildEventListener _Other_child_listener;
 	private AlertDialog.Builder delete;
 	private TimerTask t_internet;
+	private AlertDialog.Builder dialog_120fps;
 	
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
@@ -224,6 +243,9 @@ public class OtherActivity extends AppCompatActivity {
 		imageview36 = findViewById(R.id.imageview36);
 		imageview33 = findViewById(R.id.imageview33);
 		linear18 = findViewById(R.id.linear18);
+		imageview39 = findViewById(R.id.imageview39);
+		imageview37 = findViewById(R.id.imageview37);
+		linear19 = findViewById(R.id.linear19);
 		bannerAd = findViewById(R.id.bannerAd);
 		button1 = findViewById(R.id.button1);
 		imageview13 = findViewById(R.id.imageview13);
@@ -243,6 +265,7 @@ public class OtherActivity extends AppCompatActivity {
 		button16 = findViewById(R.id.button16);
 		imageview35 = findViewById(R.id.imageview35);
 		button17 = findViewById(R.id.button17);
+		button18 = findViewById(R.id.button18);
 		imageview7 = findViewById(R.id.imageview7);
 		imageview8 = findViewById(R.id.imageview8);
 		imageview9 = findViewById(R.id.imageview9);
@@ -251,6 +274,7 @@ public class OtherActivity extends AppCompatActivity {
 		net = new RequestNetwork(this);
 		dialog = new AlertDialog.Builder(this);
 		delete = new AlertDialog.Builder(this);
+		dialog_120fps = new AlertDialog.Builder(this);
 		
 		button13.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -428,96 +452,198 @@ public class OtherActivity extends AppCompatActivity {
 				delete.setTitle("提示");
 				delete.setIcon(R.drawable.downloadlogo);
 				delete.setMessage("此按鈕用於還原國動維羅修改\n按下確認將還原，並且須下載一小部分大廳資源");
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+					if (haveSU) {
+						String comando;
+						try{
+							comando = "rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources";
+							Process suProcess = Runtime.getRuntime().exec("su");
+							DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
+							os.writeBytes(comando + "\n");
+							os.flush();
+							os.writeBytes("exit\n");
+							os.flush();
+							try {
+								suProcess.waitFor();
+								if (suProcess.exitValue() != 255) {
+									// TODO Code to run on success
+									//showMessage("YES");
+								}else {
+									// TODO Code to run on unsuccessful
+									//showMessage("No1");
+								}
+							} catch (InterruptedException e) {
+								// TODO Code to run in interrupted exception
+								//showMessage("No2");
+							}
+						} catch (IOException e) {
+							// TODO Code to run in input/output exception
+							//showMessage("No3");
+						}
+						uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriC = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2FE08074BD2C22D7294436E68F0AEA0E90");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriC);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriD = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriD);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriE = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriE);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriF = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriF);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+					}
+					else {
+						uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							showMessage("還原失敗");
+							showMessage("請按遊戲登入畫面左上的一鍵恢復");
+						}
+						uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriC = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2FE08074BD2C22D7294436E68F0AEA0E90");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriC);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriD = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriD);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriE = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriE);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+						uriF = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriF);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							 
+						}
+					}
+				} else {
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_low_raw_h.assetbundle");
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_raw_h.assetbundle");
+				}
+				showMessage("還原成功");
+				Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
+				startActivity(mIntent);
+				finishAffinity();
 				delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-							uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								showMessage("還原失敗");
-								showMessage("請按遊戲登入畫面左上的一鍵恢復");
-							}
-							uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								 
-							}
-							uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								 
-							}
-							uriC = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2FE08074BD2C22D7294436E68F0AEA0E90");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriC);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								 
-							}
-							uriD = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriD);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								 
-							}
-							uriE = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriE);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								 
-							}
-							uriF = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriF);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								 
-							}
-						} else {
-							FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
-							FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-							FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
-							FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
-							FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
-						}
-						showMessage("還原成功");
+						
 					}
 				});
 				delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -603,23 +729,7 @@ public class OtherActivity extends AppCompatActivity {
 				delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-							uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources");
-							try {
-								try{
-									        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-									     
-									        } catch (FileNotFoundException e) {
-									         
-									    }             
-							} catch (Exception e) {
-								showMessage("還原失敗");
-								showMessage("請按遊戲登入畫面左上的一鍵恢復");
-							}
-						} else {
-							FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
-						}
-						showMessage("還原成功");
+						
 					}
 				});
 				delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -629,6 +739,53 @@ public class OtherActivity extends AppCompatActivity {
 					}
 				});
 				delete.create().show();
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+					if (haveSU) {
+						String comando;
+						try{
+							comando = "rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources";
+							Process suProcess = Runtime.getRuntime().exec("su");
+							DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
+							os.writeBytes(comando + "\n");
+							os.flush();
+							os.writeBytes("exit\n");
+							os.flush();
+							try {
+								suProcess.waitFor();
+								if (suProcess.exitValue() != 255) {
+									// TODO Code to run on success
+									//showMessage("YES");
+								}else {
+									// TODO Code to run on unsuccessful
+									//showMessage("No1");
+								}
+							} catch (InterruptedException e) {
+								// TODO Code to run in interrupted exception
+								//showMessage("No2");
+							}
+						} catch (IOException e) {
+							// TODO Code to run in input/output exception
+							//showMessage("No3");
+						}
+					}
+					else {
+						uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources");
+						try {
+							try{
+								        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+								     
+								        } catch (FileNotFoundException e) {
+								         
+								    }             
+						} catch (Exception e) {
+							showMessage("還原失敗");
+							showMessage("請按遊戲登入畫面左上的一鍵恢復");
+						}
+					}
+				} else {
+					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
+				}
+				showMessage("還原成功");
 			}
 		});
 		
@@ -648,7 +805,7 @@ public class OtherActivity extends AppCompatActivity {
 				delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						Other("https://cdn.discordapp.com/attachments/842221289464004608/1017783442680860752/Prefab_Organ.pkg.bytes", "Prefab_Organ.pkg.bytes", "Res");
+						Other("https://" + tower0, "Prefab_Organ.pkg.bytes", "Res");
 					}
 				});
 				delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -677,7 +834,7 @@ public class OtherActivity extends AppCompatActivity {
 				delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						Other("https://cdn.discordapp.com/attachments/842221289464004608/1017783442924118077/Prefab_Soldier.pkg.bytes", "Prefab_Soldier.pkg.bytes", "Res");
+						Other("https://" + soldier0, "Prefab_Soldier.pkg.bytes", "Res");
 					}
 				});
 				delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -706,7 +863,7 @@ public class OtherActivity extends AppCompatActivity {
 				delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						Other("https://cdn.discordapp.com/attachments/842221289464004608/1017783442349502594/Prefab_Monster.pkg.bytes", "Prefab_Monster.pkg.bytes", "Res");
+						Other("https://" + monster0, "Prefab_Monster.pkg.bytes", "Res");
 					}
 				});
 				delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -742,6 +899,83 @@ public class OtherActivity extends AppCompatActivity {
 					FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Hero_Wisp_SFX.bnk");
 				}
 				showMessage("還原成功");
+			}
+		});
+		
+		button18.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				if (open120()) {
+					Device_ID = getDeviceName();
+					//showMessage(Device_ID);
+					//showMessage(String.valueOf(Device_ID.length()-("xiaomi M2102J20SG".length())));
+					FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+					_save("窩不知道", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "VeryHighFrameModeBlackList.bytes");
+					dialog_120fps.setTitle("注意");
+					dialog_120fps.setMessage("◑開啟超高幀率模式(120FPS)將擁有更加流暢的遊戲體驗，但可能加快手機耗電、發熱。\n◑啟用該功能並不會直接幫你啟用至120FPS，而是使120FPS選項出現，須手動去戰場設置中開啟\n◑若已開啟超高幀率，但遊戲顯示幀率仍為60，代表傳說對決不認可您的手機適合使用超高幀率，或是有鎖幀的問題\n◑不能保證100%修改成功");
+					dialog_120fps.setCancelable(false);
+					dialog_120fps.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface _dialog, int _which) {
+							Decrypt();
+							ProgressBar_Show("修改中...請稍後...");
+							new BackgroundTaskClass(OtherActivity.this){
+								@Override
+								public void doInBackground() {
+									Looper.prepare();
+									//todo
+									ModDevice(Device_ID);
+									if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
+										{
+											java.io.File dYx4Y = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList0.bytes"));
+											java.io.File e5Cyk = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+											dYx4Y.renameTo(e5Cyk);
+										}
+									}
+									else {
+										ModOffest(Device_ID.length()-("xiaomi M2102J20SG".length()));
+									}
+									Encrypt();
+									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+										uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
+										try {
+											try{
+												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+												     
+												        } catch (FileNotFoundException e) {
+												         
+												    }             
+											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
+											_copyFilePath2Uri(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+										} catch (Exception e) {
+											showMessage("啟用失敗");
+										}
+										
+										
+										
+									} else {
+										FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
+									}
+									FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+								}
+								@Override
+								public void onPostExecute(){
+									//完成
+									showMessage("完成");
+									ProgressBar_Dismiss();
+								}
+							}.execute();
+							//結束
+						}
+					});
+					dialog_120fps.setNeutralButton("取消", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface _dialog, int _which) {
+							FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+						}
+					});
+					dialog_120fps.create().show();
+				}
 			}
 		});
 		
@@ -921,6 +1155,9 @@ public class OtherActivity extends AppCompatActivity {
 						tower = map2.get((int)0).get("tower").toString();
 						monster = map2.get((int)0).get("monster").toString();
 						soldier = map2.get((int)0).get("solider").toString();
+						tower0 = map2.get((int)0).get("tower0").toString();
+						monster0 = map2.get((int)0).get("monster0").toString();
+						soldier0 = map2.get((int)0).get("solider0").toString();
 						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //讓root的安卓11以上可用root模式啟用(もっと速く)
 							new Thread() {
 								public void run() {
@@ -1007,6 +1244,12 @@ public class OtherActivity extends AppCompatActivity {
 		}
 		else {
 			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245303619635/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
+		}
+		if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png")) {
+			imageview37.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png", 1024, 1024));
+		}
+		else {
+			DLC("https://cdn.discordapp.com/attachments/842221289464004608/1137475199411957901/120FPS.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview37);
 		}
 		if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"))) {
 			FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"));
@@ -1460,6 +1703,217 @@ public class OtherActivity extends AppCompatActivity {
 		new Thread(updatethread).start();
 	}
 	
+	//檢測是否已開啟120fps選項
+	private boolean open120(){
+		DisplayManager displayManager = (DisplayManager) getSystemService(DISPLAY_SERVICE);
+		if (displayManager != null) {
+			Display display = displayManager.getDisplay(Display.DEFAULT_DISPLAY);
+			if (display != null) {
+				float refreshRate = display.getRefreshRate();
+				if (refreshRate >= 110.0f) {
+					return true;
+				} else {
+					showMessage("請先至手機 設定→螢幕 開啟\n 120Hz 螢幕更新率後再試一次");
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
+	//獲取手機型號
+	public static String getDeviceName() {
+		String manufacturer = Build.MANUFACTURER;
+		String model = Build.MODEL;
+		if (model.startsWith(manufacturer)) {
+			return capitalize(model);
+		} else {//from w ww .  jav a  2 s  . c  o m
+			return capitalize(manufacturer) + " " + model;
+		}
+	}
+	private static String capitalize(String s) {
+		if (s == null || s.length() == 0) {
+			return "";
+		}
+		return s.toLowerCase();
+	}
+	
+	//修改檔案機型
+	public void ModDevice(String Device) {
+		String FilePath0 = FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList.bytes");
+		String FilePath1 = FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList0.bytes");
+		    
+		byte[] oldDevice = ("xiaomi M2102J20SG").getBytes();
+		byte[] newDevice = (Device).getBytes();
+			
+		try {
+			FileInputStream fis = new FileInputStream(FilePath0);
+			FileOutputStream fos = new FileOutputStream(FilePath1);
+					
+			byte[] buffer = new byte[1024];
+			int bytesRead;
+			boolean wordFound = false;
+					
+			while ((bytesRead = fis.read(buffer)) != -1) {
+				for (int i = 0; i < bytesRead; i++) {
+					if (buffer[i] == oldDevice[0]) {
+						wordFound = true;
+						int matchLength = 1;
+						for (int j = 1; j < oldDevice.length; j++) {
+							if (i + j >= bytesRead || buffer[i + j] != oldDevice[j]) {
+								wordFound = false;
+								break;
+							}
+							matchLength++;
+						}
+						
+						if (wordFound) {
+							// Calculate the size difference between oldWord and newWord
+							int sizeDifference = newDevice.length - matchLength;
+							
+							// Extend the buffer if necessary to accommodate the newWord
+							if (sizeDifference > 0) {
+								byte[] tempBuffer = new byte[bytesRead + sizeDifference];
+								System.arraycopy(buffer, 0, tempBuffer, 0, i);
+								System.arraycopy(newDevice, 0, tempBuffer, i, newDevice.length);
+								System.arraycopy(buffer, i + matchLength, tempBuffer, i + newDevice.length, bytesRead - i - matchLength);
+								buffer = tempBuffer;
+							} else if (sizeDifference < 0) {
+								// Shrink the buffer if necessary to accommodate the newWord
+								System.arraycopy(buffer, i + matchLength, buffer, i + newDevice.length, bytesRead - i - matchLength);
+								for (int j = 0; j < newDevice.length; j++) {
+									buffer[i + j] = newDevice[j];
+								}
+							} else {
+								// If the lengths are the same, just replace the oldWord with the newWord
+								for (int j = 0; j < newDevice.length; j++) {
+									buffer[i + j] = newDevice[j];
+								}
+							}
+							// Update the bytesRead variable accordingly
+							bytesRead += sizeDifference;
+						}
+					}
+				}
+				fos.write(buffer, 0, bytesRead);
+			}
+			
+			fis.close();
+			fos.close();
+			FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList.bytes"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void ModOffest(int len_different) {
+		String FilePath0 = FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList0.bytes");
+		String FilePath1 = FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList.bytes");
+		    
+		byte[] oldOffest = {0x1b, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x12};
+		byte[] newOffest = {0x1b, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x12};
+		newOffest[0] = (byte) (oldOffest[0] + (byte) len_different);
+		newOffest[8] = (byte) (oldOffest[8] + (byte) len_different);
+		
+		try {
+			FileInputStream fis = new FileInputStream(FilePath0);
+			FileOutputStream fos = new FileOutputStream(FilePath1);
+			byte[] buffer = new byte[1024];
+			int bytesRead;
+			boolean wordFound = false;
+					
+			while ((bytesRead = fis.read(buffer)) != -1) {
+				for (int i = 0; i < bytesRead; i++) {
+					// Check if the oldWord starts at the current position
+					if (buffer[i] == oldOffest[0]) {
+						wordFound = true;
+						for (int j = 1; j < oldOffest.length; j++) {
+							// Check if the rest of the oldWord matches
+							if (i + j >= bytesRead || buffer[i + j] != oldOffest[j]) {
+								wordFound = false;
+								break;
+							}
+						}
+											
+						if (wordFound) {
+							// Replace oldWord with newWord in the buffer
+							for (int j = 0; j < newOffest.length; j++) {
+								buffer[i + j] = newOffest[j];
+							}
+						}
+					}
+				}
+				fos.write(buffer, 0, bytesRead);
+			}
+					
+			fis.close();
+			fos.close();
+			FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList0.bytes"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//aes加解密
+	
+	private byte[] key = new byte[] { (byte)0xfc, (byte)0x88, (byte)0x8a, (byte) 0x32, (byte)0x0e, (byte)0xef, (byte)0xb6, (byte)0xfd, (byte)0xd2, (byte)0x91, (byte)0x8d, (byte)0x25, (byte)0x31, (byte)0x7c, (byte)0xb0, (byte)0xf1 };
+	private byte[] iv = new byte[] { (byte)0x00, (byte)0x00, (byte)0x00, (byte) 0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00 };
+	
+	private void Decrypt(){
+		byte[] input = FileUtil.readBinaryFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+		byte[] input_content = Arrays.copyOfRange(input, 8, input.length);
+		FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+		try {
+			SecretKeySpec KEY = new SecretKeySpec(key, 0, key.length, "AES");
+			IvParameterSpec IV = new IvParameterSpec(iv);
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+			cipher.init(Cipher.DECRYPT_MODE, KEY, IV);
+			byte[] output = cipher.doFinal(input_content);
+			FileUtil.writeBinaryFile(output, FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+		}catch (Exception e){
+		}
+	}
+	
+	private void Encrypt(){
+		byte[] input = FileUtil.readBinaryFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+		byte[] head = new byte[] {(byte)0x22, (byte)0x4a, (byte)0x67, (byte) 0x00};
+		byte[] size = reverse(ByteBuffer.allocate(4).putInt(input.length).array());
+		byte[] header = concatenateByteArrays(head, size);
+		
+		FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList.bytes"));
+		
+		try {
+			SecretKeySpec KEY = new SecretKeySpec(key, 0, key.length, "AES");
+			IvParameterSpec IV = new IvParameterSpec(iv);
+			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
+			cipher.init(Cipher.ENCRYPT_MODE, KEY, IV);
+			byte[] output = cipher.doFinal(input);
+			FileUtil.writeBinaryFile(concatenateByteArrays(header, output), FileUtil.getPackageDataDir(getApplicationContext())+("/tmp/VeryHighFrameModeBlackList.bytes"));
+		}catch (Exception e){
+		}
+	}
+	
+	byte[] concatenateByteArrays(byte[] a, byte[] b) {
+		byte[] result = new byte[a.length + b.length];
+		System.arraycopy(a, 0, result, 0, a.length);
+		System.arraycopy(b, 0, result, a.length, b.length);
+		return result;
+	}
+	
+	byte[] reverse(byte[] array) {
+		int i = 0;
+		int j = array.length - 1;
+		byte tmp;
+		while (j > i) {
+			tmp = array[j];
+			array[j] = array[i];
+			array[i] = tmp;
+			j--;
+			i++;
+		}
+		return array;
+	}
+	
 	public void showMessage(String _s) {
 		Toast.makeText(getApplicationContext(), _s, Toast.LENGTH_SHORT).show();
 	}
@@ -1548,6 +2002,23 @@ public class OtherActivity extends AppCompatActivity {
 		}else {
 			//該手機無root
 			return false;
+		}
+	}
+	
+	
+	public void _save(final String _file, final String _path, final String _file2) {
+		try{
+			int count;
+			java.io.InputStream input= this.getAssets().open(_file);
+			java.io.OutputStream output = new  java.io.FileOutputStream(_path+_file2);
+			byte data[] = new byte[1024];
+			while ((count = input.read(data))>0) {
+				output.write(data, 0, count);
+			}
+			output.flush();
+			output.close();
+			input.close();
+		}catch(Exception e){
 		}
 	}
 	

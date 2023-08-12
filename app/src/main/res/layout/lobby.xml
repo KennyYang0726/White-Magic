@@ -106,6 +106,15 @@
 					android:layout_height="wrap_content"
 					android:padding="8dp"
 					android:orientation="vertical">
+					<TextView
+						android:id="@+id/textview4"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="傳說主題"
+						android:textSize="30sp"
+						android:textStyle="bold"
+						android:textColor="#FFFFFF" />
 					<Button
 						android:id="@+id/button7"
 						android:layout_width="wrap_content"
@@ -127,7 +136,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="納克次元突破"
+						android:text="納克次元突破主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -135,7 +144,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="WAVE 女團主題"
+						android:text="WAVE女團主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -143,7 +152,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="2021新年主題"
+						android:text="2019新年主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -151,7 +160,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="2022新年主題"
+						android:text="2021新年主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -159,7 +168,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="奧特曼主題"
+						android:text="2022新年主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -167,7 +176,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="泳裝派對主題"
+						android:text="2020AIC主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -175,7 +184,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="2020AIC"
+						android:text="奧特曼聯動"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -183,7 +192,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="卡倫諾學院"
+						android:text="緹莉主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -191,7 +200,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="緹莉主題"
+						android:text="泳裝派對主題"
 						android:textSize="20sp"
 						android:textColor="#000000" />
 					<Button
@@ -199,10 +208,26 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="[EX]"
+						android:text="蘇離主題"
 						android:textSize="20sp"
-						android:textColor="#000000"
-						android:textAllCaps="false" />
+						android:textColor="#000000" />
+					<ImageView
+						android:id="@+id/imageview18"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="13dp"
+						android:src="@drawable/line"
+						android:scaleType="fitXY"
+						android:translationY="-10.0dp" />
+					<TextView
+						android:id="@+id/textview5"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="自訂主題"
+						android:textSize="30sp"
+						android:textStyle="bold"
+						android:textColor="#FFFFFF" />
 					<Button
 						android:id="@+id/button19"
 						android:layout_width="wrap_content"
@@ -214,6 +239,33 @@
 						android:textAllCaps="false" />
 					<Button
 						android:id="@+id/button20"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000"
+						android:textAllCaps="false" />
+					<Button
+						android:id="@+id/button21"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000"
+						android:textAllCaps="false" />
+					<Button
+						android:id="@+id/button22"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:padding="8dp"
+						android:text="[EX]"
+						android:textSize="20sp"
+						android:textColor="#000000"
+						android:textAllCaps="false" />
+					<Button
+						android:id="@+id/button23"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"

@@ -81,6 +81,20 @@ public class FileUtil {
 
         return sb.toString();
     }
+    
+    public static byte[] readBinaryFile(String path) {
+        try {
+            FileInputStream inputStream = new FileInputStream(path);
+            int length = inputStream.available();
+            byte[] byteArray = new byte[length];
+            inputStream.read(byteArray);
+            inputStream.close();
+            return byteArray;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static void writeFile(String path, String str) {
         createNewFile(path);
@@ -99,6 +113,17 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void writeBinaryFile(byte[] bytes, String path) {
+        createNewFile(path);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(path, false);
+            fos.write(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

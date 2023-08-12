@@ -47,7 +47,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="目前版本：1.4.6"
+						android:text="目前版本：1.4.7"
 						android:textSize="20sp"
 						android:textStyle="bold"
 						android:textColor="#FFFFFF"
@@ -57,7 +57,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="最新版本：1.4.6"
+						android:text="最新版本：1.4.7"
 						android:textSize="20sp"
 						android:textStyle="bold"
 						android:textColor="#FFFFFF"
@@ -81,7 +81,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:padding="8dp"
-					android:text="請先確認給予「檔案存取」的權限。\n使用時請確定在遊戲下載(更新)後已經開啟過遊戲。\n所有功能均需額外下載插件才可使用。\n如有任何問題歡迎至『Discord群組回報』。\n\n『若曾經被封帳1至3天的玩家不建議再使用修改器』\n\n使用此app需全程連網，若斷開網路會跳出提示\n\n感謝您的閱讀"
+					android:text="使用時請確定在遊戲下載(更新)後已經開啟過遊戲。\n所有功能均需額外下載插件才可使用。\n如有任何問題歡迎至『Discord群組回報』。\n\n『若曾經被封帳1至3天的玩家不建議再使用修改器』\n\n使用此app需全程連網，若斷開網路會跳出提示\n\n感謝您的閱讀"
 					android:textSize="18sp"
 					android:textColor="#FFFFFF" />
 				<ImageView

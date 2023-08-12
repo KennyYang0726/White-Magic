@@ -99,24 +99,29 @@ public class LobbyActivity extends AppCompatActivity {
 	private String openquiz = "";
 	private String quiz_content = "";
 	private String quiz_url = "";
-	private String anime1 = "";
-	private String anime1_url = "";
-	private String anime2 = "";
-	private String anime2_url = "";
-	private String anime3 = "";
-	private String anime3_url = "";
-	private String daogen1 = "";
-	private String daogen2 = "";
-	private String Nak3 = "";
-	private String WAVE4 = "";
-	private String NY_2021_5 = "";
-	private String NY_2022_6 = "";
-	private String AutoMan7 = "";
-	private String PoolParty8 = "";
-	private String AIC_2020_9 = "";
-	private String KaRenNo_10 = "";
-	private String TiLi_11 = "";
 	private boolean haveSU = false;
+	private String Main_Theme1 = "";
+	private String Main_Theme2 = "";
+	private String Main_Theme3 = "";
+	private String Main_Theme4 = "";
+	private String Main_Theme5 = "";
+	private String Main_Theme6 = "";
+	private String Main_Theme7 = "";
+	private String Main_Theme8 = "";
+	private String Main_Theme9 = "";
+	private String Main_Theme10 = "";
+	private String Main_Theme11 = "";
+	private String Main_Theme12 = "";
+	private String Other_Theme1 = "";
+	private String Other_Theme1_URL = "";
+	private String Other_Theme2 = "";
+	private String Other_Theme2_URL = "";
+	private String Other_Theme3 = "";
+	private String Other_Theme3_URL = "";
+	private String Other_Theme4 = "";
+	private String Other_Theme4_URL = "";
+	private String Other_Theme5 = "";
+	private String Other_Theme5_URL = "";
 	
 	private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
 	private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
@@ -137,6 +142,7 @@ public class LobbyActivity extends AppCompatActivity {
 	private LinearLayout linear12;
 	private LinearLayout linear10;
 	private LinearLayout bannerAd;
+	private TextView textview4;
 	private Button button7;
 	private Button button8;
 	private Button button9;
@@ -149,8 +155,13 @@ public class LobbyActivity extends AppCompatActivity {
 	private Button button16;
 	private Button button17;
 	private Button button18;
+	private ImageView imageview18;
+	private TextView textview5;
 	private Button button19;
 	private Button button20;
+	private Button button21;
+	private Button button22;
+	private Button button23;
 	private ImageView imageview7;
 	private ImageView imageview8;
 	private ImageView imageview9;
@@ -212,6 +223,7 @@ public class LobbyActivity extends AppCompatActivity {
 		linear12 = findViewById(R.id.linear12);
 		linear10 = findViewById(R.id.linear10);
 		bannerAd = findViewById(R.id.bannerAd);
+		textview4 = findViewById(R.id.textview4);
 		button7 = findViewById(R.id.button7);
 		button8 = findViewById(R.id.button8);
 		button9 = findViewById(R.id.button9);
@@ -224,8 +236,13 @@ public class LobbyActivity extends AppCompatActivity {
 		button16 = findViewById(R.id.button16);
 		button17 = findViewById(R.id.button17);
 		button18 = findViewById(R.id.button18);
+		imageview18 = findViewById(R.id.imageview18);
+		textview5 = findViewById(R.id.textview5);
 		button19 = findViewById(R.id.button19);
 		button20 = findViewById(R.id.button20);
+		button21 = findViewById(R.id.button21);
+		button22 = findViewById(R.id.button22);
+		button23 = findViewById(R.id.button23);
 		imageview7 = findViewById(R.id.imageview7);
 		imageview8 = findViewById(R.id.imageview8);
 		imageview9 = findViewById(R.id.imageview9);
@@ -301,7 +318,7 @@ public class LobbyActivity extends AppCompatActivity {
 					_LinkStart("DaoGen1.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + daogen1, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen1.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme1, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen1.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -314,7 +331,7 @@ public class LobbyActivity extends AppCompatActivity {
 					_LinkStart("DaoGen2.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + daogen2, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen2.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme2, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen2.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -327,7 +344,7 @@ public class LobbyActivity extends AppCompatActivity {
 					_LinkStart("Nakaroth.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + Nak3, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Nakaroth.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme3, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Nakaroth.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -340,7 +357,7 @@ public class LobbyActivity extends AppCompatActivity {
 					_LinkStart("WAVE.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + WAVE4, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "WAVE.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme4, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "WAVE.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -349,11 +366,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button11.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2021.PS")) {
-					_LinkStart("newyear2021.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2019.PS")) {
+					_LinkStart("newyear2019.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + NY_2021_5, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2021.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme5, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2019.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -362,11 +379,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button12.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2022.PS")) {
-					_LinkStart("newyear2022.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2021.PS")) {
+					_LinkStart("newyear2021.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + NY_2022_6, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2022.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme6, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2021.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -375,11 +392,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button13.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/Ultraman.PS")) {
-					_LinkStart("Ultraman.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2022.PS")) {
+					_LinkStart("newyear2022.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + AutoMan7, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Ultraman.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme7, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2022.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -388,11 +405,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button14.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/poolparty.PS")) {
-					_LinkStart("poolparty.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/AIC2020.PS")) {
+					_LinkStart("AIC2020.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + PoolParty8, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "poolparty.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme8, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "AIC2020.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -401,11 +418,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button15.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/AIC2020.PS")) {
-					_LinkStart("AIC2020.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/Ultraman.PS")) {
+					_LinkStart("Ultraman.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + AIC_2020_9, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "AIC2020.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme9, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Ultraman.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -414,11 +431,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button16.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/KaLunNuo.PS")) {
-					_LinkStart("KaLunNuo.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/TiLi.PS")) {
+					_LinkStart("TiLi.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + KaRenNo_10, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "KaLunNuo.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme10, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "TiLi.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -427,11 +444,11 @@ public class LobbyActivity extends AppCompatActivity {
 		button17.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/TiLi.PS")) {
-					_LinkStart("TiLi.PS");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/PoolParty.PS")) {
+					_LinkStart("PoolParty.PS");
 				}
 				else {
-					DownloadHttpUrlConnection("https://" + TiLi_11, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "TiLi.PS");
+					DownloadHttpUrlConnection("https://" + Main_Theme11, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "PoolParty.PS");
 					showMessage("下載完成再次點擊以啟用");
 				}
 			}
@@ -440,17 +457,12 @@ public class LobbyActivity extends AppCompatActivity {
 		button18.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (anime1.contains("敬請期待")) {
-					showMessage("敬請期待");
+				if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/SuLi.PS")) {
+					_LinkStart("SuLi.PS");
 				}
 				else {
-					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + anime1 + ".PS")) {
-						_LinkStart(anime1 + ".PS");
-					}
-					else {
-						DownloadHttpUrlConnection("https://" + anime1_url, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", anime1 + ".PS");
-						showMessage("下載完成再次點擊以啟用");
-					}
+					DownloadHttpUrlConnection("https://" + Main_Theme12, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "SuLi.PS");
+					showMessage("下載完成再次點擊以啟用");
 				}
 			}
 		});
@@ -458,15 +470,15 @@ public class LobbyActivity extends AppCompatActivity {
 		button19.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (anime2.contains("敬請期待")) {
+				if (Other_Theme1.contains("敬請期待")) {
 					showMessage("敬請期待");
 				}
 				else {
-					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + anime2 + ".PS")) {
-						_LinkStart(anime2 + ".PS");
+					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme1 + ".PS")) {
+						_LinkStart(Other_Theme1 + ".PS");
 					}
 					else {
-						DownloadHttpUrlConnection("https://" + anime2_url, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", anime2 + ".PS");
+						DownloadHttpUrlConnection("https://" + Other_Theme1_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme1 + ".PS");
 						showMessage("下載完成再次點擊以啟用");
 					}
 				}
@@ -476,15 +488,69 @@ public class LobbyActivity extends AppCompatActivity {
 		button20.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (anime3.contains("敬請期待")) {
+				if (Other_Theme2.contains("敬請期待")) {
 					showMessage("敬請期待");
 				}
 				else {
-					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + anime3 + ".PS")) {
-						_LinkStart(anime3 + ".PS");
+					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme2 + ".PS")) {
+						_LinkStart(Other_Theme2 + ".PS");
 					}
 					else {
-						DownloadHttpUrlConnection("https://" + anime3_url, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", anime3 + ".PS");
+						DownloadHttpUrlConnection("https://" + Other_Theme2_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme2 + ".PS");
+						showMessage("下載完成再次點擊以啟用");
+					}
+				}
+			}
+		});
+		
+		button21.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				if (Other_Theme3.contains("敬請期待")) {
+					showMessage("敬請期待");
+				}
+				else {
+					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme3 + ".PS")) {
+						_LinkStart(Other_Theme3 + ".PS");
+					}
+					else {
+						DownloadHttpUrlConnection("https://" + Other_Theme3_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme3 + ".PS");
+						showMessage("下載完成再次點擊以啟用");
+					}
+				}
+			}
+		});
+		
+		button22.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				if (Other_Theme4.contains("敬請期待")) {
+					showMessage("敬請期待");
+				}
+				else {
+					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme4 + ".PS")) {
+						_LinkStart(Other_Theme4 + ".PS");
+					}
+					else {
+						DownloadHttpUrlConnection("https://" + Other_Theme4_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme4 + ".PS");
+						showMessage("下載完成再次點擊以啟用");
+					}
+				}
+			}
+		});
+		
+		button23.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View _view) {
+				if (Other_Theme5.contains("敬請期待")) {
+					showMessage("敬請期待");
+				}
+				else {
+					if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme5 + ".PS")) {
+						_LinkStart(Other_Theme5 + ".PS");
+					}
+					else {
+						DownloadHttpUrlConnection("https://" + Other_Theme5_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme5 + ".PS");
 						showMessage("下載完成再次點擊以啟用");
 					}
 				}
@@ -661,31 +727,38 @@ public class LobbyActivity extends AppCompatActivity {
 						catch (Exception _e) {
 							_e.printStackTrace();
 						}
-						anime1 = map2.get((int)0).get("anime1").toString();
-						anime1_url = map2.get((int)0).get("anime1_url").toString();
-						anime2 = map2.get((int)0).get("anime2").toString();
-						anime2_url = map2.get((int)0).get("anime2_url").toString();
-						anime3 = map2.get((int)0).get("anime3").toString();
-						anime3_url = map2.get((int)0).get("anime3_url").toString();
 						quiz_url = map2.get((int)0).get("quiz_url").toString();
 						quiz_content = map2.get((int)0).get("quiz_content").toString();
 						openquiz = map2.get((int)0).get("openquiz").toString();
 						movie = map2.get((int)0).get("delete_movie").toString();
 						sound = map2.get((int)0).get("delete_sound").toString();
-						daogen1 = map2.get((int)0).get("1").toString();
-						daogen2 = map2.get((int)0).get("2").toString();
-						Nak3 = map2.get((int)0).get("3").toString();
-						WAVE4 = map2.get((int)0).get("4").toString();
-						NY_2021_5 = map2.get((int)0).get("5").toString();
-						NY_2022_6 = map2.get((int)0).get("6").toString();
-						AutoMan7 = map2.get((int)0).get("7").toString();
-						PoolParty8 = map2.get((int)0).get("8").toString();
-						AIC_2020_9 = map2.get((int)0).get("9").toString();
-						KaRenNo_10 = map2.get((int)0).get("10").toString();
-						TiLi_11 = map2.get((int)0).get("11").toString();
-						button18.setText(anime1);
-						button19.setText(anime2);
-						button20.setText(anime3);
+						Main_Theme1 = map2.get((int)0).get("1").toString();
+						Main_Theme2 = map2.get((int)0).get("2").toString();
+						Main_Theme3 = map2.get((int)0).get("3").toString();
+						Main_Theme4 = map2.get((int)0).get("4").toString();
+						Main_Theme5 = map2.get((int)0).get("5").toString();
+						Main_Theme6 = map2.get((int)0).get("6").toString();
+						Main_Theme7 = map2.get((int)0).get("7").toString();
+						Main_Theme8 = map2.get((int)0).get("8").toString();
+						Main_Theme9 = map2.get((int)0).get("9").toString();
+						Main_Theme10 = map2.get((int)0).get("10").toString();
+						Main_Theme11 = map2.get((int)0).get("11").toString();
+						Main_Theme12 = map2.get((int)0).get("12").toString();
+						Other_Theme1 = map2.get((int)0).get("Other1").toString();
+						Other_Theme1_URL = map2.get((int)0).get("Other1_URL").toString();
+						Other_Theme2 = map2.get((int)0).get("Other2").toString();
+						Other_Theme2_URL = map2.get((int)0).get("Other2_URL").toString();
+						Other_Theme3 = map2.get((int)0).get("Other3").toString();
+						Other_Theme3_URL = map2.get((int)0).get("Other3_URL").toString();
+						Other_Theme4 = map2.get((int)0).get("Other4").toString();
+						Other_Theme4_URL = map2.get((int)0).get("Other4_URL").toString();
+						Other_Theme5 = map2.get((int)0).get("Other5").toString();
+						Other_Theme5_URL = map2.get((int)0).get("Other5_URL").toString();
+						button19.setText(Other_Theme1);
+						button20.setText(Other_Theme2);
+						button21.setText(Other_Theme3);
+						button22.setText(Other_Theme4);
+						button23.setText(Other_Theme5);
 						if (openquiz.equals("1")) {
 							quiz.setTitle("問卷");
 							quiz.setIcon(R.drawable.downloadlogo);
