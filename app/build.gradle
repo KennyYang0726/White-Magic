@@ -10,8 +10,8 @@ android {
 		minSdkVersion 21
 		//noinspection ExpiredTargetSdkVersion
 		targetSdkVersion 33
-		versionCode 12
-		versionName "1.4.7"
+		versionCode 13
+		versionName "1.4.8"
 		resourceConfigurations += []
 	}
 	

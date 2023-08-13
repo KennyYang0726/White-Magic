@@ -92,7 +92,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 //120fps
-import android.hardware.display.DisplayManager;
+import android.hardware.display.DisplayManager;
+
 
 public class OtherActivity extends AppCompatActivity {
 	
@@ -905,77 +906,75 @@ public class OtherActivity extends AppCompatActivity {
 		button18.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				if (open120()) {
-					Device_ID = getDeviceName();
-					//showMessage(Device_ID);
-					//showMessage(String.valueOf(Device_ID.length()-("xiaomi M2102J20SG".length())));
-					FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
-					_save("窩不知道", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "VeryHighFrameModeBlackList.bytes");
-					dialog_120fps.setTitle("注意");
-					dialog_120fps.setMessage("◑開啟超高幀率模式(120FPS)將擁有更加流暢的遊戲體驗，但可能加快手機耗電、發熱。\n◑啟用該功能並不會直接幫你啟用至120FPS，而是使120FPS選項出現，須手動去戰場設置中開啟\n◑若已開啟超高幀率，但遊戲顯示幀率仍為60，代表傳說對決不認可您的手機適合使用超高幀率，或是有鎖幀的問題\n◑不能保證100%修改成功");
-					dialog_120fps.setCancelable(false);
-					dialog_120fps.setPositiveButton("確認", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface _dialog, int _which) {
-							Decrypt();
-							ProgressBar_Show("修改中...請稍後...");
-							new BackgroundTaskClass(OtherActivity.this){
-								@Override
-								public void doInBackground() {
-									Looper.prepare();
-									//todo
-									ModDevice(Device_ID);
-									if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
-										{
-											java.io.File dYx4Y = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList0.bytes"));
-											java.io.File e5Cyk = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
-											dYx4Y.renameTo(e5Cyk);
-										}
+				Device_ID = getDeviceName();
+				//showMessage(Device_ID);
+				//showMessage(String.valueOf(Device_ID.length()-("xiaomi M2102J20SG".length())));
+				FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+				_save("窩不知道", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "VeryHighFrameModeBlackList.bytes");
+				dialog_120fps.setTitle("注意");
+				dialog_120fps.setMessage("◑開啟超高幀率模式(120FPS)將擁有更加流暢的遊戲體驗，但可能加快手機耗電、發熱。\n◑啟用該功能並不會直接幫你啟用至120FPS，而是使120FPS選項出現，須手動去戰場設置中開啟\n◑若已開啟超高幀率，但遊戲顯示幀率仍為60，代表傳說對決不認可您的手機適合使用超高幀率，或是有鎖幀的問題\n◑不能保證100%修改成功");
+				dialog_120fps.setCancelable(false);
+				dialog_120fps.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						Decrypt();
+						ProgressBar_Show("修改中...請稍後...");
+						new BackgroundTaskClass(OtherActivity.this){
+							@Override
+							public void doInBackground() {
+								Looper.prepare();
+								//todo
+								ModDevice(Device_ID);
+								if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
+									{
+										java.io.File dYx4Y = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList0.bytes"));
+										java.io.File e5Cyk = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+										dYx4Y.renameTo(e5Cyk);
 									}
-									else {
-										ModOffest(Device_ID.length()-("xiaomi M2102J20SG".length()));
-									}
-									Encrypt();
-									if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-										uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
-										try {
-											try{
-												        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-												     
-												        } catch (FileNotFoundException e) {
-												         
-												    }             
-											uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
-											_copyFilePath2Uri(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
-										} catch (Exception e) {
-											showMessage("啟用失敗");
-										}
-										
-										
-										
-									} else {
-										FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
-									}
-									FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
 								}
-								@Override
-								public void onPostExecute(){
-									//完成
-									showMessage("完成");
-									ProgressBar_Dismiss();
+								else {
+									ModOffest(Device_ID.length()-("xiaomi M2102J20SG".length()));
 								}
-							}.execute();
-							//結束
-						}
-					});
-					dialog_120fps.setNeutralButton("取消", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface _dialog, int _which) {
-							FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
-						}
-					});
-					dialog_120fps.create().show();
-				}
+								Encrypt();
+								if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+									uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
+									try {
+										try{
+											        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+											     
+											        } catch (FileNotFoundException e) {
+											         
+											    }             
+										uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
+										_copyFilePath2Uri(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+									} catch (Exception e) {
+										showMessage("啟用失敗");
+									}
+									
+									
+									
+								} else {
+									FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
+								}
+								FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+							}
+							@Override
+							public void onPostExecute(){
+								//完成
+								showMessage("完成");
+								ProgressBar_Dismiss();
+							}
+						}.execute();
+						//結束
+					}
+				});
+				dialog_120fps.setNeutralButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+					}
+				});
+				dialog_120fps.create().show();
 			}
 		});
 		
@@ -993,9 +992,11 @@ public class OtherActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				if (skin_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}else if (skin_string.contains("停用")) {
+				}
+else if (skin_string.contains("停用")) {
 						showMessage("無法使用");
-				}else if (skin_string.contains("更新")) {
+				}
+else if (skin_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), SkinActivity.class);
@@ -1019,9 +1020,11 @@ public class OtherActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				if (lobby_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}else if (lobby_string.contains("停用")) {
+				}
+else if (lobby_string.contains("停用")) {
 						showMessage("無法使用");
-				}else if (lobby_string.contains("更新")) {
+				}
+else if (lobby_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), LobbyActivity.class);
@@ -1281,7 +1284,8 @@ public class OtherActivity extends AppCompatActivity {
 				finishAffinity();
 		}
 	}
-	
+	
+
 	public void _Internet() {
 		net.startRequestNetwork(RequestNetworkController.GET, "https://1.1.1.1", "", _net_request_listener);
 	}
@@ -2022,4 +2026,4 @@ public class OtherActivity extends AppCompatActivity {
 		}
 	}
 	
-}
+}
