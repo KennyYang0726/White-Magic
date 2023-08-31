@@ -10,8 +10,8 @@ android {
 		minSdkVersion 21
 		//noinspection ExpiredTargetSdkVersion
 		targetSdkVersion 33
-		versionCode 13
-		versionName "1.4.8"
+		versionCode 14
+		versionName "1.4.9"
 		resourceConfigurations += []
 	}
 	
@@ -38,6 +38,6 @@ dependencies {
 	implementation 'com.google.android.gms:play-services-ads:21.4.0'
 	implementation 'com.google.android.material:material:1.6.1'
 	implementation 'com.google.code.gson:gson:2.8.7'
-	implementation 'com.google.firebase:firebase-messaging:23.1.1'
+	implementation 'com.google.firebase:firebase-messaging-ktx:23.2.1'
 	implementation 'com.google.firebase:firebase-database:20.0.5'
 }

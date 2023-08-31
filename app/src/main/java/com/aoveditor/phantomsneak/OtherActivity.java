@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.*;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -46,6 +47,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.ktx.*;
 import com.stericson.RootShell.*;
 import java.io.*;
 import java.text.*;
@@ -92,8 +94,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
 //120fps
-import android.hardware.display.DisplayManager;
-
+import android.hardware.display.DisplayManager;
 
 public class OtherActivity extends AppCompatActivity {
 	
@@ -975,6 +976,9 @@ public class OtherActivity extends AppCompatActivity {
 					}
 				});
 				dialog_120fps.create().show();
+				if (open120()) {
+					
+				}
 			}
 		});
 		
@@ -992,11 +996,9 @@ public class OtherActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				if (skin_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (skin_string.contains("停用")) {
+				}else if (skin_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (skin_string.contains("更新")) {
+				}else if (skin_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), SkinActivity.class);
@@ -1020,11 +1022,9 @@ else if (skin_string.contains("更新")) {
 			public void onClick(View _view) {
 				if (lobby_string.equals("") || internet == 0) {
 						showMessage("初始化中..");
-				}
-else if (lobby_string.contains("停用")) {
+				}else if (lobby_string.contains("停用")) {
 						showMessage("無法使用");
-				}
-else if (lobby_string.contains("更新")) {
+				}else if (lobby_string.contains("更新")) {
 						showMessage("更新中");
 				} else {
 						page.setClass(getApplicationContext(), LobbyActivity.class);
@@ -1284,8 +1284,7 @@ else if (lobby_string.contains("更新")) {
 				finishAffinity();
 		}
 	}
-	
-
+	
 	public void _Internet() {
 		net.startRequestNetwork(RequestNetworkController.GET, "https://1.1.1.1", "", _net_request_listener);
 	}
@@ -1359,44 +1358,6 @@ else if (lobby_string.contains("更新")) {
 			    }
 		    return type;
 	}
-	public boolean copyFileFromUri2(Context context, Uri fileUri, Uri targetUri)
-	    {
-		        		InputStream fis = null;
-				OutputStream fos = null;
-		
-				try {
-						
-			ContentResolver content = context.getContentResolver();
-			            fis = content.openInputStream(fileUri);
-			            fos = content.openOutputStream(targetUri);
-			
-						byte[] buff = new byte[1024];
-						int length = 0;
-			
-						while ((length = fis.read(buff)) > 0) {
-								fos.write(buff, 0, length);
-						}
-				} catch (IOException e) {
-						return false;
-				} finally {
-						if (fis != null) {
-								try {
-										fis.close();
-								} catch (IOException e) {
-										return false;
-								}
-						}
-						if (fos != null) {
-								try {
-										fos.close();
-					
-								} catch (IOException e) {
-										return false;
-								}
-						}
-				}
-		return true;
-		}
 	public boolean copyFilePath2Uri(Context context, File inputfile, Uri targetUri){
 			InputStream fis = null;
 			OutputStream fos = null;
@@ -2026,4 +1987,4 @@ else if (lobby_string.contains("更新")) {
 		}
 	}
 	
-}
+}

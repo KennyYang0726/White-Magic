@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import androidx.*;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -58,6 +59,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.ktx.*;
 import com.stericson.RootShell.*;
 import java.io.*;
 import java.text.*;
@@ -1292,44 +1294,6 @@ public class HomeActivity extends AppCompatActivity {
 			return true;
 	}
 	
-	public boolean copyFileFromUri2(Context context, Uri fileUri, Uri targetUri)
-	    {
-		        		InputStream fis = null;
-				OutputStream fos = null;
-		
-				try {
-						
-			ContentResolver content = context.getContentResolver();
-			            fis = content.openInputStream(fileUri);
-			            fos = content.openOutputStream(targetUri);
-			
-						byte[] buff = new byte[1024];
-						int length = 0;
-			
-						while ((length = fis.read(buff)) > 0) {
-								fos.write(buff, 0, length);
-						}
-				} catch (IOException e) {
-						return false;
-				} finally {
-						if (fis != null) {
-								try {
-										fis.close();
-								} catch (IOException e) {
-										return false;
-								}
-						}
-						if (fos != null) {
-								try {
-										fos.close();
-					
-								} catch (IOException e) {
-										return false;
-								}
-						}
-				}
-		return true;
-		}
 	// url = file path or whatever suitable URL you want.
 	public static String getMimeType(String url) {
 		    String type = null;
