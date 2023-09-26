@@ -2,5 +2,5 @@
 .idea/
 app/build/
 app/release/
-/db/*.json
+/app/*.json
 local.properties
