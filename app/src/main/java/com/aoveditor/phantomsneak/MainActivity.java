@@ -1,67 +1,30 @@
 package com.aoveditor.phantomsneak;
 
 import android.Manifest;
-import android.animation.*;
-import android.app.*;
 import android.app.AlertDialog;
 import android.content.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.*;
-import android.graphics.*;
-import android.graphics.drawable.*;
-import android.media.*;
 import android.net.*;
-import android.net.Uri;
 import android.os.*;
-import android.text.*;
-import android.text.style.*;
 import android.util.*;
-import android.view.*;
-import android.view.View.*;
-import android.view.animation.*;
-import android.webkit.*;
 import android.widget.*;
-import android.widget.ImageView;
-import androidx.*;
-import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import com.example.RootTools.*;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.ktx.*;
-import com.stericson.RootShell.*;
 import java.io.*;
-import java.text.*;
 import java.util.*;
-import java.util.regex.*;
-import org.json.*;
 import android.os.Handler;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.net.MalformedURLException;
+
 
 public class MainActivity extends AppCompatActivity {
 	
 	private String txtJson = "";
 	private boolean regionVN = false;
-	
-	private ImageView imageview1;
-	
-	private Intent intent = new Intent();
-	
-	private OnCompleteListener fcm_onCompleteListener;
 	private AlertDialog.Builder no;
 	private RequestNetwork net;
 	private RequestNetwork.RequestListener _net_request_listener;
@@ -71,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(_savedInstanceState);
 		setContentView(R.layout.main);
 		initialize(_savedInstanceState);
-		FirebaseApp.initializeApp(this);
-		MobileAds.initialize(this);
-		
 		
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
 		|| ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
@@ -92,19 +52,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initialize(Bundle _savedInstanceState) {
-		imageview1 = findViewById(R.id.imageview1);
 		no = new AlertDialog.Builder(this);
 		net = new RequestNetwork(this);
-		
-		fcm_onCompleteListener = new OnCompleteListener<InstanceIdResult>() {
-			@Override
-			public void onComplete(Task<InstanceIdResult> task) {
-				final boolean _success = task.isSuccessful();
-				final String _token = task.getResult().getToken();
-				final String _errorMessage = task.getException() != null ? task.getException().getMessage() : "";
-				
-			}
-		};
 		
 		_net_request_listener = new RequestNetwork.RequestListener() {
 			@Override
@@ -125,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
 	}
 	
 	private void initializeLogic() {
-		//加入android:exported
-		//新增queries
-		//修改原FCMservice
 		FileUtil.makeDir("/data/user/0/com.aoveditor.phantomsneak/files/texture/1-Home");
 		FileUtil.makeDir("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice");
 		FileUtil.makeDir("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other");
@@ -161,12 +107,10 @@ public class MainActivity extends AppCompatActivity {
 	
 	@Override
 	public void onBackPressed() {
-		if (true) {
-			
+		if (true) { //為了讓這裡沒法按返回退出應用
 		}
 	}
-	public void _extra() {
-	}
+
 	private void getDialog() {
 		no.setIcon(R.drawable.app_icon_r);
 		no.setTitle("提醒");
@@ -231,11 +175,9 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 	}
-	
-	public void showMessage(String _s) {
-		Toast.makeText(getApplicationContext(), _s, Toast.LENGTH_SHORT).show();
+
+	public void showMessage(String s) {
+		Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
 	}
-	{
-	}
-	
-}
+
+}
