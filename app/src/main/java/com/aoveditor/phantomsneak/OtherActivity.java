@@ -853,7 +853,7 @@ public class OtherActivity extends AppCompatActivity {
             public void onClick(View _view) {
                 Device_ID = getDeviceName();
                 //showMessage(Device_ID);
-                //showMessage(String.valueOf(Device_ID.length()-("xiaomi M2102J20SG".length())));
+                //showMessage(getResources().getString(Device_ID.length()-("xiaomi M2102J20SG".length())));
                 FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
                 _save("窩不知道", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "VeryHighFrameModeBlackList.bytes");
                 dialog_120fps.setTitle("注意");
@@ -1205,7 +1205,7 @@ public class OtherActivity extends AppCompatActivity {
         quit = false;
         AdView banner4 = new AdView(OtherActivity.this);
         banner4.setAdSize(AdSize.BANNER);
-        banner4.setAdUnitId("ca-app-pub-3897977034034314/1209563365");
+        banner4.setAdUnitId(getResources().getString(R.string.banner1));
         AdRequest arbanner4 = new AdRequest.Builder().build();
         banner4.loadAd(arbanner4);
         LinearLayout.LayoutParams p4 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);

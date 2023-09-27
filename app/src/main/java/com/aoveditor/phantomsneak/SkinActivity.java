@@ -594,7 +594,7 @@ public class SkinActivity extends AppCompatActivity {
         FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/", files_in_skin);
         AdView banner1 = new AdView(SkinActivity.this);
         banner1.setAdSize(AdSize.BANNER);
-        banner1.setAdUnitId("ca-app-pub-3897977034034314/1209563365");
+        banner1.setAdUnitId(getResources().getString(R.string.banner1));
         AdRequest arbanner1 = new AdRequest.Builder().build();
         banner1.loadAd(arbanner1);
         LinearLayout.LayoutParams p1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -1245,10 +1245,11 @@ public class SkinActivity extends AppCompatActivity {
 
     public void _loadInerstitialAd() {
         AdRequest inreq = new AdRequest.Builder().build();
-        InterstitialAd.load(SkinActivity.this,"ca-app-pub-3897977034034314/2804897827", inreq,new InterstitialAdLoadCallback() {
+        InterstitialAd.load(SkinActivity.this,getResources().getString(R.string.ad1), inreq,new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;
+                inerstitialLoaded = true;
                 inerstitialLoaded = true;
             }
             @Override

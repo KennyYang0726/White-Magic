@@ -757,7 +757,7 @@ public class LobbyActivity extends AppCompatActivity {
         quit = false;
         AdView banner3 = new AdView(LobbyActivity.this);
         banner3.setAdSize(AdSize.BANNER);
-        banner3.setAdUnitId("ca-app-pub-3897977034034314/1209563365");
+        banner3.setAdUnitId(getResources().getString(R.string.banner1));
         AdRequest arbanner3 = new AdRequest.Builder().build();
         banner3.loadAd(arbanner3);
         LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);

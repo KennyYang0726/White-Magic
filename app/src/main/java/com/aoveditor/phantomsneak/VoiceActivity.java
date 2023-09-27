@@ -1046,7 +1046,7 @@ public class VoiceActivity extends AppCompatActivity {
         _loadInerstitialAd();
         AdView banner2 = new AdView(VoiceActivity.this);
         banner2.setAdSize(AdSize.BANNER);
-        banner2.setAdUnitId("ca-app-pub-3897977034034314/1209563365");
+        banner2.setAdUnitId(getResources().getString(R.string.banner1));
         AdRequest arbanner2 = new AdRequest.Builder().build();
         banner2.loadAd(arbanner2);
         LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -1455,7 +1455,7 @@ public class VoiceActivity extends AppCompatActivity {
 
     public void _loadInerstitialAd() {
         AdRequest inreq = new AdRequest.Builder().build();
-        InterstitialAd.load(VoiceActivity.this,"ca-app-pub-3897977034034314/2804897827", inreq,new InterstitialAdLoadCallback() {
+        InterstitialAd.load(VoiceActivity.this, getResources().getString(R.string.ad1), inreq,new InterstitialAdLoadCallback() {
             @Override
             public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                 mInterstitialAd = interstitialAd;
