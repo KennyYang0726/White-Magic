@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -126,6 +128,7 @@ public class LobbyActivity extends AppCompatActivity {
     private Button button21;
     private Button button22;
     private Button button23;
+    private AdView banner3;
     private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
@@ -151,9 +154,11 @@ public class LobbyActivity extends AppCompatActivity {
         setContentView(R.layout.lobby);
         initialize(_savedInstanceState);
         FirebaseApp.initializeApp(this);
-        MobileAds.initialize(this);
-
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
@@ -186,7 +191,6 @@ public class LobbyActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         linear12 = findViewById(R.id.linear12);
         linear10 = findViewById(R.id.linear10);
-        bannerAd = findViewById(R.id.bannerAd);
         textview4 = findViewById(R.id.textview4);
         button7 = findViewById(R.id.button7);
         button8 = findViewById(R.id.button8);
@@ -207,6 +211,7 @@ public class LobbyActivity extends AppCompatActivity {
         button21 = findViewById(R.id.button21);
         button22 = findViewById(R.id.button22);
         button23 = findViewById(R.id.button23);
+        banner3 = findViewById(R.id.banner3);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
@@ -216,6 +221,9 @@ public class LobbyActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
         delete = new AlertDialog.Builder(this);
         quiz = new AlertDialog.Builder(this);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner3.loadAd(adRequest);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -755,13 +763,6 @@ public class LobbyActivity extends AppCompatActivity {
             FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"));
         }
         quit = false;
-        AdView banner3 = new AdView(LobbyActivity.this);
-        banner3.setAdSize(AdSize.BANNER);
-        banner3.setAdUnitId(getResources().getString(R.string.banner1));
-        AdRequest arbanner3 = new AdRequest.Builder().build();
-        banner3.loadAd(arbanner3);
-        LinearLayout.LayoutParams p3 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        bannerAd.addView(banner3,p3);
         _Internet();
     }
 

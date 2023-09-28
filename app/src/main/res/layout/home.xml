@@ -170,6 +170,13 @@
 					android:textSize="16sp"
 					android:textStyle="bold|italic"
 					android:textColor="#EF6C00" />
+				<com.google.android.gms.ads.AdView
+					xmlns:ads="http://schemas.android.com/apk/res-auto"
+					android:id="@+id/banner0"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					ads:adSize="BANNER"
+					ads:adUnitId="@string/banner1" />
 			</LinearLayout>
 		</ScrollView>
 		<LinearLayout

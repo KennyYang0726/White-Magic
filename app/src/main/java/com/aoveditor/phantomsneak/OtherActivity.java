@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -142,6 +144,7 @@ public class OtherActivity extends AppCompatActivity {
     private ImageView imageview35;
     private Button button17;
     private Button button18;
+    private AdView banner4;
     private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
@@ -167,9 +170,11 @@ public class OtherActivity extends AppCompatActivity {
         setContentView(R.layout.other);
         initialize(_savedInstanceState);
         FirebaseApp.initializeApp(this);
-        MobileAds.initialize(this);
-
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
@@ -214,7 +219,6 @@ public class OtherActivity extends AppCompatActivity {
         imageview39 = findViewById(R.id.imageview39);
         imageview37 = findViewById(R.id.imageview37);
         linear19 = findViewById(R.id.linear19);
-        bannerAd = findViewById(R.id.bannerAd);
         button1 = findViewById(R.id.button1);
         imageview13 = findViewById(R.id.imageview13);
         button2 = findViewById(R.id.button2);
@@ -234,6 +238,7 @@ public class OtherActivity extends AppCompatActivity {
         imageview35 = findViewById(R.id.imageview35);
         button17 = findViewById(R.id.button17);
         button18 = findViewById(R.id.button18);
+        banner4 = findViewById(R.id.banner4);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
@@ -243,6 +248,9 @@ public class OtherActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
         delete = new AlertDialog.Builder(this);
         dialog_120fps = new AlertDialog.Builder(this);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner4.loadAd(adRequest);
 
         button13.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1203,13 +1211,6 @@ public class OtherActivity extends AppCompatActivity {
             FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"));
         }
         quit = false;
-        AdView banner4 = new AdView(OtherActivity.this);
-        banner4.setAdSize(AdSize.BANNER);
-        banner4.setAdUnitId(getResources().getString(R.string.banner1));
-        AdRequest arbanner4 = new AdRequest.Builder().build();
-        banner4.loadAd(arbanner4);
-        LinearLayout.LayoutParams p4 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        bannerAd.addView(banner4,p4);
         _Internet();
     }
 

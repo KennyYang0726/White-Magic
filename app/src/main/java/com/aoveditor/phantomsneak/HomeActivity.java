@@ -50,7 +50,11 @@ import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import com.bumptech.glide.Glide;
 import com.example.RootTools.*;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
@@ -70,6 +74,8 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.*;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.*;
 import java.io.*;
 import java.util.zip.*;
@@ -151,6 +157,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button button2;
     private ImageView imageview6;
     private Button button3;
+    private AdView banner0;
     private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
@@ -184,9 +191,11 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.home);
         initialize(_savedInstanceState);
         FirebaseApp.initializeApp(this);
-        MobileAds.initialize(this);
-
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
@@ -228,6 +237,7 @@ public class HomeActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         imageview6 = findViewById(R.id.imageview6);
         button3 = findViewById(R.id.button3);
+        banner0 = findViewById(R.id.banner0);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
@@ -239,6 +249,9 @@ public class HomeActivity extends AppCompatActivity {
         delete = new AlertDialog.Builder(this);
         hint = new AlertDialog.Builder(this);
         res = new AlertDialog.Builder(this);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner0.loadAd(adRequest);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -919,7 +932,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     /*程式中新增MenuItem選項*/
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         /**itemId為稍後判斷點擊事件要用的*/
         menu.add(0,0,0,menuIconWithText(getDrawable(R.drawable.youtube),"YouTube"));
         menu.add(0,1,1,menuIconWithText(getDrawable(R.drawable.discord),"Discord"));
@@ -931,7 +944,7 @@ public class HomeActivity extends AppCompatActivity {
     }
     /*此處為設置點擊事件*/
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         /*取得Item的ItemId，判斷點擊到哪個元件*/
         switch (item.getItemId()){
             case 0:

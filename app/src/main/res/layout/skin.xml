@@ -176,13 +176,13 @@
 			android:background="#424242"
 			android:orientation="horizontal"
 			android:layout_weight="1" />
-		<LinearLayout
-			android:id="@+id/bannerAd"
+		<com.google.android.gms.ads.AdView
+			xmlns:ads="http://schemas.android.com/apk/res-auto"
+			android:id="@+id/banner1"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp"
-			android:padding="8dp"
-			android:orientation="horizontal" />
+			ads:adSize="BANNER"
+			ads:adUnitId="@string/banner1" />
 	</LinearLayout>
 	<LinearLayout
 		android:id="@+id/linear7"

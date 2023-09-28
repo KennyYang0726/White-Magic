@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -80,7 +82,6 @@ public class SkinActivity extends AppCompatActivity {
     public static final String IV = "1234567890148763";
     private static Key KEY;
     private String desurl = "";
-    private boolean inerstitialLoaded = false;
     public InterstitialAd mInterstitialAd;
     private boolean haveSU = false;
 
@@ -113,6 +114,7 @@ public class SkinActivity extends AppCompatActivity {
     private TextView textview5;
     private TextView textview4;
     private TextView textview6;
+    private AdView banner1;
     private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
@@ -137,8 +139,11 @@ public class SkinActivity extends AppCompatActivity {
         setContentView(R.layout.skin);
         initialize(_savedInstanceState);
         FirebaseApp.initializeApp(this);
-        MobileAds.initialize(this);
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
@@ -166,7 +171,6 @@ public class SkinActivity extends AppCompatActivity {
         button3 = findViewById(R.id.button3);
         linear10 = findViewById(R.id.linear10);
         linear13 = findViewById(R.id.linear13);
-        bannerAd = findViewById(R.id.bannerAd);
         imageview15 = findViewById(R.id.imageview15);
         textview1 = findViewById(R.id.textview1);
         button1 = findViewById(R.id.button1);
@@ -182,6 +186,7 @@ public class SkinActivity extends AppCompatActivity {
         textview5 = findViewById(R.id.textview5);
         textview4 = findViewById(R.id.textview4);
         textview6 = findViewById(R.id.textview6);
+        banner1 = findViewById(R.id.banner1);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
@@ -191,11 +196,26 @@ public class SkinActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
         delete = new AlertDialog.Builder(this);
 
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner1.loadAd(adRequest);
+
+        InterstitialAd.load(this, getResources().getString(R.string.ad1), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                mInterstitialAd = null;
+            }
+        });
+
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/".concat(skin_name))) {
-                    if (inerstitialLoaded) {
+                    if (mInterstitialAd != null) {
                         mInterstitialAd.show(SkinActivity.this);
                     } else {
 
@@ -590,15 +610,7 @@ public class SkinActivity extends AppCompatActivity {
 
     private void initializeLogic() {
         quit = false;
-        _loadInerstitialAd();
         FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/", files_in_skin);
-        AdView banner1 = new AdView(SkinActivity.this);
-        banner1.setAdSize(AdSize.BANNER);
-        banner1.setAdUnitId(getResources().getString(R.string.banner1));
-        AdRequest arbanner1 = new AdRequest.Builder().build();
-        banner1.loadAd(arbanner1);
-        LinearLayout.LayoutParams p1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        bannerAd.addView(banner1,p1);
         if (files_in_skin.size() == 0) {
             textview5.setText("無造型插件");
         } else {
@@ -1241,25 +1253,6 @@ public class SkinActivity extends AppCompatActivity {
         }
 
     }
-
-
-    public void _loadInerstitialAd() {
-        AdRequest inreq = new AdRequest.Builder().build();
-        InterstitialAd.load(SkinActivity.this,getResources().getString(R.string.ad1), inreq,new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                mInterstitialAd = interstitialAd;
-                inerstitialLoaded = true;
-                inerstitialLoaded = true;
-            }
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                inerstitialLoaded = false;
-                _loadInerstitialAd();
-            }
-        });
-    }
-
 
     public boolean _RootAccess() {
         if (RootTools.isRootAvailable()){

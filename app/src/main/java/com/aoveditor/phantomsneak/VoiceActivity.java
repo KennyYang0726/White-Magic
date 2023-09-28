@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -75,7 +77,6 @@ public class VoiceActivity extends AppCompatActivity {
     private String EU_Ver = "";
     private String JP_Ver = "";
     private double cnt = 0;
-    private boolean inerstitialLoaded = false;
     public InterstitialAd mInterstitialAd;
     private boolean haveSU = false;
     private ProgressDialog prog;
@@ -119,6 +120,7 @@ public class VoiceActivity extends AppCompatActivity {
     private TextView textview8;
     private TextView textview7;
     private TextView textview11;
+    private AdView banner2;
     private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
@@ -143,9 +145,11 @@ public class VoiceActivity extends AppCompatActivity {
         setContentView(R.layout.voice);
         initialize(_savedInstanceState);
         FirebaseApp.initializeApp(this);
-        MobileAds.initialize(this);
-
-
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
@@ -179,7 +183,6 @@ public class VoiceActivity extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         linear11 = findViewById(R.id.linear11);
         linear10 = findViewById(R.id.linear10);
-        bannerAd = findViewById(R.id.bannerAd);
         imageview16 = findViewById(R.id.imageview16);
         textview3 = findViewById(R.id.textview3);
         textview4 = findViewById(R.id.textview4);
@@ -196,6 +199,7 @@ public class VoiceActivity extends AppCompatActivity {
         textview8 = findViewById(R.id.textview8);
         textview7 = findViewById(R.id.textview7);
         textview11 = findViewById(R.id.textview11);
+        banner2 = findViewById(R.id.banner2);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
@@ -205,6 +209,21 @@ public class VoiceActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
         delete = new AlertDialog.Builder(this);
         auto_or_not = new AlertDialog.Builder(this);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        banner2.loadAd(adRequest);
+
+        InterstitialAd.load(this, getResources().getString(R.string.ad1), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                mInterstitialAd = interstitialAd;
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                mInterstitialAd = null;
+            }
+        });
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -415,12 +434,10 @@ public class VoiceActivity extends AppCompatActivity {
                         _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/JP/".concat(JP_Ver), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
                         showMessage("完成");
                     }
-                }
-                else {
-                    if (inerstitialLoaded) {
+                } else {
+                    if (mInterstitialAd != null) {
                         mInterstitialAd.show(VoiceActivity.this);
-                    }
-                    else {
+                    } else {
 
                     }
                     FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
@@ -593,7 +610,7 @@ public class VoiceActivity extends AppCompatActivity {
                         showMessage("完成");
                     }
                 } else {
-                    if (inerstitialLoaded) {
+                    if (mInterstitialAd != null) {
                         mInterstitialAd.show(VoiceActivity.this);
                     } else {
 
@@ -768,7 +785,7 @@ public class VoiceActivity extends AppCompatActivity {
                         showMessage("完成");
                     }
                 } else {
-                    if (inerstitialLoaded) {
+                    if (mInterstitialAd != null) {
                         mInterstitialAd.show(VoiceActivity.this);
                     } else {
 
@@ -1043,14 +1060,6 @@ public class VoiceActivity extends AppCompatActivity {
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));
         quit = false;
-        _loadInerstitialAd();
-        AdView banner2 = new AdView(VoiceActivity.this);
-        banner2.setAdSize(AdSize.BANNER);
-        banner2.setAdUnitId(getResources().getString(R.string.banner1));
-        AdRequest arbanner2 = new AdRequest.Builder().build();
-        banner2.loadAd(arbanner2);
-        LinearLayout.LayoutParams p2 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        bannerAd.addView(banner2,p2);
         _Internet();
     }
 
@@ -1450,23 +1459,6 @@ public class VoiceActivity extends AppCompatActivity {
             }
         }
 
-    }
-
-
-    public void _loadInerstitialAd() {
-        AdRequest inreq = new AdRequest.Builder().build();
-        InterstitialAd.load(VoiceActivity.this, getResources().getString(R.string.ad1), inreq,new InterstitialAdLoadCallback() {
-            @Override
-            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                mInterstitialAd = interstitialAd;
-                inerstitialLoaded = true;
-            }
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                inerstitialLoaded = false;
-                _loadInerstitialAd();
-            }
-        });
     }
 
 
