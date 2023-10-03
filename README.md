@@ -10,7 +10,9 @@
 - 其他修改加入 檢測assetbundle目錄權限(特殊型，非強制) 
 
     (本來想加入 顯示當前 assetbundle 目錄已下載多少文件，礙於時間和能力不足，未來再行加入)
-- 更換 AppIcon 成 星爆夜戮搖
+
+    SAFWalker 相關代碼於開源專案 https://github.com/Cheticamp/SAFWalker
+- 更換 AppIcon 為 星爆夜戮搖
 
  **1.4.9**
 - 移除用不到的程式代碼
