@@ -7,9 +7,11 @@ import android.content.*;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.*;
 import android.net.Uri;
 import android.os.*;
+import android.provider.OpenableColumns;
 import android.view.*;
 import android.view.View;
 import android.webkit.*;
@@ -47,8 +49,6 @@ import java.net.HttpURLConnection;
 import android.app.Activity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.AdSize;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.stericson.RootTools.*;
 import android.os.Looper;
@@ -60,6 +60,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.ByteBuffer;
+import java.util.concurrent.Executors;
 //120fps
 import android.hardware.display.DisplayManager;
 
@@ -83,6 +84,7 @@ public class OtherActivity extends AppCompatActivity {
     private Uri uriD;
     private Uri uriE;
     private Uri uriF;
+    private boolean assetbundle_access;
     private String tower = "";
     private String monster = "";
     private String soldier = "";
@@ -97,6 +99,16 @@ public class OtherActivity extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
 
+    //SAF Main Var
+    private final String mAndroidDataDocId = "primary:Android/data/com.garena.game.kgtw";
+    private final Uri mAndroidUri = DocumentsContract.buildTreeDocumentUri(
+            "com.android.externalstorage.documents", "primary:Android"
+    );
+    private int currentLevel = -1;
+    private int fileCount = 0;
+    private ContentResolver mContentResolver;
+
+    //Layout Object var
     private LinearLayout linear16;
     private ScrollView vscroll1;
     private LinearLayout linear7;
@@ -251,6 +263,8 @@ public class OtherActivity extends AppCompatActivity {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         banner4.loadAd(adRequest);
+
+        mContentResolver = getContentResolver();
 
         button13.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1165,6 +1179,12 @@ public class OtherActivity extends AppCompatActivity {
     }
 
     private void initializeLogic() {
+        //檢測 assetbundle 目錄權限
+        get_permission();
+        //Walk through with SAF and get total size fun start
+        //displaySafTree(mAndroidUri, mAndroidDataDocId);
+
+
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png")) {
             imageview12.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", 1024, 1024));
         }
@@ -1766,8 +1786,197 @@ public class OtherActivity extends AppCompatActivity {
         }
     }
 
-    //aes加解密
+    //處理ab包目錄授權
+    private DocumentFile getDocumentFile1(DocumentFile documentFile,String dir){
+        if (documentFile==null)return null;
+        try {
+            DocumentFile[] documentFiles = documentFile.listFiles();
+            DocumentFile res = null;
+            int i = 0;
+            while (i < documentFile.length()) {
+                if (documentFiles[i].getName().equals(dir) && documentFiles[i].isDirectory()) {
+                    res = documentFiles[i];
+                    return res;
+                }
+                i++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public void createdirectoryandfile(String dir, String uridelete) {
+        try {
+            Uri uri1 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
+            DocumentFile documentFile = DocumentFile.fromTreeUri(OtherActivity.this, uri1);
+            String[] list = dir.split("/");
+            int i = 0;
+            while (i < list.length) {
+                if (!list[i].equals("")) {
+                    DocumentFile a = getDocumentFile1(documentFile, list[i]);
+                    if (a == null) {
+                        documentFile = documentFile.createDirectory(list[i]);
+                    } else {
+                        documentFile = a;
+                    }
+                }
+                i++;
+            }
+            documentFile = documentFile.createFile("text/plain", "test.txt");
+            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2F"+uridelete);
+            try {
+                try{
+                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+                    assetbundle_access = true;
+                } catch (FileNotFoundException e) {
+
+                }
+            } catch (Exception e) {
+                assetbundle_access = false;
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    public boolean renameTo(String dir,String fileName,String targetName) {
+        try {
+            Uri uri1 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
+            DocumentFile documentFile = DocumentFile.fromTreeUri(OtherActivity.this, uri1);
+            String[] list = dir.split("/");
+            int i = 0;
+            while (i < list.length) {
+                if (!list[i].equals("")) {
+                    DocumentFile a = getDocumentFile1(documentFile, list[i]);
+                    if (a == null) {
+                        documentFile = documentFile.createDirectory(list[i]);
+                    } else {
+                        documentFile = a;
+                    }
+                }
+                i++;
+            }
+            documentFile=documentFile.findFile(fileName);
+            return documentFile.renameTo(targetName);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public void get_permission() {
+        //稍等的dialog
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(OtherActivity.this);
+        builder1.setTitle("")
+                .setMessage("\n請稍等...\n")
+                .setCancelable(false);
+        AlertDialog alert1 = builder1.create();
+        alert1.show();
+        createdirectoryandfile("/files/Extra/2019.V2/assetbundle/show/hero", "Extra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2Ftest.txt");
+
+        t_delay = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //after counting down
+                        if (!assetbundle_access){
+                            alert1.dismiss();
+                            builder1.setTitle("獲取權限資訊狀態")
+                                    .setMessage("assetbundle 目錄尚未取得權限，若點擊「授權」，局內大量資源皆須重新下載 (最大可能高達 4 Gb)，目前僅 維羅國動 需要使用該目錄，若忽略，則國棟模型的修改便無效，聲音仍然會修改成功")
+                                    .setCancelable(true)
+                                    .setNeutralButton("忽略",null)
+                                    .setPositiveButton("授權", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            renameTo("/files/Extra/2019.V2", "assetbundle", "assetbundle_trash");
+                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/show/hero", "Extra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2Ftest.txt");
+                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/show/skin", "Extra%2F2019.V2%2Fassetbundle%2Fshow%2Fskin%2Ftest.txt");
+                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/battle/hero", "Extra%2F2019.V2%2Fassetbundle%2Fbattle%2Fhero%2Ftest.txt");
+                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/battle/skin", "Extra%2F2019.V2%2Fassetbundle%2Fbattle%2Fskin%2Ftest.txt");
+                                            showMessage("完成");
+                                            showMessage("請先回遊戲，將模型下載回來");
+                                            Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
+                                            startActivity(mIntent);
+                                        }
+                                    });
+                            AlertDialog alert1 = builder1.create();
+                            alert1.show();
+                        } else {
+                            alert1.dismiss();
+                        }
+                        //end
+                    }
+                });
+            }
+        };
+        _timer.schedule(t_delay, (int)(500));
+    }
+
+    /*
+
+    //SAF walk through fun
+    private void displaySafTree(Uri treeUri, String docId) {
+        currentLevel = -1;
+        fileCount = 0;
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                SafUtils.walkSafTree(mContentResolver, treeUri, docId,
+                        new SafUtils.Callback<Integer>() {
+                            @Override
+                            public boolean call(Integer levelChange) {
+                                if (levelChange < 0) {
+                                    currentLevel--;
+                                } else {
+                                    currentLevel++;
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            textview1.setText(String.valueOf(fileCount));
+                                        }
+                                    });
+                                }
+                                return false;
+                            }
+                        },
+                        new SafUtils.Callback<Cursor>() {
+                            @Override
+                            public boolean call(Cursor cursor) {
+                                fileCount++;
+                                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                                int mimeIndex = cursor.getColumnIndex(SafUtils.COLUMNS_MIME_TYPE);
+                                String displayName = cursor.getString(nameIndex);
+                                String mimeType = cursor.getString(mimeIndex);
+                                return false;
+                            }
+                        });
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        textview1.setText(String.valueOf(SafUtils.TotalSize));
+                    }
+                });
+            }
+        });
+    }
+
+    private void showToastOnMainThread(String message) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }*/
+
+
+    //aes加解密
     private byte[] key = new byte[] { (byte)0xfc, (byte)0x88, (byte)0x8a, (byte) 0x32, (byte)0x0e, (byte)0xef, (byte)0xb6, (byte)0xfd, (byte)0xd2, (byte)0x91, (byte)0x8d, (byte)0x25, (byte)0x31, (byte)0x7c, (byte)0xb0, (byte)0xf1 };
     private byte[] iv = new byte[] { (byte)0x00, (byte)0x00, (byte)0x00, (byte) 0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00 };
 
