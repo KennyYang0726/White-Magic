@@ -35,7 +35,7 @@ public class PhantomSneak extends Application {
                             getApplicationContext(),
                             11111,
                             intent,
-                            PendingIntent.FLAG_ONE_SHOT
+                                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE
                         );
 
                     AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
