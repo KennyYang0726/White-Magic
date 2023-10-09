@@ -1180,11 +1180,11 @@ public class OtherActivity extends AppCompatActivity {
 
     private void initializeLogic() {
         //檢測 assetbundle 目錄權限
-        get_permission();
-        //Walk through with SAF and get total size fun start
-        //displaySafTree(mAndroidUri, mAndroidDataDocId);
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            get_permission();
+            //Walk through with SAF and get total size fun start
+            //displaySafTree(mAndroidUri, mAndroidDataDocId);
+        }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png")) {
             imageview12.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", 1024, 1024));
         }
