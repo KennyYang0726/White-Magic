@@ -279,12 +279,7 @@ public class HomeActivity extends AppCompatActivity {
                         showMessage("刪除完畢！");
                     }
                 });
-                delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface _dialog, int _which) {
-                        ((ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("clipboard", sp.getString("FOLDER_URI", "")));
-                    }
-                });
+                delete.setNeutralButton("取消", null);
                 delete.create().show();
             }
         });
@@ -342,12 +337,7 @@ public class HomeActivity extends AppCompatActivity {
                         }
                     }
                 });
-                delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface _dialog, int _which) {
-                        ((ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("clipboard", sp.getString("DIRECT_FOLDER_URI", "")));
-                    }
-                });
+                delete.setNeutralButton("取消", null);
                 delete.create().show();
             }
         });
@@ -939,7 +929,6 @@ public class HomeActivity extends AppCompatActivity {
         menu.add(0,2,2,menuIconWithText(getDrawable(R.drawable.github),"Github開源"));
         menu.add(0,3,3,menuIconWithText(getDrawable(R.drawable.rate),"評分"));
         menu.add(0,4,4,menuIconWithText(getDrawable(R.drawable.more_apps),"更多apps"));
-        //menu.add(0,1,1,LoginActivity.more_apps);
         return super.onCreateOptionsMenu(menu);
     }
     /*此處為設置點擊事件*/

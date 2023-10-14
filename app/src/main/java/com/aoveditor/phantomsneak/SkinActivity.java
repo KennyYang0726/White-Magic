@@ -358,12 +358,7 @@ public class SkinActivity extends AppCompatActivity {
                         }
                     }
                 });
-                delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface _dialog, int _which) {
-
-                    }
-                });
+                delete.setNeutralButton("取消", null);
                 delete.create().show();
             }
         });

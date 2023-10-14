@@ -78,30 +78,25 @@ public class MainActivity extends AppCompatActivity {
 		FileUtil.makeDir("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice");
 		FileUtil.makeDir("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other");
 		new JsonTask().execute("http://ip-api.com/json");
-		
+
 		ConnectivityManager connectivityManager = (android.net.ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-			Network activeNet = connectivityManager.getActiveNetwork();
-			NetworkCapabilities netCaps = connectivityManager.getNetworkCapabilities(activeNet);
-			boolean vpn = netCaps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
-			new Handler().postDelayed(new Runnable() {
-				public void run() {
-					if ((!Locale.getDefault().toLanguageTag().contains("VN"))&&(!vpn)&&(!regionVN)){ //地區非越南 + 不開VPN + 手機語言非越南文 才可使用
-						Intent intent = new Intent();
-						intent.setClass(MainActivity.this, HomeActivity.class);
-						MainActivity.this.startActivity(intent);
-						MainActivity.this.finish();
-						MainActivity.this.overridePendingTransition(0, 0);
-					} else {
-						getDialog();
-					}
+		Network activeNet = connectivityManager.getActiveNetwork();
+		NetworkCapabilities netCaps = connectivityManager.getNetworkCapabilities(activeNet);
+		boolean vpn = netCaps.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+		new Handler().postDelayed(new Runnable() {
+			public void run() {
+				if ((!Locale.getDefault().toLanguageTag().contains("VN"))&&(!vpn)&&(!regionVN)&&checkInstallation(MainActivity.this, "com.garena.game.kgtw")){ //地區非越南 + 不開VPN + 手機語言非越南文 + 有下載並開啟過 傳說對決(台服) 才可使用
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, HomeActivity.class);
+					MainActivity.this.startActivity(intent);
+					MainActivity.this.finish();
+					MainActivity.this.overridePendingTransition(0, 0);
+				} else {
+					getDialog();
 				}
-			}, 3000);
-		} else {
-			showMessage("安卓版本過低，請更換一台試試");
-			finishAffinity();
-		}
-		
+			}
+		}, 3000);
+
 	}
 	
 	
@@ -114,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 	private void getDialog() {
 		no.setIcon(R.drawable.app_icon_r);
 		no.setTitle("提醒");
-		no.setMessage("①裝置語言非越南文\n②不得開啟VPN\n③檢測地區非越南\n\n由於您可能違反上述條件之一，所以不得進入app");
+		no.setMessage("①裝置語言非越南文\n②不得開啟VPN\n③檢測地區非越南\n④下載並開啟過 傳說對決(台服)\n    (com.garena.game.kgtw)\n\n由於您可能違反上述條件之一，所以不得進入app");
 		no.setCancelable(false);
 		no.setPositiveButton("確認", new DialogInterface.OnClickListener() {
 			@Override
@@ -173,6 +168,20 @@ public class MainActivity extends AppCompatActivity {
 			} else {
 				regionVN = false;
 			}
+		}
+	}
+
+	public static boolean checkInstallation(Context context, String packageName) {
+		// on below line creating a variable for package manager.
+		PackageManager pm = context.getPackageManager();
+		try {
+			// on below line getting package info
+			pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+			// on below line returning true if package is installed.
+			return true;
+		} catch (PackageManager.NameNotFoundException e) {
+			// returning false if package is not installed on device.
+			return false;
 		}
 	}
 
