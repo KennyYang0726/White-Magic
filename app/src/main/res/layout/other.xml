@@ -349,6 +349,57 @@
 					android:textColor="#000000"
 					android:layout_weight="1" />
 			</LinearLayout>
+			<ImageView
+				android:id="@+id/imageview40"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="13dp"
+				android:scaleType="fitXY"
+				android:src="@drawable/line"
+				android:visibility="gone" />
+
+			<ImageView
+				android:id="@+id/imageview38"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="25dp"
+				android:padding="12dp"
+				android:scaleType="fitXY"
+				android:src="@drawable/non"
+				android:visibility="gone" />
+
+			<LinearLayout
+				android:id="@+id/linear20"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:orientation="horizontal"
+				android:visibility="gone" >
+				<Button
+					android:id="@+id/button19"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="點此啟用"
+					android:textSize="25sp"
+					android:textColor="#000000"
+					android:layout_weight="1" />
+				<ImageView
+					android:id="@+id/imageview41"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/empty"
+					android:scaleType="center" />
+				<Button
+					android:id="@+id/button20"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="8dp"
+					android:text="還原"
+					android:textSize="25sp"
+					android:textStyle="bold"
+					android:textColor="#F44336" />
+			</LinearLayout>
 			<com.google.android.gms.ads.AdView
 				xmlns:ads="http://schemas.android.com/apk/res-auto"
 				android:id="@+id/banner4"

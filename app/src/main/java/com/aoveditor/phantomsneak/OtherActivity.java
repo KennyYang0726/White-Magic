@@ -94,6 +94,8 @@ public class OtherActivity extends AppCompatActivity {
     private String soldier0 = "";
     private String monster0 = "";
     private String tower0 = "";
+    private String GOD = "";
+    private String GOD_URL = "";
     private String Device_ID = "";
 
     private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
@@ -136,6 +138,7 @@ public class OtherActivity extends AppCompatActivity {
     private ImageView imageview39;
     private ImageView imageview37;
     private LinearLayout linear19;
+    private ImageView imageview38;
     private LinearLayout bannerAd;
     private Button button1;
     private ImageView imageview13;
@@ -156,6 +159,8 @@ public class OtherActivity extends AppCompatActivity {
     private ImageView imageview35;
     private Button button17;
     private Button button18;
+    private Button button19;
+    private Button button20;
     private AdView banner4;
     private ImageView imageview7;
     private ImageView imageview8;
@@ -250,6 +255,9 @@ public class OtherActivity extends AppCompatActivity {
         imageview35 = findViewById(R.id.imageview35);
         button17 = findViewById(R.id.button17);
         button18 = findViewById(R.id.button18);
+        imageview38 = findViewById(R.id.imageview38);
+        button19 = findViewById(R.id.button19);
+        button20 = findViewById(R.id.button20);
         banner4 = findViewById(R.id.banner4);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
@@ -945,6 +953,35 @@ public class OtherActivity extends AppCompatActivity {
             }
         });
 
+        button19.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View _view) {
+                //開啟神仙？
+                if (GOD.equals("0")) {
+                    showMessage("暫未開放");
+                } else if (GOD.equals("1")){
+                    if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/wiro.PS")) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //安卓11以上處理程序
+
+                        } else { //安卓11以下處理程序
+
+                        }
+                    } else { //下載插件
+
+                    }
+                } else {
+                    showMessage("初始化中...");
+                }
+            }
+        });
+
+        button20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View _view) {
+               //還沒寫48763
+            }
+        });
+
         imageview7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
@@ -1128,6 +1165,9 @@ public class OtherActivity extends AppCompatActivity {
                         tower0 = map2.get((int)0).get("tower0").toString();
                         monster0 = map2.get((int)0).get("monster0").toString();
                         soldier0 = map2.get((int)0).get("solider0").toString();
+                        GOD = map2.get((int)0).get("神仙亂鬥").toString();
+                        GOD_URL = map2.get((int)0).get("神仙亂鬥_URL").toString();
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //讓root的安卓11以上可用root模式啟用(もっと速く)
                             new Thread() {
                                 public void run() {
@@ -1187,46 +1227,45 @@ public class OtherActivity extends AppCompatActivity {
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png")) {
             imageview12.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245035180092/wiro.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview12);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png")) {
             imageview18.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244775129169/volkath.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview18);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png")) {
             imageview23.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244506701924/tower.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview23);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png")) {
             imageview21.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244242456656/soldier.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview21);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png")) {
             imageview27.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304243965628467/buff.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview27);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png")) {
             imageview33.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245303619635/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png")) {
             imageview37.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png", 1024, 1024));
-        }
-        else {
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1137475199411957901/120FPS.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview37);
         }
+        /*
+        if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/GOD.png")) {
+            imageview38.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/GOD.png", 1024, 1024));
+        } else {
+            DLC("https://cdn.discordapp.com/attachments/1069989755628032142/1163908324518002740/GOD.jpg", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview38);
+        }*/
         if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"))) {
             FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"));
         }

@@ -800,7 +800,6 @@ public class HomeActivity extends AppCompatActivity {
                 mfile = DocumentFile.fromTreeUri(this, muri);
 
                 if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
-                    showMessage("請直接按使用這個資料夾");
                     first_install = false;
                     _askPermission(linear1);
                 }
@@ -870,8 +869,35 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                     if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
-                        showMessage("請直接按使用這個資料夾");
-                        _askPermission(linear1);
+                        //跳出AlerDialog
+                        final ImageView image_A = new ImageView(HomeActivity.this);
+                        image_A.setImageResource(R.drawable.ununstall_update_saf);
+                        AlertDialog.Builder builder_A = new AlertDialog.Builder(HomeActivity.this);
+                        builder_A.setTitle("需要協助？")
+                                .setView(image_A)
+                                .setMessage("無法正確跳轉至傳說的目錄授權？\n如果是的話，請按底下「跳轉」至 SAF 應用程式詳情解除更新，或點擊「重試」。")
+                                .setIcon(R.drawable.downloadlogo)
+                                .setCancelable(false)
+                                .setPositiveButton("跳轉", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent_A = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                        intent_A.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent_A.setData(Uri.parse("package:" + "com.google.android.documentsui"));
+                                        startActivity(intent_A);
+                                        finishAffinity();
+                                    }
+                                });
+
+                            builder_A.setNeutralButton("重試", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    _askPermission(linear1);
+                                }
+                            });
+
+                        AlertDialog alert_A = builder_A.create();
+                        alert_A.show();
                     }
                     parenturi = Uri.parse(sp.getString("FOLDER_URI", ""));
                 }
@@ -905,6 +931,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
     public void _askPermission(final View _view) {
+        showMessage("請直接按使用這個資料夾");
+        showMessage("若沒跳轉至「com.garena.game.kgtw」");
+        showMessage("請跳至其他隨意目錄按使用");
+        showMessage("將有步驟引導您做法");
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         i.setAction(Intent.ACTION_OPEN_DOCUMENT_TREE);
         muri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
