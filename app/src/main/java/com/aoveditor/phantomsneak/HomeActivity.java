@@ -1339,22 +1339,27 @@ public class HomeActivity extends AppCompatActivity {
                         in.close();
                         prog.dismiss();
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2FlanguageMap.txt")));
-                            try {
-                                try{
-                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                } catch (FileNotFoundException e) {
+                            //若有 root 則使用 comando 複製
+                            if (haveSU) {
+                                CopyWithhaveSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/languageMap.txt"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Languages/CHT_Garena_TW/languageMap.txt", true);
+                            } else { //否則用 uri 複製
+                                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2FlanguageMap.txt")));
+                                try {
+                                    try{
+                                        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+                                    } catch (FileNotFoundException e) {
+                                    }
+                                    uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
+                                    _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
+                                } catch (Exception e) {
+                                    uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
+                                    _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
                                 }
-                                uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
-                                _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
-                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
-                                showMessage("修復成功");
-                            } catch (Exception e) {
-                                uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
-                                _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
-                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
-                                showMessage("修復成功");
+
                             }
+                            //刪除 app 目錄下的 languageMap
+                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
+                            showMessage("修復成功");
                         }
                     } else {
                         showMessage("無網際網路連線");
@@ -1368,6 +1373,42 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         new Thread(updatethread).start();
+    }
+
+
+    public void CopyWithhaveSU(String original, String target, boolean exist_in_target_dest) {
+        String comando;
+        try {
+            if (exist_in_target_dest){ //複製覆蓋
+                String a = "cp -r " + original + " " + target;
+                int len = a.lastIndexOf("/");
+                comando = a.substring(0, len+1);
+            } else {
+                comando = "cp -r " + original + " " + target;
+            }
+            Process suProcess = Runtime.getRuntime().exec("su");
+            DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
+            os.writeBytes(comando + "\n");
+            os.flush();
+            os.writeBytes("exit\n");
+            os.flush();
+            try {
+                suProcess.waitFor();
+                if (suProcess.exitValue() != 255) {
+                    // TODO Code to run on success
+                    //showMessage("YES");
+                }else {
+                    // TODO Code to run on unsuccessful
+                    //showMessage("No1");
+                }
+            } catch (InterruptedException e) {
+                // TODO Code to run in interrupted exception
+                //showMessage("No2");
+            }
+        } catch (IOException e) {
+            // TODO Code to run in input/output exception
+            //showMessage("No3");
+        }
     }
 
     public void DownloadAndInstall(String Url, String Path){

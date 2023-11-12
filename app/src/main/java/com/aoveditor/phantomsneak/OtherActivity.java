@@ -863,13 +863,38 @@ public class OtherActivity extends AppCompatActivity {
             @Override
             public void onClick(View _view) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wisp_SFX.bnk");
-                    try {
+                    if (haveSU){
+                        String comando;
                         try{
-                            DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                        } catch (FileNotFoundException e) {
+                            comando = "rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Hero_Wisp_SFX.bnk";
+                            Process suProcess = Runtime.getRuntime().exec("su");
+                            DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
+                            os.writeBytes(comando + "\n");
+                            os.flush();
+                            os.writeBytes("exit\n");
+                            os.flush();
+                            try {
+                                suProcess.waitFor();
+                                if (suProcess.exitValue() != 255) {
+                                    // TODO Code to run on success
+                                }else {
+                                    // TODO Code to run on unsuccessful
+                                }
+                            } catch (InterruptedException e) {
+                                // TODO Code to run in interrupted exception
+                            }
+                        } catch (IOException e) {
+                            // TODO Code to run in input/output exception
                         }
-                    } catch (Exception e) {
+                    } else {
+                        uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wisp_SFX.bnk");
+                        try {
+                            try{
+                                DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+                            } catch (FileNotFoundException e) {
+                            }
+                        } catch (Exception e) {
+                        }
                     }
                 }else{
                     FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Hero_Wisp_SFX.bnk");
@@ -912,22 +937,23 @@ public class OtherActivity extends AppCompatActivity {
                                 }
                                 Encrypt();
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                    uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
-                                    try {
-                                        try{
-                                            DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
+                                    if (haveSU) {
+                                        CopyWithhaveSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes", true);
+                                    } else {
+                                        uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
+                                        try {
+                                            try{
+                                                DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
 
-                                        } catch (FileNotFoundException e) {
+                                            } catch (FileNotFoundException e) {
 
+                                            }
+                                            uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
+                                            _copyFilePath2Uri(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+                                        } catch (Exception e) {
+                                            showMessage("啟用失敗");
                                         }
-                                        uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
-                                        _copyFilePath2Uri(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
-                                    } catch (Exception e) {
-                                        showMessage("啟用失敗");
                                     }
-
-
-
                                 } else {
                                     FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
                                 }
@@ -1173,10 +1199,16 @@ public class OtherActivity extends AppCompatActivity {
                                 public void run() {
                                     if (_RootAccess()) {
                                         haveSU = true;
-                                    }
-                                    else {
+                                    } else {
                                         haveSU = false;
                                     }
+
+                                    //檢測 assetbundle 目錄權限
+                                    if (!haveSU) //無root才要檢測
+                                        get_permission();
+                                    //Walk through with SAF and get total size fun start
+                                    //displaySafTree(mAndroidUri, mAndroidDataDocId);
+
                                 }
                             }.start();
                         }
@@ -1219,12 +1251,6 @@ public class OtherActivity extends AppCompatActivity {
     }
 
     private void initializeLogic() {
-        //檢測 assetbundle 目錄權限
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            get_permission();
-            //Walk through with SAF and get total size fun start
-            //displaySafTree(mAndroidUri, mAndroidDataDocId);
-        }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png")) {
             imageview12.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", 1024, 1024));
         } else {
@@ -1925,7 +1951,7 @@ public class OtherActivity extends AppCompatActivity {
                         if (!assetbundle_access){
                             alert1.dismiss();
                             builder1.setTitle("獲取權限資訊狀態")
-                                    .setMessage("assetbundle 目錄尚未取得權限，若點擊「授權」，局內大量資源皆須重新下載 (最大可能高達 4 Gb)，目前僅 維羅國動 需要使用該目錄，若忽略，則國棟模型的修改便無效，聲音仍然會修改成功")
+                                    .setMessage("assetbundle 目錄尚未取得權限，若點擊「授權」，局內大量資源皆須重新下載 (最大可能高達 4 Gb)，目前僅 維羅國動 需要使用該目錄，若忽略，則國動模型的修改便無效，聲音仍然會修改成功")
                                     .setCancelable(true)
                                     .setNeutralButton("忽略",null)
                                     .setPositiveButton("授權", new DialogInterface.OnClickListener() {
