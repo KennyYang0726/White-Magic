@@ -1197,15 +1197,16 @@ public class OtherActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //讓root的安卓11以上可用root模式啟用(もっと速く)
                             new Thread() {
                                 public void run() {
+                                    Looper.prepare();
                                     if (_RootAccess()) {
                                         haveSU = true;
                                     } else {
                                         haveSU = false;
                                     }
-
                                     //檢測 assetbundle 目錄權限
                                     if (!haveSU) //無root才要檢測
                                         get_permission();
+                                    Looper.loop();
                                     //Walk through with SAF and get total size fun start
                                     //displaySafTree(mAndroidUri, mAndroidDataDocId);
 
