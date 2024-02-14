@@ -43,7 +43,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:padding="8dp"
-			android:text="請詳細閱讀以下規則\n\n關於自動授權Extra內的\nSound_DLC及LobbyMovie資料夾\n\n建議在未下載任何大廳資源時\n使用，不建議載完資源後才使用\n\n當然你要載完資源後才使用\n自動授權也不是問題\n只不過資源需要重新下載罷了\n並且按下授權等待時間會更久\n\n◐按下授權後等待時間可能超時\n若顯示沒有回應，請按下『等待』，勿催！\n\n◐暫不支援授權Resources\nʕ´•ᴥ•`ʔ"
+			android:text="請詳細閱讀以下規則\n\n關於自動授權Extra內的\nSound_DLC及LobbyMovie資料夾\n\n建議在未下載任何大廳資源時\n使用，不建議載完資源後才使用\n\n當然你要載完資源後才使用\n自動授權也不是問題\n只不過資源需要重新下載罷了\n並且按下授權等待時間會更久\n\n◐按下授權後等待時間可能超時\n若顯示沒有回應，請按下『等待』，勿催！\n"
 			android:textSize="20sp"
 			android:textColor="#FFFFFF"
 			android:layout_weight="1" />
@@ -62,16 +62,17 @@
 				android:textSize="18sp"
 				android:textColor="#FFFFFF"
 				android:layout_weight="1" />
+
 			<Button
 				android:id="@+id/button2"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginLeft="1dp"
+				android:layout_weight="1"
 				android:background="#616161"
-				android:text="確定 (10)"
-				android:textSize="18sp"
+				android:text="確定 (5)"
 				android:textColor="#FFFFFF"
-				android:layout_weight="1" />
+				android:textSize="18sp" />
 		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>

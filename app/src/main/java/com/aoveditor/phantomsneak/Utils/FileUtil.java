@@ -1,4 +1,4 @@
-package com.aoveditor.phantomsneak;
+package com.aoveditor.phantomsneak.Utils;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -31,6 +31,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -617,4 +620,44 @@ public class FileUtil {
         String fileName = date.format(new Date()) + ".jpg";
         return new File(context.getExternalFilesDir(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + fileName);
     }
+
+    //MD5, SHA-1, SHA-256 校對和
+    public static String getFile(String file, String instance) throws IOException{
+        int bufferSize = 256*1024;
+        FileInputStream fileInputStream = null;
+        DigestInputStream digestInputStream = null;
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance(instance);
+            fileInputStream = new FileInputStream(file);
+            digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
+            byte[] buffer = new byte[bufferSize];
+            while (digestInputStream.read(buffer) > 0);
+            messageDigest = digestInputStream.getMessageDigest();
+            byte[] resultByteArry = messageDigest.digest();
+            return byteArryToHex(resultByteArry);
+        } catch (NoSuchAlgorithmException e){
+            return null;
+        } finally {
+            try {
+                digestInputStream.close();
+            } catch (Exception e){
+            }
+            try {
+                fileInputStream.close();
+            } catch (Exception e){
+            }
+        }
+    }
+
+    private static String byteArryToHex(byte[] byteArry) {
+        char[] hexDigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+        char[] resultCharArry = new char[byteArry.length * 2];
+        int index = 0;
+        for (byte b : byteArry){
+            resultCharArry[index++] = hexDigits[b>>> 4 & 0xf];
+            resultCharArry[index++] = hexDigits[b & 0xf];
+        }
+        return new String(resultCharArry);
+    }
+
 }

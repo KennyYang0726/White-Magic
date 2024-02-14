@@ -1,4 +1,4 @@
-package com.aoveditor.phantomsneak;
+package com.aoveditor.phantomsneak.network;
 
 import android.app.Activity;
 

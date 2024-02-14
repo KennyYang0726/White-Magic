@@ -4,6 +4,26 @@
 # 
  ## 發行紀錄(開源後)
 
+**1.5.5**
+- 引入 shizuku 服務，並更新行為模式  
+(選擇模式後，以該方式進行啟用，可於主畫面更改行為模式)  
+(adb 啟用 shizuku 僅用於遊戲前置資源，遊戲 DLC 資源仍使用 SAF 進行訪問)  
+(root 啟用 shizuku 適用所有遊戲資源，無需 SAF 授權)
+- 獲取權限檢測機制修正，1.5.4 以前版本有機率觸發沒檢測而造成使用功能時異常
+- 主畫面下方新增按鈕：強制修復資源無法下載  
+(若傳說卡讀取或資源無法下載時可使用)
+- 語音修改 SAF 啟用更新為雙線程同步複製檔案 (更快速)
+- 皆自帶檢測後才進行啟用  
+(途中關閉服務即會跳轉至選擇存取畫面)
+- SAF 直接跳轉解除更新而非讓使用者自行解除安裝
+- 語音/其他 圖片源下載進行 MD5 效驗，以免圖像顯示不全或錯誤
+- 所有還原按鈕按下後，都會自動跳轉至 傳說對決
+- 其他修改，assetbundle目錄權限檢測，Shizuku 使用者可查看已下載之 DLC 資源大小
+- 應用程式 src 目錄分類更加明確 (方便識讀)
+- targetSDK 更新至 34
+- ***特別銘謝：[Shizuku參考專案源](https://f-droid.org/zh_Hant/packages/in.sunilpaulmathew.ashell/ "link")***
+- [教學影片連結](https://youtu.be/zJilQ4vuzVY "link")
+
 **1.5.4**
 - 修復無root使用者 點擊其他修改導致應用程式崩潰
 
@@ -23,11 +43,9 @@
  **1.5.0**
 - 正式使用 AndroidStudio 環境編譯 (體積會比之前的大一些些)
 - MinSDK 提高至 24 (安卓 7.0 以上才可使用)
-- 其他修改加入 檢測assetbundle目錄權限(特殊型，非強制) 
-
-    (本來想加入 顯示當前 assetbundle 目錄已下載多少文件，礙於時間和能力不足，未來再行加入)
-
-    SAFWalker 相關代碼於開源專案 https://github.com/Cheticamp/SAFWalker
+- 其他修改加入 檢測assetbundle目錄權限(特殊型，非強制)  
+(本來想加入 顯示當前 assetbundle 目錄已下載多少文件，礙於時間和能力不足，未來再行加入)  
+[SAFWalker](https://github.com/Cheticamp/SAFWalker "link") 
 - 更換 AppIcon 為 星爆夜戮搖
 
  **1.4.9**

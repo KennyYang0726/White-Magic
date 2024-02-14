@@ -16,16 +16,16 @@ import android.webkit.*;
 import android.widget.*;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,25 +37,32 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import android.provider.DocumentsContract;
-import androidx.documentfile.provider.DocumentFile;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import java.lang.Process;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
-import android.widget.LinearLayout.LayoutParams;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.AdSize;
-
-import com.stericson.RootTools.*;
 import android.os.Looper;
+
+import com.aoveditor.phantomsneak.Utils.FileUtil;
+import com.aoveditor.phantomsneak.Utils.SuperUserUtil;
+import com.aoveditor.phantomsneak.Utils.ShizukuShellUtil;
+import com.aoveditor.phantomsneak.Utils.SAFUtil;
+import com.aoveditor.phantomsneak.network.RequestNetwork;
+import com.aoveditor.phantomsneak.network.RequestNetworkController;
+
+import rikka.shizuku.Shizuku;
 
 
 public class VoiceActivity extends AppCompatActivity {
@@ -68,62 +75,28 @@ public class VoiceActivity extends AppCompatActivity {
     private String lobby_string = "";
     private String other_string = "";
     private String EU_DLC = "";
-    private Uri uriA;
-    private Uri muri;
-    private Uri uri2;
-    private DocumentFile mfile;
-    private DocumentFile mfile1;
     private String JP_DLC = "";
     private String EU_Ver = "";
     private String JP_Ver = "";
-    private double cnt = 0;
     public InterstitialAd mInterstitialAd;
-    private boolean haveSU = false;
     private ProgressDialog prog;
 
     private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
-    private ArrayList<String> sound_list = new ArrayList<>();
-    private ArrayList<String> DLC_list = new ArrayList<>();
-    private ArrayList<String> JP = new ArrayList<>();
-    private ArrayList<String> EN = new ArrayList<>();
-
-    private LinearLayout linear1;
-    private LinearLayout linear7;
-    private LinearLayout linear8;
-    private ImageView imageview12;
-    private LinearLayout linear9;
-    private ImageView imageview13;
-    private ScrollView vscroll1;
-    private ImageView imageview15;
-    private TextView textview1;
+    private final ArrayList<String> JP = new ArrayList<>();
+    private final ArrayList<String> EN = new ArrayList<>();
     private Button button1;
-    private ImageView imageview14;
-    private TextView textview2;
     private Button button2;
-    private LinearLayout linear11;
-    private LinearLayout linear10;
-    private LinearLayout bannerAd;
     private ImageView imageview16;
-    private TextView textview3;
-    private TextView textview4;
     private TextView textview9;
     private TextView textview12;
-    private ImageView imageview17;
     private ImageView imageview18;
-    private TextView textview5;
-    private TextView textview6;
     private TextView textview10;
     private TextView textview13;
-    private ImageView imageview22;
     private ImageView imageview23;
-    private TextView textview8;
-    private TextView textview7;
-    private TextView textview11;
     private AdView banner2;
     private ImageView imageview7;
     private ImageView imageview8;
-    private ImageView imageview9;
     private ImageView imageview10;
     private ImageView imageview11;
 
@@ -138,6 +111,10 @@ public class VoiceActivity extends AppCompatActivity {
     private AlertDialog.Builder delete;
     private AlertDialog.Builder auto_or_not;
     private TimerTask t_internet;
+
+    private ShizukuShellUtil mShizukuShell = null;
+    private List<String> mResult = null;
+
 
     @Override
     protected void onCreate(Bundle _savedInstanceState) {
@@ -166,43 +143,38 @@ public class VoiceActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {  //非常重要！！！
+        super.onDestroy();
+        if (ChooseUtilActivity.Method == "Shizuku") {
+            if (mResult == null)
+                mResult = new ArrayList<>();
+            mResult.add("<i></i>");
+            mResult.add("aShell: Finish");
+            try{
+                if (mShizukuShell != null)
+                    mShizukuShell.destroy();
+            } catch (Exception r) {
+            }
+
+        }
+    }
+
+
     private void initialize(Bundle _savedInstanceState) {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        linear1 = findViewById(R.id.linear1);
-        linear7 = findViewById(R.id.linear7);
-        linear8 = findViewById(R.id.linear8);
-        imageview12 = findViewById(R.id.imageview12);
-        linear9 = findViewById(R.id.linear9);
-        imageview13 = findViewById(R.id.imageview13);
-        vscroll1 = findViewById(R.id.vscroll1);
-        imageview15 = findViewById(R.id.imageview15);
-        textview1 = findViewById(R.id.textview1);
         button1 = findViewById(R.id.button1);
-        imageview14 = findViewById(R.id.imageview14);
-        textview2 = findViewById(R.id.textview2);
         button2 = findViewById(R.id.button2);
-        linear11 = findViewById(R.id.linear11);
-        linear10 = findViewById(R.id.linear10);
         imageview16 = findViewById(R.id.imageview16);
-        textview3 = findViewById(R.id.textview3);
-        textview4 = findViewById(R.id.textview4);
         textview9 = findViewById(R.id.textview9);
         textview12 = findViewById(R.id.textview12);
-        imageview17 = findViewById(R.id.imageview17);
         imageview18 = findViewById(R.id.imageview18);
-        textview5 = findViewById(R.id.textview5);
-        textview6 = findViewById(R.id.textview6);
         textview10 = findViewById(R.id.textview10);
         textview13 = findViewById(R.id.textview13);
-        imageview22 = findViewById(R.id.imageview22);
         imageview23 = findViewById(R.id.imageview23);
-        textview8 = findViewById(R.id.textview8);
-        textview7 = findViewById(R.id.textview7);
-        textview11 = findViewById(R.id.textview11);
         banner2 = findViewById(R.id.banner2);
         imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
-        imageview9 = findViewById(R.id.imageview9);
         imageview10 = findViewById(R.id.imageview10);
         imageview11 = findViewById(R.id.imageview11);
         net = new RequestNetwork(this);
@@ -247,19 +219,65 @@ public class VoiceActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface _dialog, int _which) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            try {
-                                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
-                                try {
-                                    try{
-                                        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                    } catch (FileNotFoundException e) {
-                                    }
-                                } catch (Exception e) {
+
+                            if (ChooseUtilActivity.Method == "SU") {
+                                if (SuperUserUtil.haveSU()) {
+                                    SuperUserUtil.rmWithSU("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                                    showMessage("還原成功");
+                                } else {
+                                    showMessage("你已撤銷 root 權限");
+                                    MainActivity.haveSU = false;
+                                    Intent pageJump = new Intent();
+                                    pageJump.setClass(VoiceActivity.this, ChooseUtilActivity.class);
+                                    startActivity(pageJump);
+                                    finish();
+                                    overridePendingTransition(0, 0);
                                 }
-                                showMessage("還原成功");
-                            } catch (Exception e) {
-                                showMessage("自動模式還原失敗");
-                                showMessage("請使用MT手動刪除");
+
+                            } else if (ChooseUtilActivity.Method == "SAF") {
+                                try {
+                                    SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
+                                    showMessage("還原成功");
+                                } catch (Exception e) {
+                                    showMessage("自動模式還原失敗");
+                                    showMessage("請使用MT手動刪除");
+                                }
+
+                            } else if (ChooseUtilActivity.Method == "Shizuku") {
+                                /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
+                                if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
+                                    if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                                        showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
+                                        Intent pageJump = new Intent();
+                                        pageJump.setClass(VoiceActivity.this, ChooseUtilActivity.class);
+                                        startActivity(pageJump);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                    } else { // 這裡才能執行 shell
+                                        if (HomeActivity.CheckPermissionSoundSuShizuku) {
+                                            StartInitializeShell("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                                            waitForShizukuCompletion(() ->
+                                                    showMessage("還原成功"));
+                                        } else {
+                                            try {
+                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
+                                                showMessage("還原成功");
+                                            } catch (Exception e) {
+                                                showMessage("自動模式還原失敗");
+                                                showMessage("請使用MT手動刪除");
+                                            }
+                                        }
+
+                                    }
+                                } else {
+                                    showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
+                                    Intent pageJump = new Intent();
+                                    pageJump.setClass(VoiceActivity.this, ChooseUtilActivity.class);
+                                    startActivity(pageJump);
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                }
+
                             }
                         } else {
                             showMessage("正在還原，請耐心等待至完成");
@@ -278,158 +296,9 @@ public class VoiceActivity extends AppCompatActivity {
             public void onClick(View _view) {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/JP/".concat(JP_Ver))) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        auto_or_not.setTitle("提示");
-                        auto_or_not.setIcon(R.drawable.downloadlogo);
-                        auto_or_not.setMessage("使用自動模式或手動模式？\n自動模式速度較慢，但無須使用MT管理器手動啟用\n手動模式即使用MT管理器按照教學影片進行啟用");
-                        if (haveSU) {
-                            auto_or_not.setNegativeButton("root自動模式(快)", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface _dialog, int _which) {
-                                    ProgressBar_Show("請稍等...");
-                                    new BackgroundTaskClass(VoiceActivity.this){
-                                        @Override
-                                        public void doInBackground() {
-                                            Looper.prepare();
-                                            FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
-                                            _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/JP/"+(JP_Ver), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android/");
-                                        }
-                                        @Override
-                                        public void onPostExecute(){
-                                            ProgressBar_Dismiss();
 
-                                            ProgressBar_Show("啟用中...");
-                                            new BackgroundTaskClass(VoiceActivity.this){
-                                                @Override
-                                                public void doInBackground() {
-                                                    Looper.prepare();
-                                                    //root複製
-                                                    CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android", true);
-                                                }
-                                                @Override
-                                                public void onPostExecute(){
-                                                    ProgressBar_Dismiss();
-                                                    showMessage("完成");
-                                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
-                                                }
-                                            }.execute();
-                                            //結束
-                                        }
-                                    }.execute();
-                                    //結束
-                                }
-                            });
-                        }
-                        auto_or_not.setPositiveButton("手動模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface _dialog, int _which) {
-                                try {
-                                    _openapp();
-                                    showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
-                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
-                                } catch (Exception e) {
-                                    showMessage("play商店政策因素\n暫時移除自行安裝功能");
-                                    showMessage("請自行下載MT管理器後安裝");
-                                    Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
-                                    startActivity(playstore);
-                                }
-                            }
-                        });
-                        auto_or_not.setNeutralButton("自動模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface _dialog, int _which) {
-                                showMessage("啟用過程請勿跳離畫面");
-                                FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
-                                _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/JP/"+(JP_Ver), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/");
-                                showMessage("1 / 3 步驟啟用完成");
-                                FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/", sound_list);
-                                count=sound_list.size();
-                                final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
-                                prog.setIcon(R.drawable.downloadlogo);
-                                prog.setMax(100);
-                                prog.setIndeterminate(true);
-                                prog.setCancelable(false);
-                                prog.setCanceledOnTouchOutside(false);
-                                prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
+                        LinkStart_R("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/JP/"+(JP_Ver));
 
-                                            try {
-                                                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
-                                                try{
-                                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                                } catch (FileNotFoundException e) {
-                                                }
-                                            } catch (Exception e) {
-                                            }
-                                            uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
-                                            _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/"+Uri.parse(sound_list.get(count - 1)).getLastPathSegment());
-                                            count--;
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    prog.setTitle("2 / 3 步驟啟用中...");
-                                                    prog.setMessage("\n剩餘檔案數量："+count);
-                                                    prog.show();
-                                                    if (count == 0) {
-                                                        prog.dismiss();
-                                                        sound_list.clear();
-                                                        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/", sound_list);
-                                                        count=sound_list.size();
-                                                        final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
-                                                        prog.setIcon(R.drawable.downloadlogo);
-                                                        prog.setMax(100);
-                                                        prog.setIndeterminate(true);
-                                                        prog.setCancelable(false);
-                                                        prog.setCanceledOnTouchOutside(false);
-                                                        prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                                        prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
-                                                        new Thread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
-                                                                    if (!Uri.parse(sound_list.get((count - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
-                                                                        try {
-                                                                            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
-                                                                            try{
-                                                                                DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                                                            } catch (FileNotFoundException e) {
-                                                                            }
-                                                                        } catch (Exception e) {
-                                                                        }
-                                                                        uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-                                                                        _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/"+Uri.parse(sound_list.get(count - 1)).getLastPathSegment());
-                                                                    }
-                                                                    count--;
-                                                                    runOnUiThread(new Runnable() {
-                                                                        @Override
-                                                                        public void run() {
-                                                                            prog.setTitle("3 / 3 步驟啟用中...");
-                                                                            prog.setMessage("\n剩餘檔案數量："+count);
-                                                                            prog.show();
-                                                                            if (count == 0) {
-                                                                                prog.dismiss();
-                                                                                sound_list.clear();
-                                                                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
-                                                                                showMessage("完成");
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        }).start();
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                }).start();
-                            }
-                        });
-                        auto_or_not.create().show();
                     } else {
                         _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/JP/".concat(JP_Ver), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
                         showMessage("完成");
@@ -437,8 +306,6 @@ public class VoiceActivity extends AppCompatActivity {
                 } else {
                     if (mInterstitialAd != null) {
                         mInterstitialAd.show(VoiceActivity.this);
-                    } else {
-
                     }
                     FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
                     FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
@@ -453,158 +320,9 @@ public class VoiceActivity extends AppCompatActivity {
             public void onClick(View _view) {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/EN/".concat(EU_Ver))) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        auto_or_not.setTitle("提示");
-                        auto_or_not.setIcon(R.drawable.downloadlogo);
-                        auto_or_not.setMessage("使用自動模式或手動模式？\n自動模式速度較慢，但無須使用MT管理器手動啟用\n手動模式即使用MT管理器按照教學影片進行啟用");
-                        if (haveSU) {
-                            auto_or_not.setNegativeButton("root自動模式(快)", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface _dialog, int _which) {
-                                    ProgressBar_Show("請稍等...");
-                                    new BackgroundTaskClass(VoiceActivity.this){
-                                        @Override
-                                        public void doInBackground() {
-                                            Looper.prepare();
-                                            FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
-                                            _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/EN/"+(EU_Ver), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android/");
-                                        }
-                                        @Override
-                                        public void onPostExecute(){
-                                            ProgressBar_Dismiss();
 
-                                            ProgressBar_Show("啟用中...");
-                                            new BackgroundTaskClass(VoiceActivity.this){
-                                                @Override
-                                                public void doInBackground() {
-                                                    Looper.prepare();
-                                                    //root複製
-                                                    CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android", true);
-                                                }
-                                                @Override
-                                                public void onPostExecute(){
-                                                    ProgressBar_Dismiss();
-                                                    showMessage("完成");
-                                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
-                                                }
-                                            }.execute();
-                                            //結束
-                                        }
-                                    }.execute();
-                                    //結束
-                                }
-                            });
-                        }
-                        auto_or_not.setPositiveButton("手動模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface _dialog, int _which) {
-                                try {
-                                    _openapp();
-                                    showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
-                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
-                                } catch (Exception e) {
-                                    showMessage("play商店政策因素\n暫時移除自行安裝功能");
-                                    showMessage("請自行下載MT管理器後安裝");
-                                    Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
-                                    startActivity(playstore);
-                                }
-                            }
-                        });
-                        auto_or_not.setNeutralButton("自動模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface _dialog, int _which) {
-                                showMessage("啟用過程請勿跳離畫面");
-                                FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
-                                _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/EN/"+(EU_Ver), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/");
-                                showMessage("1 / 3 步驟啟用完成");
-                                FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/", sound_list);
-                                count=sound_list.size();
-                                final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
-                                prog.setIcon(R.drawable.downloadlogo);
-                                prog.setMax(100);
-                                prog.setIndeterminate(true);
-                                prog.setCancelable(false);
-                                prog.setCanceledOnTouchOutside(false);
-                                prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
+                        LinkStart_R("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/EN/"+(EU_Ver));
 
-                                            try {
-                                                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
-                                                try{
-                                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                                } catch (FileNotFoundException e) {
-                                                }
-                                            } catch (Exception e) {
-                                            }
-                                            uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
-                                            _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/"+Uri.parse(sound_list.get(count - 1)).getLastPathSegment());
-                                            count--;
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    prog.setTitle("2 / 3 步驟啟用中...");
-                                                    prog.setMessage("\n剩餘檔案數量："+count);
-                                                    prog.show();
-                                                    if (count == 0) {
-                                                        prog.dismiss();
-                                                        sound_list.clear();
-                                                        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/", sound_list);
-                                                        count=sound_list.size();
-                                                        final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
-                                                        prog.setIcon(R.drawable.downloadlogo);
-                                                        prog.setMax(100);
-                                                        prog.setIndeterminate(true);
-                                                        prog.setCancelable(false);
-                                                        prog.setCanceledOnTouchOutside(false);
-                                                        prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                                        prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
-                                                        new Thread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
-                                                                    if (!Uri.parse(sound_list.get((count - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
-                                                                        try {
-                                                                            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
-                                                                            try{
-                                                                                DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                                                            } catch (FileNotFoundException e) {
-                                                                            }
-                                                                        } catch (Exception e) {
-                                                                        }
-                                                                        uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-                                                                        _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/"+Uri.parse(sound_list.get(count - 1)).getLastPathSegment());
-                                                                    }
-                                                                    count--;
-                                                                    runOnUiThread(new Runnable() {
-                                                                        @Override
-                                                                        public void run() {
-                                                                            prog.setTitle("3 / 3 步驟啟用中...");
-                                                                            prog.setMessage("\n剩餘檔案數量："+count);
-                                                                            prog.show();
-                                                                            if (count == 0) {
-                                                                                prog.dismiss();
-                                                                                sound_list.clear();
-                                                                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
-                                                                                showMessage("完成");
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        }).start();
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                }).start();
-                            }
-                        });
-                        auto_or_not.create().show();
                     } else {
                         _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/EN/".concat(EU_Ver), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
                         showMessage("完成");
@@ -612,8 +330,6 @@ public class VoiceActivity extends AppCompatActivity {
                 } else {
                     if (mInterstitialAd != null) {
                         mInterstitialAd.show(VoiceActivity.this);
-                    } else {
-
                     }
                     FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));
                     FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));
@@ -628,158 +344,9 @@ public class VoiceActivity extends AppCompatActivity {
             public void onClick(View _view) {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/KR_DLC.∠( ᐛ 」∠)＿")) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        auto_or_not.setTitle("提示");
-                        auto_or_not.setIcon(R.drawable.downloadlogo);
-                        auto_or_not.setMessage("使用自動模式或手動模式？\n自動模式速度較慢，但無須使用MT管理器手動啟用\n手動模式即使用MT管理器按照教學影片進行啟用");
-                        if (haveSU) {
-                            auto_or_not.setNegativeButton("root自動模式(快)", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface _dialog, int _which) {
-                                    ProgressBar_Show("請稍等...");
-                                    new BackgroundTaskClass(VoiceActivity.this){
-                                        @Override
-                                        public void doInBackground() {
-                                            Looper.prepare();
-                                            FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
-                                            _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/KR_DLC.∠( ᐛ 」∠)＿", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android/");
-                                        }
-                                        @Override
-                                        public void onPostExecute(){
-                                            ProgressBar_Dismiss();
 
-                                            ProgressBar_Show("啟用中...");
-                                            new BackgroundTaskClass(VoiceActivity.this){
-                                                @Override
-                                                public void doInBackground() {
-                                                    Looper.prepare();
-                                                    //root複製
-                                                    CopyWithhaveSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android", true);
-                                                }
-                                                @Override
-                                                public void onPostExecute(){
-                                                    ProgressBar_Dismiss();
-                                                    showMessage("完成");
-                                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
-                                                }
-                                            }.execute();
-                                            //結束
-                                        }
-                                    }.execute();
-                                    //結束
-                                }
-                            });
-                        }
-                        auto_or_not.setPositiveButton("手動模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface _dialog, int _which) {
-                                try {
-                                    _openapp();
-                                    showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
-                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
-                                } catch (Exception e) {
-                                    showMessage("play商店政策因素\n暫時移除自行安裝功能");
-                                    showMessage("請自行下載MT管理器後安裝");
-                                    Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
-                                    startActivity(playstore);
-                                }
-                            }
-                        });
-                        auto_or_not.setNeutralButton("自動模式", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface _dialog, int _which) {
-                                showMessage("啟用過程請勿跳離畫面");
-                                FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
-                                _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/KR_DLC.∠( ᐛ 」∠)＿", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/");
-                                showMessage("1 / 3 步驟啟用完成");
-                                FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/", sound_list);
-                                count=sound_list.size();
-                                final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
-                                prog.setIcon(R.drawable.downloadlogo);
-                                prog.setMax(100);
-                                prog.setIndeterminate(true);
-                                prog.setCancelable(false);
-                                prog.setCanceledOnTouchOutside(false);
-                                prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
+                        LinkStart_R("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/KR_DLC.∠( ᐛ 」∠)＿");
 
-                                            try {
-                                                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
-                                                try{
-                                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                                } catch (FileNotFoundException e) {
-                                                }
-                                            } catch (Exception e) {
-                                            }
-                                            uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
-                                            _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/"+Uri.parse(sound_list.get(count - 1)).getLastPathSegment());
-                                            count--;
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    prog.setTitle("2 / 3 步驟啟用中...");
-                                                    prog.setMessage("\n剩餘檔案數量："+count);
-                                                    prog.show();
-                                                    if (count == 0) {
-                                                        prog.dismiss();
-                                                        sound_list.clear();
-                                                        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/", sound_list);
-                                                        count=sound_list.size();
-                                                        final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
-                                                        prog.setIcon(R.drawable.downloadlogo);
-                                                        prog.setMax(100);
-                                                        prog.setIndeterminate(true);
-                                                        prog.setCancelable(false);
-                                                        prog.setCanceledOnTouchOutside(false);
-                                                        prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                                                        prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
-                                                        new Thread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                for(int _repeat96 = 0; _repeat96 < (int)(sound_list.size()); _repeat96++) {
-
-                                                                    if (!Uri.parse(sound_list.get((count - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
-                                                                        try {
-                                                                            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list.get((count - 1))).getLastPathSegment());
-                                                                            try{
-                                                                                DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                                                                            } catch (FileNotFoundException e) {
-                                                                            }
-                                                                        } catch (Exception e) {
-                                                                        }
-                                                                        uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-                                                                        _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/"+Uri.parse(sound_list.get(count - 1)).getLastPathSegment());
-                                                                    }
-                                                                    count--;
-                                                                    runOnUiThread(new Runnable() {
-                                                                        @Override
-                                                                        public void run() {
-                                                                            prog.setTitle("3 / 3 步驟啟用中...");
-                                                                            prog.setMessage("\n剩餘檔案數量："+count);
-                                                                            prog.show();
-                                                                            if (count == 0) {
-                                                                                prog.dismiss();
-                                                                                sound_list.clear();
-                                                                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
-                                                                                showMessage("完成");
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        }).start();
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                }).start();
-                            }
-                        });
-                        auto_or_not.create().show();
                     } else {
                         _unzip("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/KR_DLC.∠( ᐛ 」∠)＿", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
                         showMessage("完成");
@@ -787,8 +354,6 @@ public class VoiceActivity extends AppCompatActivity {
                 } else {
                     if (mInterstitialAd != null) {
                         mInterstitialAd.show(VoiceActivity.this);
-                    } else {
-
                     }
                     FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice"));
                     _Download_Plugins("https://www.dropbox.com/s/lgaf0isyyxrddnn/KR_DLC.%E2%88%A0%28%20%E1%90%9B%20%E3%80%8D%E2%88%A0%29%EF%BC%BF?dl=1", "Android/data/com.aoveditor.phantomsneak/files/2-voice", "/");
@@ -860,9 +425,6 @@ public class VoiceActivity extends AppCompatActivity {
         _string_skin_child_listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot _param1, String _param2) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
                 string_skin.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot _dataSnapshot) {
@@ -886,35 +448,21 @@ public class VoiceActivity extends AppCompatActivity {
                     }
                 });
             }
-
             @Override
             public void onChildChanged(DataSnapshot _param1, String _param2) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
             }
-
             @Override
             public void onChildMoved(DataSnapshot _param1, String _param2) {
-
             }
-
             @Override
             public void onChildRemoved(DataSnapshot _param1) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
-
             }
-
             @Override
             public void onCancelled(DatabaseError _param1) {
-                final int _errorCode = _param1.getCode();
-                final String _errorMessage = _param1.getMessage();
-
             }
         };
         string_skin.addChildEventListener(_string_skin_child_listener);
+
 
         _net_request_listener = new RequestNetwork.RequestListener() {
             @Override
@@ -939,8 +487,6 @@ public class VoiceActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(String _param1, String _param2) {
-                final String _tag = _param1;
-                final String _message = _param2;
                 internet = 0;
                 dialog.setTitle("錯誤");
                 dialog.setMessage("目前網路不可用，請檢查是否連接了可用的Wifi或行動網路");
@@ -958,9 +504,6 @@ public class VoiceActivity extends AppCompatActivity {
         _DLC_child_listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot _param1, String _param2) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
                 DLC.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot _dataSnapshot) {
@@ -993,46 +536,23 @@ public class VoiceActivity extends AppCompatActivity {
                         } else {
                             textview10.setText("當前版本：".concat(Uri.parse(EN.get((int)(0))).getLastPathSegment()));
                         }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //讓root的安卓11以上可用root模式啟用(もっと速く)
-                            new Thread() {
-                                public void run() {
-                                    if (_RootAccess()) {
-                                        haveSU = true;
-                                    } else {
-                                        haveSU = false;
-                                    }
-                                }
-                            }.start();
-                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError _databaseError) {
                     }
                 });
             }
-
             @Override
             public void onChildChanged(DataSnapshot _param1, String _param2) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
             }
-
             @Override
             public void onChildMoved(DataSnapshot _param1, String _param2) {
             }
-
             @Override
             public void onChildRemoved(DataSnapshot _param1) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
             }
-
             @Override
             public void onCancelled(DatabaseError _param1) {
-                final int _errorCode = _param1.getCode();
-                final String _errorMessage = _param1.getMessage();
             }
         };
         DLC.addChildEventListener(_DLC_child_listener);
@@ -1040,21 +560,42 @@ public class VoiceActivity extends AppCompatActivity {
 
     private void initializeLogic() {
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/jpv.png")) {
-            imageview16.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/jpv.png", 1024, 1024));
-        }
-        else {
+            try {
+                if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/jpv.png", "MD5"), "04F21E26961AE937932EDF6B1D307F0A")) {
+                    //校驗失敗，重新下載
+                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602057048064/jpv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview16);
+                } else {
+                    imageview16.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/jpv.png", 1024, 1024));
+                }
+            } catch (Exception e) {
+            }
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602057048064/jpv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview16);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png")) {
-            imageview18.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png", 1024, 1024));
-        }
-        else {
+            try {
+                if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png", "MD5"), "8287C9CA40EACF277FF4BC35CD119CA5")) {
+                    //校驗失敗，重新下載
+                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555601813766154/env.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview18);
+                } else {
+                    imageview18.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png", 1024, 1024));
+                }
+            } catch (Exception e) {
+            }
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555601813766154/env.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview18);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png")) {
-            imageview23.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png", 1024, 1024));
-        }
-        else {
+            try {
+                if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png", "MD5"), "A6D227BE3B42F6650C187993FFD21CE7")) {
+                    //校驗失敗，重新下載
+                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602342248498/krv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview23);
+                } else {
+                    imageview23.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png", 1024, 1024));
+                }
+            } catch (Exception e) {
+            }
+        } else {
             DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602342248498/krv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview23);
         }
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
@@ -1086,42 +627,18 @@ public class VoiceActivity extends AppCompatActivity {
     }
 
 
-    public void _Download(final String _url, final String _path) {
-        try{
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse( _url));
-            request.setMimeType(this.getContentResolver().getType(Uri.parse(_url)));
-            String cookies = CookieManager.getInstance().getCookie(_url);
-            request.addRequestHeader("cookie", cookies);
-            //request.addRequestHeader("User-Agent", tab.getSettings().getUserAgentString());
-            request.setDescription("正在下載插件");
-            request.setTitle(URLUtil.guessFileName(_url,"",""));
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                Uri destinationUri = Uri.fromFile(new File("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/"+URLUtil.guessFileName(_url,"","")));
-                request.setDestinationUri (destinationUri);
-            }else{
-                request.setDestinationInExternalPublicDir( _path.equals("")?Environment.DIRECTORY_DOWNLOADS:_path, URLUtil.guessFileName(_url,"",""));
-            }
-            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE); dm.enqueue(request);
-            showMessage("正在下載插件...");
-        }catch(Exception e){
-            showMessage(e.toString());
-        }
-    }
-
-
     public void _unzip(final String _fileZip, final String _destDir) {
         try{
             java.io.File outdir = new java.io.File(_destDir);
             java.util.zip.ZipInputStream zin = new java.util.zip.ZipInputStream(new java.io.FileInputStream(_fileZip));
             java.util.zip.ZipEntry entry;
             String name, dir;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) //重要！！！
+                dalvik.system.ZipPathValidator.clearCallback();
             while ((entry = zin.getNextEntry()) != null){
 
                 name = entry.getName();
-                if(entry.isDirectory())
-                {
+                if(entry.isDirectory()) {
                     mkdirs(outdir, name);
                     continue;
                 }
@@ -1141,7 +658,7 @@ public class VoiceActivity extends AppCompatActivity {
             }
             zin.close();
         }
-        catch (java.io.IOException e){
+        catch (java.io.IOException e) {
             e.printStackTrace();
         }
 
@@ -1176,72 +693,20 @@ public class VoiceActivity extends AppCompatActivity {
 
     public void _install_package() {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Uri uri = androidx.core.content.FileProvider.getUriForFile(getApplicationContext(), VoiceActivity.this.getPackageName() + ".provider", new java.io.File("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk"));
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile( new java.io.File("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk")), "application/vnd.android.package-archive");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
+            Uri uri = androidx.core.content.FileProvider.getUriForFile(getApplicationContext(), VoiceActivity.this.getPackageName() + ".provider", new java.io.File("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk"));
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            startActivity(intent);
         } catch (Exception rr) {
             showMessage (rr.toString());
         }
     }
 
-    // url = file path or whatever suitable URL you want.
-    public static String getMimeType(String url) {
-        String type = null;
-        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        if (extension != null) {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        }
-        return type;
-    }
-    private int count;
+
     private int internet;
-    public boolean copyFilePath2Uri(Context context, File inputfile, Uri targetUri){
-        InputStream fis = null;
-        OutputStream fos = null;
 
-        try {
-
-            ContentResolver content = context.getContentResolver();
-            fis = new FileInputStream(inputfile);
-            fos = content.openOutputStream(targetUri);
-
-            byte[] buff = new byte[1024];
-            int length = 0;
-
-            while ((length = fis.read(buff)) > 0) {
-                fos.write(buff, 0, length);
-            }
-        } catch (IOException e) {
-            return false;
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    return false;
-                }
-            }
-            if (fos != null) {
-                try {
-                    fos.close();
-
-                } catch (IOException e) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     public void DLC(String Url, String Path, ImageView view){
         Runnable updatethread = new Runnable() {
@@ -1358,40 +823,7 @@ public class VoiceActivity extends AppCompatActivity {
         new Thread(updatethread).start();
     }
 
-    public void CopyWithhaveSU(String original, String target, boolean exist_in_target_dest) {
-        String comando;
-        try {
-            if (exist_in_target_dest){ //複製覆蓋
-                String a = "cp -r " + original + " " + target;
-                int len = a.lastIndexOf("/");
-                comando = a.substring(0, len+1);
-            } else {
-                comando = "cp -r " + original + " " + target;
-            }
-            Process suProcess = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
-            os.writeBytes(comando + "\n");
-            os.flush();
-            os.writeBytes("exit\n");
-            os.flush();
-            try {
-                suProcess.waitFor();
-                if (suProcess.exitValue() != 255) {
-                    // TODO Code to run on success
-                    //showMessage("YES");
-                }else {
-                    // TODO Code to run on unsuccessful
-                    //showMessage("No1");
-                }
-            } catch (InterruptedException e) {
-                // TODO Code to run in interrupted exception
-                //showMessage("No2");
-            }
-        } catch (IOException e) {
-            // TODO Code to run in input/output exception
-            //showMessage("No3");
-        }
-    }
+
     public void showMessage(String _s) {
         Toast.makeText(getApplicationContext(), _s, Toast.LENGTH_SHORT).show();
     }
@@ -1432,76 +864,382 @@ public class VoiceActivity extends AppCompatActivity {
         prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
         prog.show();
     }
-    private void ProgressBar_Dismiss(){
-        if (prog != null){
+    private void ProgressBar_Dismiss() {
+        if (prog != null) {
             prog.dismiss();
         }
     }
 
 
-    public void _copyFilePath2Uri(final String _OriginalFilePath) {
-        File mfile6 = new File(_OriginalFilePath);
-        mfile1 = DocumentFile.fromTreeUri(this, uri2);
-
-        mfile1 = mfile1.createFile(getMimeType(_OriginalFilePath), Uri.parse(_OriginalFilePath).getLastPathSegment());
-        uri2 = mfile1.getUri();
-        if (copyFilePath2Uri(VoiceActivity.this, mfile6, uri2)) {
-            try {
-
-            } catch (Exception e) {
-
-            }
-        } else {
-            try {
-                showMessage("失敗");
-            } catch (Exception e) {
-
-            }
-        }
-
-    }
-
 
     public void _Download_Plugins(final String _url, final String _path, final String _located) {
-        try{
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse( _url));
+        try {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(_url));
             request.setMimeType(this.getContentResolver().getType(Uri.parse(_url)));
             String cookies = CookieManager.getInstance().getCookie(_url);
             request.addRequestHeader("cookie", cookies);
             //request.addRequestHeader("User-Agent", tab.getSettings().getUserAgentString());
             request.setDescription("正在下載插件");
-            request.setTitle(URLUtil.guessFileName(_url,"",""));
+            request.setTitle(URLUtil.guessFileName(_url, "", ""));
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                Uri destinationUri = Uri.fromFile(new File("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/" + _located + URLUtil.guessFileName(_url,"","")));
-                request.setDestinationUri (destinationUri);
-            }else{
-                request.setDestinationInExternalPublicDir( _path.equals("")?Environment.DIRECTORY_DOWNLOADS:_path+_located, URLUtil.guessFileName(_url,"",""));
+                Uri destinationUri = Uri.fromFile(new File("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/" + _located + URLUtil.guessFileName(_url, "", "")));
+                request.setDestinationUri(destinationUri);
+            } else {
+                request.setDestinationInExternalPublicDir(_path.equals("") ? Environment.DIRECTORY_DOWNLOADS : _path + _located, URLUtil.guessFileName(_url, "", ""));
             }
-            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE); dm.enqueue(request);
+            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+            dm.enqueue(request);
             showMessage("正在下載插件...");
-        }catch(Exception e){
+        } catch (Exception e) {
             showMessage(e.toString());
         }
     }
 
 
-    public boolean _RootAccess() {
-        if (RootTools.isRootAvailable()){
-            //該手機已root
-            try { //會跳出視窗
-                java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(new String[]{"/system/bin/su","-c","cd / && ls"}).getInputStream()).useDelimiter("\\A");
-                //true為有root且允許，false為有root但不允許
-                return !(s.hasNext() ? s.next() : "").equals("");
-            } catch (IOException e) {
-                e.printStackTrace();
+
+    private void LinkStart_R(String zip_path) {
+        auto_or_not.setTitle("提示");
+        auto_or_not.setIcon(R.drawable.downloadlogo);
+        auto_or_not.setMessage("使用自動模式或手動模式？\n自動模式速度較慢，但無須使用MT管理器手動啟用\n手動模式即使用MT管理器按照教學影片進行啟用");
+
+        if (ChooseUtilActivity.Method == "SU") {
+            if (SuperUserUtil.haveSU()) {
+                ProgressBar_Show("請稍等...");
+                new BackgroundTaskClass(VoiceActivity.this){
+                    @Override
+                    public void doInBackground() {
+                        Looper.prepare();
+                        FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
+                        _unzip(zip_path, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android/");
+                    }
+                    @Override
+                    public void onPostExecute(){
+                        ProgressBar_Dismiss();
+                        ProgressBar_Show("啟用中...");
+                        new BackgroundTaskClass(VoiceActivity.this){
+                            @Override
+                            public void doInBackground() {
+                                Looper.prepare();
+                                //root複製
+                                SuperUserUtil.cpWithSU("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/");
+                            }
+                            @Override
+                            public void onPostExecute(){
+                                ProgressBar_Dismiss();
+                                showMessage("完成");
+                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
+                            }
+                        }.execute();
+                        //結束
+                    }
+                }.execute();
+                //結束
+
+            } else {
+                showMessage("你已撤銷 root 權限");
+                MainActivity.haveSU = false;
+                Intent pageJump = new Intent();
+                pageJump.setClass(VoiceActivity.this, ChooseUtilActivity.class);
+                startActivity(pageJump);
+                finish();
+                overridePendingTransition(0, 0);
             }
-            return false;
-        }else {
-            //該手機無root
-            return false;
+
+        } else if (ChooseUtilActivity.Method == "Shizuku") {
+            /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
+            if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
+                if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                    showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
+                    Intent pageJump = new Intent();
+                    pageJump.setClass(VoiceActivity.this, ChooseUtilActivity.class);
+                    startActivity(pageJump);
+                    finish();
+                    overridePendingTransition(0, 0);
+                } else { // 這裡才能執行 shell
+
+                    if (HomeActivity.CheckPermissionSoundSuShizuku) {
+                        ProgressBar_Show("請稍等...");
+                        new BackgroundTaskClass(VoiceActivity.this){
+                            @Override
+                            public void doInBackground() {
+                                Looper.prepare();
+                                FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
+                                _unzip(zip_path, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android/");
+                            }
+                            @Override
+                            public void onPostExecute(){
+                                ProgressBar_Dismiss();
+                                //shizuku cp
+                                StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/");
+                                waitForShizukuCompletion(() ->
+                                        AfterVCPluginStart());
+                            }
+                        }.execute();
+                        //結束
+                    } else {
+                        SAF_LINKSTART(zip_path);
+                    }
+
+                }
+            } else {
+                showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
+                Intent pageJump = new Intent();
+                pageJump.setClass(VoiceActivity.this, ChooseUtilActivity.class);
+                startActivity(pageJump);
+                finish();
+                overridePendingTransition(0, 0);
+            }
+
+        } else if (ChooseUtilActivity.Method == "SAF") {
+            SAF_LINKSTART(zip_path);
         }
+
+    }
+
+
+    private void SAF_LINKSTART(String zip_path) {
+
+        auto_or_not.setPositiveButton("手動模式", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface _dialog, int _which) {
+                try {
+                    _openapp();
+                    showMessage("請參考YT影片-白魔法1.4.0 影片\n手動進行啟用");
+                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/MT_2.13.0.apk");
+                } catch (Exception e) {
+                    showMessage("play商店政策因素\n暫時移除自行安裝功能");
+                    showMessage("請自行下載MT管理器後安裝");
+                    Intent playstore = new Intent(Intent.ACTION_VIEW, Uri.parse("https://mt2.cn/download/"));
+                    startActivity(playstore);
+                }
+            }
+        });
+        auto_or_not.setNeutralButton("自動模式", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface _dialog, int _which) {
+                ArrayList<String> sound_list0 = new ArrayList<>();
+                ArrayList<String> sound_list1 = new ArrayList<>();
+                showMessage("啟用過程請勿跳離畫面");
+                ProgressBar_Show("請稍等...");
+                new BackgroundTaskClass(VoiceActivity.this){
+                    @Override
+                    public void doInBackground() {
+                        Looper.prepare();
+                        FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
+                        _unzip(zip_path, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/");
+                    }
+                    @Override
+                    public void onPostExecute(){
+                        ProgressBar_Dismiss();
+                        showMessage("1 / 3 步驟啟用完成");
+                        //內層
+                        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/", sound_list1);
+                        final int[] count1 = {sound_list1.size()};
+                        final ProgressDialog prog2 = new ProgressDialog(VoiceActivity.this);
+                        prog2.setIcon(R.drawable.downloadlogo);
+                        prog2.setMax(100);
+                        prog2.setIndeterminate(true);
+                        prog2.setCancelable(false);
+                        prog2.setCanceledOnTouchOutside(false);
+                        prog2.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        prog2.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for(int ii = 0; ii < (int)(sound_list1.size()); ii++) {
+                                    SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F"+Uri.parse(sound_list1.get((count1[0] - 1))).getLastPathSegment());
+                                    Uri uri1 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/Chinese(Taiwan)/"+Uri.parse(sound_list1.get(count1[0] - 1)).getLastPathSegment(), uri1);
+                                    count1[0]--;
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            prog2.setTitle("2 / 3 步驟啟用中...");
+                                            prog2.setMessage("\n剩餘檔案數量："+count1[0]);
+                                            prog2.show();
+                                            if (count1[0] == 0) {
+                                                prog2.dismiss();
+                                                sound_list1.clear();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }).start();
+                        //外層
+                        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/", sound_list0);
+                        final int[] count0 = {sound_list0.size()};
+                        final ProgressDialog prog = new ProgressDialog(VoiceActivity.this);
+                        prog.setIcon(R.drawable.downloadlogo);
+                        prog.setMax(100);
+                        prog.setIndeterminate(true);
+                        prog.setCancelable(false);
+                        prog.setCanceledOnTouchOutside(false);
+                        prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                        prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for(int ii = 0; ii < (int)(sound_list0.size()); ii++) {
+                                    if (!Uri.parse(sound_list0.get((count0[0] - 1))).getLastPathSegment().equals("Chinese(Taiwan)")){
+                                        SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F"+Uri.parse(sound_list0.get((count0[0] - 1))).getLastPathSegment());
+                                        Uri uri0 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
+                                        SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC/"+Uri.parse(sound_list0.get(count0[0] - 1)).getLastPathSegment(), uri0);
+                                    }
+                                    count0[0]--;
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            prog.setTitle("3 / 3 步驟啟用中...");
+                                            prog.setMessage("\n剩餘檔案數量："+count0[0]);
+                                            prog.show();
+                                            if (count0[0] == 0) {
+                                                prog.dismiss();
+                                                sound_list0.clear();
+                                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/DLC");
+                                                showMessage("完成");
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }).start();
+
+                    }
+                }.execute();
+                //解壓
+            }
+        });
+        auto_or_not.create().show();
+
+    }
+
+
+    //Shizuku啟用完成 -> 刪暫存，Toast
+    private void AfterVCPluginStart() {
+        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-voice/Android");
+        showMessage("完成");
+    }
+
+    // Shizuku 服務
+    private boolean isShizukuING = false;
+
+    private void waitForShizukuCompletion(Runnable callback) {
+        new Handler().postDelayed(() -> {
+            if (!isShizukuING) {
+                callback.run();
+            } else {
+                waitForShizukuCompletion(callback);
+            }
+        }, 100); // 每100毫秒检查一次isShizukuING是否为false
+    }
+
+
+    private void StartInitializeShell(String Command) {
+        isShizukuING = true;
+        if (mShizukuShell != null && mShizukuShell.isBusy()) {
+            mShizukuShell.destroy();
+        } else {
+            initializeShell(Command);
+        }
+    }
+
+    private void initializeShell(String mCommand) {
+        if (mCommand == null || mCommand.trim().isEmpty()) {
+            return;
+        }
+        runShellCommand(mCommand);
+    }
+
+    private void runShellCommand(String command) {
+
+        String finalCommand;
+
+        if (command.startsWith("adb shell ")) {
+            finalCommand = command.replace("adb shell ", "");
+        } else if (command.startsWith("adb -d shell ")) {
+            finalCommand = command.replace("adb -d shell ", "");
+        } else {
+            finalCommand = command;
+        }
+
+        if (finalCommand.equals("clear")) {
+            if (mResult != null) {
+                mResult.clear();
+            }
+            return;
+        }
+
+        if (finalCommand.startsWith("su")) {
+            showMessage("去你的，請勿使用 su 指令");
+            return;
+        }
+
+        if (mResult == null) {
+            mResult = new ArrayList<>();
+        }
+        mResult.add(finalCommand);
+
+        ExecutorService mExecutors = Executors.newSingleThreadExecutor();
+
+        final ProgressDialog prog = new ProgressDialog(this);
+        prog.setIcon(R.drawable.downloadlogo);
+        prog.setMax(100);
+        prog.setIndeterminate(true);
+        prog.setCancelable(false);
+        prog.setMessage("請稍後...");
+        prog.setCanceledOnTouchOutside(false);
+        prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
+
+        prog.show();
+
+        mExecutors.execute(() -> {
+            if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+                mShizukuShell = new ShizukuShellUtil(mResult, finalCommand);
+                mShizukuShell.exec();
+                try {
+                    TimeUnit.MILLISECONDS.sleep(250);
+                } catch (InterruptedException ignored) {}
+
+            } else {
+                new MaterialAlertDialogBuilder(this)
+                        .setCancelable(false)
+                        .setTitle(getString(R.string.app_name))
+                        .setMessage("權限請求失敗")
+                        .setNegativeButton("結束", (dialogInterface, i) -> finishAffinity())
+                        .setPositiveButton("請求", (dialogInterface, i) -> Shizuku.requestPermission(0)
+                        ).show();
+            }
+
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                    new MaterialAlertDialogBuilder(this)
+                            .setCancelable(false)
+                            .setTitle(getString(R.string.app_name))
+                            .setMessage("權限請求失敗")
+                            .setNegativeButton("結束", (dialogInterface, i) -> finishAffinity())
+                            .setPositiveButton("請求", (dialogInterface, i) -> Shizuku.requestPermission(0)
+                            ).show();
+                }
+                if (mResult != null && mResult.size() > 0) {
+                    mResult.add("<i></i>");
+                    mResult.add("aShell: Finish");
+                }
+            });
+
+            if (!mExecutors.isShutdown()) {
+                mExecutors.shutdown();
+                runOnUiThread(() -> {
+                    //showMessage("完成");
+                    prog.dismiss();
+                    isShizukuING = false;
+                });
+            }
+
+        });
     }
 
 }

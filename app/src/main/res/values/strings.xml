@@ -1,5 +1,5 @@
 <resources>
-	<string name="app_name" translatable="false">白魔法</string>
-	<string name="ad1" translatable="false">ca-app-pub-3897977034034314/1890006363</string>
-	<string name="banner1" translatable="false">ca-app-pub-3897977034034314/3959418899</string>
+    <string name="app_name" translatable="false">白魔法</string>
+    <string name="ad1" translatable="false">ca-app-pub-3897977034034314/1890006363</string>
+    <string name="banner1" translatable="false">ca-app-pub-3897977034034314/3959418899</string>
 </resources>

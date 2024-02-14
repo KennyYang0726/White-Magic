@@ -47,7 +47,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="目前版本：1.5.4"
+						android:text="目前版本：1.5.5"
 						android:textSize="20sp"
 						android:textStyle="bold"
 						android:textColor="#FFFFFF"
@@ -57,7 +57,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:padding="8dp"
-						android:text="最新版本：1.5.4"
+						android:text="最新版本：1.5.5"
 						android:textSize="20sp"
 						android:textStyle="bold"
 						android:textColor="#FFFFFF"
@@ -170,6 +170,17 @@
 					android:textSize="16sp"
 					android:textStyle="bold|italic"
 					android:textColor="#EF6C00" />
+				<Button
+					android:id="@+id/button4"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="8dp"
+					android:layout_marginRight="8dp"
+					android:padding="8dp"
+					android:text="⚠️ 強制修復資源無法下載 ⚠️"
+					android:textColor="#FF1100"
+					android:textSize="16sp"
+					android:textStyle="bold|italic" />
 				<com.google.android.gms.ads.AdView
 					xmlns:ads="http://schemas.android.com/apk/res-auto"
 					android:id="@+id/banner0"

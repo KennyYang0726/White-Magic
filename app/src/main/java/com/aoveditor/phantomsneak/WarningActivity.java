@@ -32,16 +32,6 @@ public class WarningActivity extends AppCompatActivity {
     private int c1;
     private int c2;
     private int c3;
-    private int ISPDiff_access;
-    private int extra_access;
-    private Uri uriA;
-
-    private LinearLayout linear1;
-    private LinearLayout linear2;
-    private TextView textview2;
-    private LinearLayout linear3;
-    private ImageView imageview1;
-    private TextView textview1;
     private Button button1;
     private Button button2;
 
@@ -59,12 +49,6 @@ public class WarningActivity extends AppCompatActivity {
     }
 
     private void initialize(Bundle _savedInstanceState) {
-        linear1 = findViewById(R.id.linear1);
-        linear2 = findViewById(R.id.linear2);
-        textview2 = findViewById(R.id.textview2);
-        linear3 = findViewById(R.id.linear3);
-        imageview1 = findViewById(R.id.imageview1);
-        textview1 = findViewById(R.id.textview1);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
 
@@ -82,25 +66,24 @@ public class WarningActivity extends AppCompatActivity {
             @Override
             public void onClick(View _view) {
                 if (can_press_ok) {
-                    if (extra_access == 0){
+                    if (HomeActivity.extra_access == "❌"){
                         renameTo("/files/Extra/2019.V2", "Sound_DLC", "Sound_DLC_"+str1);
                         showMessage("①已自動授權完成");
                     }else{
                         showMessage("①無須自動授權");
                     }
-                    if (ISPDiff_access == 0){
+                    if (HomeActivity.ISPDiff_access == "❌"){
                         renameTo("/files/Extra/2019.V2", "ISPDiff", "ISPDiff_"+str1);
                         showMessage("②已自動授權完成");
                     }else{
                         showMessage("②無須自動授權");
                     }
-                    showMessage("請再次點擊「重新檢測」");
+                    if (ChooseUtilActivity.Method == "SAF") {
+                        showMessage("請再次點擊「重新檢測」");
+                    }
                     page.setClass(getApplicationContext(), HomeActivity.class);
                     startActivity(page);
                     overridePendingTransition(0, 0);
-                }
-                else {
-
                 }
             }
         });
@@ -115,9 +98,8 @@ public class WarningActivity extends AppCompatActivity {
         c3 = getRandom((int)(0), (int)(61));
         str1 = (letter1.substring(c1, c1+1)+letter2.substring(c2, c2+1)+letter3.substring(c3, c3+1));
         can_press_ok = false;
-        cnt_down = 10;
-        createdirectoryandfile("/files/Extra/2019.V2/ISPDiff/LobbyMovie", "Extra%2F2019.V2%2FISPDiff%2FLobbyMovie%2Ftest.txt");
-        createdirectoryandfile("/files/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)", "Extra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2Ftest.txt");
+        cnt_down = 5;
+
         t_cnt = new TimerTask() {
             @Override
             public void run() {
@@ -188,55 +170,6 @@ public class WarningActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
             return false;
-        }
-    }
-
-    public void createdirectoryandfile(String dir, String uridelete) {
-        try {
-            Uri uri1 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
-            DocumentFile documentFile = DocumentFile.fromTreeUri(WarningActivity.this, uri1);
-            String[] list = dir.split("/");
-            int i = 0;
-            while (i < list.length) {
-                if (!list[i].equals("")) {
-                    DocumentFile a = getDocumentFile1(documentFile, list[i]);
-                    if (a == null) {
-                        documentFile = documentFile.createDirectory(list[i]);
-                    } else {
-                        documentFile = a;
-                    }
-                }
-                i++;
-            }
-            documentFile=documentFile.createFile("text/plain", "test.txt");
-            //uridelete="Extra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2Ftest.txt"
-            //uridelete="CDNImage%2FVideo%2FLobbyMovie%2Ftest.txt"
-            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2F"+uridelete);
-            if (uridelete.contains("Sound_DLC")){
-                try {
-                    try{
-                        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                        extra_access = 1;
-                    } catch (FileNotFoundException e) {
-
-                    }
-                } catch (Exception e) {
-                    extra_access = 0;
-                }
-            } else if (uridelete.contains("LobbyMovie")){
-                try {
-                    try{
-                        DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                        ISPDiff_access = 1;
-                    } catch (FileNotFoundException e) {
-
-                    }
-                } catch (Exception e) {
-                    ISPDiff_access = 0;
-                }
-            }
-        }catch (Exception e){
-
         }
     }
 

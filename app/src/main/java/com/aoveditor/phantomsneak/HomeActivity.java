@@ -7,55 +7,43 @@ import android.app.*;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.*;
-import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.*;
 import android.graphics.*;
 import android.graphics.drawable.*;
-import android.media.*;
-import android.net.*;
 import android.net.Uri;
 import android.os.*;
 import android.text.*;
 import android.text.style.*;
-import android.util.*;
+import android.util.Log;
 import android.view.*;
 import android.view.View;
-import android.view.View.*;
 import android.view.animation.*;
 import android.webkit.*;
 import android.widget.*;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import androidx.*;
 import androidx.annotation.*;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager.widget.ViewPager.OnAdapterChangeListener;
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
 import com.bumptech.glide.Glide;
-import com.example.RootTools.*;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -64,35 +52,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.ktx.*;
-import com.stericson.RootShell.*;
 import java.io.*;
-import java.text.*;
-import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.*;
-
-import org.jetbrains.annotations.NotNull;
-import org.json.*;
-import java.io.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.*;
 import android.provider.DocumentsContract;
-import android.provider.DocumentsContract.Document;
 import android.provider.Settings;
-import android.database.*;
 import androidx.documentfile.provider.DocumentFile;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import android.content.res.AssetFileDescriptor;
-
-import com.stericson.RootTools.*;
 import android.os.Looper;
-import java.lang.Process;
+
+import com.aoveditor.phantomsneak.Utils.FileUtil;
+import com.aoveditor.phantomsneak.Utils.SuperUserUtil;
+import com.aoveditor.phantomsneak.Utils.ShizukuShellUtil;
+import com.aoveditor.phantomsneak.Utils.SAFUtil;
+import com.aoveditor.phantomsneak.network.RequestNetwork;
+import com.aoveditor.phantomsneak.network.RequestNetworkController;
+
+import rikka.shizuku.Shizuku;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -118,52 +104,36 @@ public class HomeActivity extends AppCompatActivity {
     private String lobby_string = "";
     private String other_string = "";
     private boolean quit = false;
-    private Uri uriC;
     private String game_ver = "";
     private String language = "";
     private String res_access = "";
-    private String extra_access = "";
+    public static String extra_access = "";
     private String tip_open = "";
     private String tip = "";
     private String last_ver2 = "";
-    private String ISPDiff_access = "";
+    public static String ISPDiff_access = "";
     private int re_scan_cnt = 0;
     private boolean test_ver = false;
     private static final int PERMISSION_REQUEST_CODE = 200;
-    private boolean first_install = false;
-    private boolean haveSU = false;
+    private boolean first_install = true;
+
 
     private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> map_view = new ArrayList<>();
     private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
-
-    private ScrollView vscroll1;
-    private LinearLayout linear7;
     private LinearLayout linear1;
-    private LinearLayout linear2;
     private ViewPager viewpager1;
-    private TextView textview3;
-    private TextView textview4;
-    private ImageView imageview3;
-    private TextView textview5;
-    private TextView textview6;
-    private ImageView imageview4;
-    private TextView textview9;
-    private ImageView imageview5;
-    private LinearLayout linear4;
     private Button button1;
     private TextView textview1;
     private TextView textview2;
     private Button button2;
-    private ImageView imageview6;
     private Button button3;
+    private Button button4; // 強制修復資源無法下載
     private AdView banner0;
-    private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
     private ImageView imageview10;
     private ImageView imageview11;
-
     private Intent i = new Intent();
     private SharedPreferences sp;
     private DatabaseReference Ver = _firebase.getReference("version");
@@ -176,14 +146,17 @@ public class HomeActivity extends AppCompatActivity {
     private RequestNetwork.RequestListener _net_request_listener;
     private AlertDialog.Builder dialog;
     private AlertDialog.Builder delete;
-    private TimerTask t_rename_test;
     private AlertDialog.Builder hint;
     private DatabaseReference hints = _firebase.getReference("hint");
     private ChildEventListener _hints_child_listener;
     private TimerTask firsttime_getmyver;
     private TimerTask t_internet;
     private TimerTask t_permission_delay;
-    private AlertDialog.Builder res;
+
+    private ShizukuShellUtil mShizukuShell = null;
+    private List<String> mResult = null;
+    public static boolean CheckPermissionSoundSuShizuku = false;
+    private ProgressDialog pp;
 
     @Override
     protected void onCreate(Bundle _savedInstanceState) {
@@ -212,33 +185,38 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {  //非常重要！！！
+        super.onDestroy();
+        if (ChooseUtilActivity.Method == "Shizuku") {
+            if (mResult == null)
+                mResult = new ArrayList<>();
+            mResult.add("<i></i>");
+            mResult.add("aShell: Finish");
+            try {
+                if (mShizukuShell != null)
+                    mShizukuShell.destroy();
+            } catch (Exception r) {
+            }
+
+        }
+    }
+
     private void initialize(Bundle _savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         _app_bar = findViewById(R.id._app_bar);
         _coordinator = findViewById(R.id._coordinator);
         _toolbar = findViewById(R.id._toolbar);
         setSupportActionBar(_toolbar);
-        vscroll1 = findViewById(R.id.vscroll1);
-        linear7 = findViewById(R.id.linear7);
         linear1 = findViewById(R.id.linear1);
-        linear2 = findViewById(R.id.linear2);
         viewpager1 = findViewById(R.id.viewpager1);
-        textview3 = findViewById(R.id.textview3);
-        textview4 = findViewById(R.id.textview4);
-        imageview3 = findViewById(R.id.imageview3);
-        textview5 = findViewById(R.id.textview5);
-        textview6 = findViewById(R.id.textview6);
-        imageview4 = findViewById(R.id.imageview4);
-        textview9 = findViewById(R.id.textview9);
-        imageview5 = findViewById(R.id.imageview5);
-        linear4 = findViewById(R.id.linear4);
         button1 = findViewById(R.id.button1);
         textview1 = findViewById(R.id.textview1);
         textview2 = findViewById(R.id.textview2);
         button2 = findViewById(R.id.button2);
-        imageview6 = findViewById(R.id.imageview6);
         button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
         banner0 = findViewById(R.id.banner0);
-        imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
         imageview10 = findViewById(R.id.imageview10);
@@ -248,7 +226,6 @@ public class HomeActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this);
         delete = new AlertDialog.Builder(this);
         hint = new AlertDialog.Builder(this);
-        res = new AlertDialog.Builder(this);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         banner0.loadAd(adRequest);
@@ -294,46 +271,96 @@ public class HomeActivity extends AppCompatActivity {
                 delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface _dialog, int _which) {
+
+                        String path_res = "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources";
+                        String path_sound = "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC";
+                        String path_lobbymovie = "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie";
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources");
-                            try {
-                                try{
-                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
 
-                                } catch (FileNotFoundException e) {
+                            if (ChooseUtilActivity.Method == "SAF") {
+                                // Resources
+                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources");
+                                // Sound_DLC
+                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
+                                // LobbyMovie
+                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie");
+                                showMessage("還原完畢！");
+                                LaunchAOV();
 
+                            } else if (ChooseUtilActivity.Method == "SU") {
+                                if (SuperUserUtil.haveSU()) {
+                                    SuperUserUtil.rmWithSU(path_res);
+                                    SuperUserUtil.rmWithSU(path_sound);
+                                    SuperUserUtil.rmWithSU(path_lobbymovie);
+                                    showMessage("還原完畢！");
+                                    LaunchAOV();
+                                } else {
+                                    showMessage("你已撤銷 root 權限");
+                                    MainActivity.haveSU = false;
+                                    Intent pageJump = new Intent();
+                                    pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                    startActivity(pageJump);
+                                    finish();
+                                    overridePendingTransition(0, 0);
                                 }
-                            } catch (Exception e) {
+
+                            } else if (ChooseUtilActivity.Method == "Shizuku") {
+
+                                /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
+                                if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
+                                    if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                                        showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
+                                        Intent pageJump = new Intent();
+                                        pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                        startActivity(pageJump);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                    } else { // 這裡才能執行 shell
+                                        if (!CheckPermissionSoundSuShizuku) {
+                                            //SAF Extra, Shizuku Res
+                                            // Sound_DLC
+                                            SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
+                                            // LobbyMovie
+                                            SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie");
+                                            StartInitializeShell("rm -r " + path_res);
+                                            showMessage("還原完畢！");
+                                            waitForShizukuCompletion(() ->
+                                                    LaunchAOV());
+
+                                        } else {
+                                            //Shizuku ALL
+                                            StartInitializeShell("rm -r " + path_lobbymovie);
+                                            waitForShizukuCompletion(() -> {
+                                                StartInitializeShell("rm -r " + path_lobbymovie);
+                                                waitForShizukuCompletion(() -> {
+                                                    StartInitializeShell("rm -r " + path_res);
+                                                    waitForShizukuCompletion(() -> {
+                                                        showMessage("還原完畢！");
+                                                        LaunchAOV();
+                                                    });
+                                                });
+                                            });
+
+                                        }
+
+                                    }
+                                } else {
+                                    showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
+                                    Intent pageJump = new Intent();
+                                    pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                    startActivity(pageJump);
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                }
 
                             }
-                            uriB = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
-                            try {
-                                try{
-                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriB);
-
-                                } catch (FileNotFoundException e) {
-
-                                }
-                            } catch (Exception e) {
-
-                            }
-                            uriC = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie");
-                            try {
-                                try{
-                                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriC);
-
-                                } catch (FileNotFoundException e) {
-
-                                }
-                            } catch (Exception e) {
-
-                            }
-                            showMessage("還原完畢！");
                         } else {
-                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
-                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
-                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie");
+                            FileUtil.deleteFile(path_res);
+                            FileUtil.deleteFile(path_sound);
+                            FileUtil.deleteFile(path_lobbymovie);
                             showMessage("還原完畢！");
+                            LaunchAOV();
                         }
                     }
                 });
@@ -341,6 +368,62 @@ public class HomeActivity extends AppCompatActivity {
                 delete.create().show();
             }
         });
+
+        button4.setOnClickListener(new View.OnClickListener() {  /**強制修復資源無法下載*/
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder force_rmRES = new AlertDialog.Builder(HomeActivity.this);
+                final ImageView force_rmRES_IMG = new ImageView(HomeActivity.this);
+                force_rmRES_IMG.setImageResource(R.drawable.force_rm_res);
+                force_rmRES_IMG.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                force_rmRES.setTitle("⚠ 警告！ ⚠")
+                        .setMessage("此按鈕是設計給未 root 使用者以 shizuku 啟用後，不幸按了遊戲內建「一鍵恢復」的使用者(通常發生於該狀況)，或是卡加載畫面約86%左右的使用者，點擊「確認」以修復遇到圖片中的問題\n若仍然卡讀取，請試著換一種存取模式試試")
+                        .setView(force_rmRES_IMG)
+                        .setCancelable(false)
+                        .setNeutralButton("取消", null);
+
+                if (ChooseUtilActivity.Method == "SU") {
+                    if (SuperUserUtil.haveSU()) {
+                        //以 su 刪除資源
+                        force_rmRES.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SuperUserUtil.rmWithSU("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
+                                LaunchAOV();
+                            }
+                        });
+                        force_rmRES.create().show();
+
+                    } else {
+                        showMessage("你已撤銷 root 權限");
+                        MainActivity.haveSU = false;
+                        Intent pageJump = new Intent();
+                        pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                        startActivity(pageJump);
+                        finish();
+                        overridePendingTransition(0, 0);
+                    }
+
+                } else if (ChooseUtilActivity.Method == "SAF") {
+                    renameTo("/files/Resources", game_ver, game_ver+"_8964");
+                    LaunchAOV();
+                } else if (ChooseUtilActivity.Method == "Shizuku") {
+                    //以 shell 刪除資源
+                    force_rmRES.setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            StartInitializeShell("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver);
+                            waitForShizukuCompletion(() ->
+                                    Shizuku可能造成卡讀取之判斷());
+                        }
+                    });
+                    force_rmRES.create().show();
+
+                }
+            }
+        });
+
 
         imageview8.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -604,9 +687,6 @@ public class HomeActivity extends AppCompatActivity {
                         language = map2.get((int)0).get("language").toString();
                         tip_open = map2.get((int)0).get("hint_open").toString();
                         tip = map2.get((int)0).get("hint").toString();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            _get_permission();
-                        }
                         if (lobby_string.contains("更新")) {
                             FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"));
                             FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"));
@@ -620,27 +700,8 @@ public class HomeActivity extends AppCompatActivity {
                             hint.setIcon(R.drawable.downloadlogo);
                             hint.setMessage(tip.substring((int)(0), (int)(11)).concat("\n").concat(tip.substring((int)(11), (int)(22)).concat("\n")).concat(tip.substring((int)(22), (int)(33)).concat("\n").concat(tip.substring((int)(33), (int)(44)).concat("\n".concat(tip.substring(44))))));
                             hint.setCancelable(false);
-                            hint.setPositiveButton("確認", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface _dialog, int _which) {
-
-                                }
-                            });
+                            hint.setPositiveButton("確認", null);
                             hint.create().show();
-                        } else {
-
-                        }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //讓root的安卓11以上可用root模式啟用(もっと速く)
-                            new Thread() {
-                                public void run() {
-                                    if (_RootAccess()) {
-                                        haveSU = true;
-                                    }
-                                    else {
-                                        haveSU = false;
-                                    }
-                                }
-                            }.start();
                         }
                     }
                     @Override
@@ -784,6 +845,13 @@ public class HomeActivity extends AppCompatActivity {
             map_view.add(_item);
         }
 
+        //btn4的隱藏與否
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            button4.setVisibility(View.VISIBLE);
+        } else {
+            button4.setVisibility(View.GONE);
+        }
+
         viewpager1.setAdapter(new Viewpager1Adapter(map_view));
         re_scan_cnt = 0;
         pos = 0;
@@ -792,35 +860,64 @@ public class HomeActivity extends AppCompatActivity {
             your_version = pinfo.versionName;
             textview1.setText("目前版本："+your_version);
         }catch (Exception e){
-
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            try {
-                muri = Uri.parse(sp.getString("DIRECT_FOLDER_URI", ""));
-                mfile = DocumentFile.fromTreeUri(this, muri);
 
-                if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
-                    first_install = false;
-                    _askPermission(linear1);
-                }
-                if (!mfile.canRead() || !mfile.canWrite()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+
+            if (ChooseUtilActivity.Method == "Shizuku") {
+                //檢測是否有權限直接以 shizuku 寫入 Sound 目錄，是的話就是以root啟用服務或SUI使用者
+                pp = new ProgressDialog(HomeActivity.this);
+                pp.setMessage("請稍等...");
+                pp.setCancelable(false);
+                pp.show();
+                new BackgroundTaskClass(HomeActivity.this){
+                    @Override
+                    public void doInBackground() {
+                        Looper.prepare();
+                        FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                        _save("8964", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "Voice_JuWai.bnk");
+                    }
+                    @Override
+                    public void onPostExecute(){
+                        //存入tmp完成，嘗試列檔案，怕被卡bug，也就是讓系統自動授權後，存在目錄但不存在檔案
+                        initializeShell("ls -s /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese\\(Taiwan\\)/Voice_JuWai.bnk");
+                        waitForShizukuCompletion(() ->
+                                CheckPermissionSoundSuShizuku());
+                    }
+                }.execute();
+                //結束
+            }
+
+            if (ChooseUtilActivity.Method == "SAF") {
+                //如果選擇SAF，才要檢查授權
+                try {
+                    muri = Uri.parse(sp.getString("DIRECT_FOLDER_URI", ""));
+                    mfile = DocumentFile.fromTreeUri(HomeActivity.this, muri);
+
+                    if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
+                        first_install = false;
+                        _askPermission(linear1);
+                    }
+                    if (!mfile.canRead() || !mfile.canWrite()) {
+                        first_install = true;
+                        _askPermission(linear1);
+                    } else {
+                        parenturi = Uri.parse(sp.getString("FOLDER_URI", ""));
+                        first_install = false;
+                        _get_permission();
+                    }
+                } catch (Exception e) {
                     first_install = true;
                     _askPermission(linear1);
-                } else {
-                    parenturi = Uri.parse(sp.getString("FOLDER_URI", ""));
-                    first_install = false;
                 }
-            } catch (Exception e) {
-                first_install = true;
-                _askPermission(linear1);
             }
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
                     showMessage("無通知權限");
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
                 }
             }
-        } else{
         }
         t_pager = new TimerTask() {
             @Override
@@ -869,45 +966,23 @@ public class HomeActivity extends AppCompatActivity {
 
                     }
                     if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
-                        //跳出AlerDialog
-                        final ImageView image_A = new ImageView(HomeActivity.this);
-                        image_A.setImageResource(R.drawable.ununstall_update_saf);
-                        AlertDialog.Builder builder_A = new AlertDialog.Builder(HomeActivity.this);
-                        builder_A.setTitle("需要協助？")
-                                .setView(image_A)
-                                .setMessage("無法正確跳轉至傳說的目錄授權？\n如果是的話，請按底下「跳轉」至 SAF 應用程式詳情解除更新，或點擊「重試」。")
-                                .setIcon(R.drawable.downloadlogo)
-                                .setCancelable(false)
-                                .setPositiveButton("跳轉", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent_A = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                        intent_A.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent_A.setData(Uri.parse("package:" + "com.google.android.documentsui"));
-                                        startActivity(intent_A);
-                                        finishAffinity();
-                                    }
-                                });
-
-                            builder_A.setNeutralButton("重試", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                                    _askPermission(linear1);
-                                }
-                            });
-
-                        AlertDialog alert_A = builder_A.create();
-                        alert_A.show();
+                        HelpSAFDialog();
+                    } else {
+                        if (first_install) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                if (ChooseUtilActivity.Method == "SAF")
+                                    _get_permission();
+                                if  (ChooseUtilActivity.Method == "Shizuku")
+                                    _get_permission();
+                            }
+                        }
                     }
                     parenturi = Uri.parse(sp.getString("FOLDER_URI", ""));
                 }
-            } else {
             }
         } else {
-            showMessage("你拒絕了授權！");
-            finishAffinity();
-        }
-        switch (_requestCode) {
+            HelpSAFDialog();
+        } switch (_requestCode) {
             default:
                 break;
         }
@@ -931,15 +1006,53 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
     public void _askPermission(final View _view) {
-        showMessage("請直接按使用這個資料夾");
-        showMessage("若沒跳轉至「com.garena.game.kgtw」");
-        showMessage("請跳至其他隨意目錄按使用");
-        showMessage("將有步驟引導您做法");
-        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        i.setAction(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        muri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
-        i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, muri);
-        startActivityForResult(i, NEW_FOLDER_REQUEST_CODE);
+        AlertDialog.Builder askPermission = new AlertDialog.Builder(this);
+        askPermission.setTitle("提示")
+                        .setIcon(R.drawable.downloadlogo)
+                        .setCancelable(false)
+                        .setMessage("請直接按使用這個資料夾\n若沒跳轉至「com.garena.game.kgtw」\n請跳至其他隨意目錄按使用\n或於SAF畫面退回至底層\n將有步驟引導您做法")
+                        .setPositiveButton("去授權", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int id) {
+                                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                i.setAction(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                muri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
+                                i.putExtra(DocumentsContract.EXTRA_INITIAL_URI, muri);
+                                startActivityForResult(i, NEW_FOLDER_REQUEST_CODE);
+                            }
+                        });
+        askPermission.create().show();
+    }
+
+    private void HelpSAFDialog() {
+        //跳出AlerDialog
+        final ImageView image_A = new ImageView(HomeActivity.this);
+        image_A.setImageResource(R.drawable.ununstall_update_saf);
+        AlertDialog.Builder builder_A = new AlertDialog.Builder(HomeActivity.this);
+        builder_A.setTitle("需要協助？")
+                .setView(image_A)
+                .setMessage("無法正確跳轉至傳說的目錄授權？\n如果是的話，請按底下「跳轉」將 Files 應用程式解除更新後，點擊「重試」。")
+                .setIcon(R.drawable.downloadlogo)
+                .setCancelable(false)
+                .setNegativeButton("解除更新", null);
+
+        builder_A.setPositiveButton("重試", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                _askPermission(linear1);
+            }
+        });
+
+        final AlertDialog dialog_A = builder_A.create();
+        dialog_A.show();
+        dialog_A.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_A = new Intent(Intent.ACTION_UNINSTALL_PACKAGE);
+                intent_A.setData(Uri.parse("package:" + "com.google.android.documentsui"));
+                startActivity(intent_A);
+            }
+        });
     }
 
     /*使選項內Icon與文字並存*/
@@ -959,6 +1072,14 @@ public class HomeActivity extends AppCompatActivity {
         menu.add(0,2,2,menuIconWithText(getDrawable(R.drawable.github),"Github開源"));
         menu.add(0,3,3,menuIconWithText(getDrawable(R.drawable.rate),"評分"));
         menu.add(0,4,4,menuIconWithText(getDrawable(R.drawable.more_apps),"更多apps"));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (ChooseUtilActivity.Method=="SAF")
+                menu.add(0,5,5,menuIconWithText(getDrawable(R.drawable.saf),"切換存取模式"));
+            if (ChooseUtilActivity.Method=="SU")
+                menu.add(0,5,5,menuIconWithText(getDrawable(R.drawable.su),"切換存取模式"));
+            if (ChooseUtilActivity.Method=="Shizuku")
+                menu.add(0,5,5,menuIconWithText(getDrawable(R.drawable.shizuku),"切換存取模式"));
+        }
         return super.onCreateOptionsMenu(menu);
     }
     /*此處為設置點擊事件*/
@@ -985,6 +1106,13 @@ public class HomeActivity extends AppCompatActivity {
             case 4:
                 Intent browserintent4 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/KennyYang0726/"));
                 startActivity(browserintent4);
+                break;
+            case 5:
+                Intent pageJump = new Intent();
+                pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                startActivity(pageJump);
+                finish();
+                overridePendingTransition(0, 0);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -1056,8 +1184,8 @@ public class HomeActivity extends AppCompatActivity {
 
             documentFile = documentFile.createFile("text/plain", "test.txt");
 
-            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2F"+uridelete);
             if (uridelete.contains("Sound_DLC")){
+                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2F"+uridelete);
                 try {
                     try{
                         DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
@@ -1069,6 +1197,7 @@ public class HomeActivity extends AppCompatActivity {
                     extra_access = "❌";
                 }
             } else if (uridelete.contains("LobbyMovie")){
+                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2F"+uridelete);
                 try {
                     try{
                         DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
@@ -1103,22 +1232,12 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         }catch (Exception e){
+        }
+    }
 
-        }
-    }
-    //檢測Uri文件大小
-    private boolean URI(Uri uri) {
-        try{
-            AssetFileDescriptor fileDescriptor = getApplicationContext().getContentResolver().openAssetFileDescriptor(uri , "r");
-            long fileSize = fileDescriptor.getLength();
-            return true;
-        } catch (Exception e) {
-            showMessage("跑到這0");
-            return false;
-        }
-    }
 
     //Unzip assets with replace
+    @SuppressLint("NewApi")
     Boolean unzipAssets(String _filename, DocumentFile _myDestFolder) {
 
         DocumentFile myFolder = null;
@@ -1132,7 +1251,8 @@ public class HomeActivity extends AppCompatActivity {
                 BufferedInputStream bis = new BufferedInputStream(is);
                 ZipInputStream zis = new ZipInputStream(bis);
                 ZipEntry zipEntry;
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) //重要！！！
+                    dalvik.system.ZipPathValidator.clearCallback();
                 while ((zipEntry = zis.getNextEntry()) != null) {
                     String fileName = null;
 
@@ -1240,52 +1360,6 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
-    // url = file path or whatever suitable URL you want.
-    public static String getMimeType(String url) {
-        String type = null;
-        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        if (extension != null) {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        }
-        return type;
-    }
-    public boolean copyFilePath2Uri(Context context, File inputfile, Uri targetUri){
-        InputStream fis = null;
-        OutputStream fos = null;
-
-        try {
-
-            ContentResolver content = context.getContentResolver();
-            fis = new FileInputStream(inputfile);
-            fos = content.openOutputStream(targetUri);
-
-            byte[] buff = new byte[1024];
-            int length = 0;
-
-            while ((length = fis.read(buff)) > 0) {
-                fos.write(buff, 0, length);
-            }
-        } catch (IOException e) {
-            return false;
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    return false;
-                }
-            }
-            if (fos != null) {
-                try {
-                    fos.close();
-
-                } catch (IOException e) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     public void repair(String Url){
         final ProgressDialog prog = new ProgressDialog(this);
@@ -1339,10 +1413,9 @@ public class HomeActivity extends AppCompatActivity {
                         in.close();
                         prog.dismiss();
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            //若有 root 則使用 comando 複製
-                            if (haveSU) {
-                                CopyWithhaveSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/languageMap.txt"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Languages/CHT_Garena_TW/languageMap.txt", true);
-                            } else { //否則用 uri 複製
+
+                            if (ChooseUtilActivity.Method == "SAF") {
+
                                 uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2FlanguageMap.txt")));
                                 try {
                                     try{
@@ -1350,16 +1423,59 @@ public class HomeActivity extends AppCompatActivity {
                                     } catch (FileNotFoundException e) {
                                     }
                                     uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
-                                    _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt", uri2);
                                 } catch (Exception e) {
                                     uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
-                                    _copyFilePath2Uri("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt", uri2);
+                                }
+                                //刪除 app 目錄下的 languageMap
+                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
+                                showMessage("修復成功");
+
+                            } else if (ChooseUtilActivity.Method == "SU") {
+                                if (SuperUserUtil.haveSU()) {
+                                    SuperUserUtil.cpWithSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/languageMap.txt"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Languages/CHT_Garena_TW/");
+                                    //刪除 app 目錄下的 languageMap
+                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
+                                    showMessage("修復成功");
+                                } else {
+                                    showMessage("你已撤銷 root 權限");
+                                    MainActivity.haveSU = false;
+                                    Intent pageJump = new Intent();
+                                    pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                    startActivity(pageJump);
+                                    finish();
+                                    overridePendingTransition(0, 0);
+                                }
+
+                            } else if (ChooseUtilActivity.Method == "Shizuku") {
+
+                                /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
+                                if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
+                                    if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                                        showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
+                                        Intent pageJump = new Intent();
+                                        pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                        startActivity(pageJump);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                    } else { // 這裡才能執行 shell
+                                        StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Languages/CHT_Garena_TW/");
+                                        showMessage("修復成功");
+                                        waitForShizukuCompletion(() ->
+                                                //刪除 app 目錄下的 languageMap
+                                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt"));
+                                    }
+                                } else {
+                                    showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
+                                    Intent pageJump = new Intent();
+                                    pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                    startActivity(pageJump);
+                                    finish();
+                                    overridePendingTransition(0, 0);
                                 }
 
                             }
-                            //刪除 app 目錄下的 languageMap
-                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/languageMap.txt");
-                            showMessage("修復成功");
                         }
                     } else {
                         showMessage("無網際網路連線");
@@ -1375,41 +1491,6 @@ public class HomeActivity extends AppCompatActivity {
         new Thread(updatethread).start();
     }
 
-
-    public void CopyWithhaveSU(String original, String target, boolean exist_in_target_dest) {
-        String comando;
-        try {
-            if (exist_in_target_dest){ //複製覆蓋
-                String a = "cp -r " + original + " " + target;
-                int len = a.lastIndexOf("/");
-                comando = a.substring(0, len+1);
-            } else {
-                comando = "cp -r " + original + " " + target;
-            }
-            Process suProcess = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(suProcess.getOutputStream());
-            os.writeBytes(comando + "\n");
-            os.flush();
-            os.writeBytes("exit\n");
-            os.flush();
-            try {
-                suProcess.waitFor();
-                if (suProcess.exitValue() != 255) {
-                    // TODO Code to run on success
-                    //showMessage("YES");
-                }else {
-                    // TODO Code to run on unsuccessful
-                    //showMessage("No1");
-                }
-            } catch (InterruptedException e) {
-                // TODO Code to run in interrupted exception
-                //showMessage("No2");
-            }
-        } catch (IOException e) {
-            // TODO Code to run in input/output exception
-            //showMessage("No3");
-        }
-    }
 
     public void DownloadAndInstall(String Url, String Path){
         final ProgressDialog prog = new ProgressDialog(this);
@@ -1587,26 +1668,31 @@ public class HomeActivity extends AppCompatActivity {
                                                         @Override
                                                         public void run() {
                                                             alert2.dismiss();
-                                                            if (ISPDiff_access.equals("❌") || (res_access.equals("❌") || extra_access.equals("❌"))) {
-                                                                if (res_access.equals("❌")) {
-                                                                    showMessage("請確認是否下載遊戲登入畫面前置資源");
-                                                                    showMessage("或嘗試再次點擊以自動授權");
-                                                                }
-                                                                final ImageView image = new ImageView(HomeActivity.this);
-                                                                image.setImageResource(R.drawable.click_me);
+
+                                                            if (ISPDiff_access.equals("❌") || (res_access.equals("❌") || extra_access.equals("❌") || ISPDiff_access.equals("") || extra_access.equals(""))) {
+                                                                //要彈窗顯示
+
+                                                                if (ISPDiff_access.equals("")) //有這種狀況，通常是ISPDiff被傳說建立，但LobbyMovie尚未建立
+                                                                    ISPDiff_access = "❌";
+                                                                if (extra_access.equals(""))
+                                                                    extra_access = "❌";
+
                                                                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                                                                builder.setTitle("獲取權限資訊狀態")
-                                                                        .setMessage("Resources："+res_access+"\n\n①Sound_DLC："+extra_access+"\n②LobbyMovie："+ISPDiff_access+"\n(①②特殊型可自動授權)\n")
-                                                                        .setView(image)
-                                                                        .setIcon(R.drawable.downloadlogo)
-                                                                        .setCancelable(false)
-                                                                        .setPositiveButton("重新檢測", new DialogInterface.OnClickListener() {
-                                                                            @Override
-                                                                            public void onClick(DialogInterface dialog, int id) {
-                                                                                if (haveSU && res_access.equals("❌") && ISPDiff_access.equals("⭕") && extra_access.equals("⭕")){
-                                                                                    showMessage("以Root模式繼續\n忽略Res授權");
-                                                                                    showMessage("請勿在離開此app前\n移除超級使用者權限");
-                                                                                } else {
+                                                                if (ChooseUtilActivity.Method == "SAF") {
+                                                                    if (res_access.equals("❌")) {
+                                                                        showMessage("請確認是否下載遊戲登入畫面前置資源");
+                                                                        showMessage("或按照教學完成手動授權");
+                                                                    }
+                                                                    final ImageView image = new ImageView(HomeActivity.this);
+                                                                    image.setImageResource(R.drawable.click_me);
+                                                                    builder.setTitle("獲取權限資訊狀態")
+                                                                            .setMessage("Resources："+res_access+"\n\n①Sound_DLC："+extra_access+"\n②LobbyMovie："+ISPDiff_access+"\n(①②特殊型可自動授權)\n")
+                                                                            .setView(image)
+                                                                            .setIcon(R.drawable.downloadlogo)
+                                                                            .setCancelable(false)
+                                                                            .setPositiveButton("重新檢測", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialog, int id) {
                                                                                     try{
                                                                                         _get_permission();
                                                                                     }catch(Exception e){
@@ -1614,44 +1700,64 @@ public class HomeActivity extends AppCompatActivity {
                                                                                     }
                                                                                     re_scan_cnt++;
                                                                                 }
-                                                                            }
-                                                                        });
-                                                                image.setOnClickListener(new View.OnClickListener() {
-                                                                    @Override
-                                                                    public void onClick(View _view) {
-                                                                        Intent browserintent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/kw7AxRIRg3s"));
-                                                                        startActivity(browserintent);
-                                                                    }
-                                                                });
-                                                                if (re_scan_cnt >= 2) {
-																	    /*
-    if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/cache/res")) {
-    builder.setNegativeButton("授權Res", new DialogInterface.OnClickListener() {
-		@Override
-		public void onClick(DialogInterface dialog, int id) {
-			//自動授權Res
-            _auto_access_res();
-		}
-	});
-    }*/
-                                                                    builder.setNeutralButton("授權①②", new DialogInterface.OnClickListener() {
+                                                                            })
+                                                                            .setNegativeButton("切換存取模式", new DialogInterface.OnClickListener() {
+                                                                                @Override
+                                                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                                                    Intent pageJump = new Intent();
+                                                                                    pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                                                                                    startActivity(pageJump);
+                                                                                    finish();
+                                                                                    overridePendingTransition(0, 0);
+                                                                                }
+                                                                            });
+                                                                    image.setOnClickListener(new View.OnClickListener() {
                                                                         @Override
-                                                                        public void onClick(DialogInterface dialog, int id) {
-                                                                            page.setClass(getApplicationContext(), WarningActivity.class);
-                                                                            startActivity(page);
-                                                                            overridePendingTransition(0, 0);
+                                                                        public void onClick(View _view) {
+                                                                            String videoId = "zJilQ4vuzVY"; // 替換為實際的YouTube影片ID
+                                                                            String startTime = "t=576s"; // 替換為想要的開始時間，例如30秒
+                                                                            String url = "https://www.youtube.com/watch?v=" + videoId + "&" + startTime;
+                                                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                                                            startActivity(browserIntent);
                                                                         }
                                                                     });
-                                                                }
-                                                                AlertDialog alert1 = builder.create();
-                                                                alert1.show();
 
-																/*
-AlertDialog.Builder builder2 = new AlertDialog.Builder(HomeActivity.this);
-builder.setTitle("請稍等...")
-.setCancelable(false);
-AlertDialog alert2 = builder2.create();
-alert2.show();*/
+                                                                    if (re_scan_cnt >= 1) {
+                                                                        builder.setNeutralButton("授權①②", new DialogInterface.OnClickListener() {
+                                                                            @Override
+                                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                                page.setClass(getApplicationContext(), WarningActivity.class);
+                                                                                startActivity(page);
+                                                                                overridePendingTransition(0, 0);
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    //builder.create().show();
+
+                                                                } else if (ChooseUtilActivity.Method == "Shizuku") {
+                                                                    if (ISPDiff_access.equals("❌") || extra_access.equals("❌")) {
+                                                                        // ISPDIFF和SOUND其中有尚未完成授權
+                                                                        builder.setTitle("獲取權限資訊狀態")
+                                                                                .setMessage("①Sound_DLC："+extra_access+"\n②LobbyMovie："+ISPDiff_access+"\n")
+                                                                                .setIcon(R.drawable.downloadlogo)
+                                                                                .setCancelable(false)
+                                                                                .setPositiveButton("自動授權①②", new DialogInterface.OnClickListener() {
+                                                                                    @Override
+                                                                                    public void onClick(DialogInterface dialog, int id) {
+                                                                                        page.setClass(getApplicationContext(), WarningActivity.class);
+                                                                                        startActivity(page);
+                                                                                        overridePendingTransition(0, 0);
+                                                                                    }
+                                                                                });
+                                                                       //builder.create().show();
+
+                                                                    } else {
+                                                                        FirstDetectPermission_Shizuku();
+                                                                    }
+                                                                }
+
+                                                                if (!isFinishing()) //不加可能出錯
+                                                                    builder.create().show();
 
                                                             }
                                                         }
@@ -1771,29 +1877,6 @@ alert2.show();*/
     }
 
 
-    public void _copyFilePath2Uri(final String _OriginalFilePath) {
-        File mfile6 = new File(_OriginalFilePath);
-        mfile1 = DocumentFile.fromTreeUri(this, uri2);
-
-        mfile1 = mfile1.createFile(getMimeType(_OriginalFilePath), Uri.parse(_OriginalFilePath).getLastPathSegment());
-        uri2 = mfile1.getUri();
-        if (copyFilePath2Uri(HomeActivity.this, mfile6, uri2)) {
-            try {
-
-            } catch (Exception e) {
-
-            }
-        } else {
-            try {
-                showMessage("失敗");
-            } catch (Exception e) {
-
-            }
-        }
-
-    }
-
-
     public void _Shape(final double _t1, final double _t2, final double _b1, final double _b2, final String _Background, final double _Stroke, final String _stroke, final double _Elevation, final View _view) {
         android.graphics.drawable.GradientDrawable gs = new android.graphics.drawable.GradientDrawable();
 
@@ -1808,76 +1891,393 @@ alert2.show();*/
     }
 
 
-    public void _auto_access_res() {
-        ProgressBar_Show("處理中...");
-        new BackgroundTaskClass(HomeActivity.this){
-            @Override
-            public void doInBackground() {
-                uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F" + game_ver + "%2FAges%2FPrefab_Characters%2FPrefab_Hero%2FActor_150_Actions.pkg.bytes");
-                try{
-                    AssetFileDescriptor fileDescriptor = getApplicationContext().getContentResolver().openAssetFileDescriptor(uriA , "r");
-                    renameTo("/files/Resources/" + game_ver + "/Ages/Prefab_Characters/Prefab_Hero", "Actor_150_Actions.pkg.bytes", "Actor_150_Actions.pkg.bytesss");
-                    renameTo("/files/Resources/" + game_ver + "/Ages/Prefab_Characters/Prefab_Hero", "Actor_150_Actions.pkg.bytesss", "Actor_150_Actions.pkg.bytes");
-                } catch (Exception e) { // 1/3
-                    renameTo("/files/Resources", game_ver, game_ver + "_trash1");
-                    Res_Status = 1;
-                }
-            }
-            @Override
-            public void onPostExecute(){
-                //完成(以Res_Status判斷情形)
-                ProgressBar_Dismiss();
-                if (Res_Status == 1){ // 1/3
-                    res.setIcon(R.drawable.downloadlogo);
-                    res.setTitle("第一步驟成功");
-                    res.setMessage("您處於特殊型 1/3 步驟完成狀態，請進入遊戲重新下載資源後，重新回白魔法進行檢測。");
-                    res.setCancelable(false);
-                    res.setPositiveButton("進入遊戲", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface _dialog, int _which) {
-                            Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
-                            startActivity(mIntent);
-                            finishAffinity();
-                        }
-                    });
-                    res.create().show();
-                } else if (Res_Status == 2) { // 2/3
-                    res.setIcon(R.drawable.downloadlogo);
-                    res.setTitle("第二步驟成功");
-                    res.setMessage("您處於特殊型 2/3 步驟完成狀態，請進入遊戲重新下載資源後，重新回白魔法進行檢測。");
-                    res.setCancelable(false);
-                    res.setPositiveButton("進入遊戲", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface _dialog, int _which) {
-                            Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
-                            startActivity(mIntent);
-                            finishAffinity();
-                        }
-                    });
-                    res.create().show();
-                }
-            }
-        }.execute();
-        //結束
-    }
+    /**檢測sound權限判斷是否為su的shizuku*/
+    //先解壓去用shizuku複製
 
-
-    public boolean _RootAccess() {
-        if (RootTools.isRootAvailable()){
-            //該手機已root
-            try { //會跳出視窗
-                java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(new String[]{"/system/bin/su","-c","cd / && ls"}).getInputStream()).useDelimiter("\\A");
-                //true為有root且允許，false為有root但不允許
-                return !(s.hasNext() ? s.next() : "").equals("");
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void _save(final String _file, final String _path, final String _file2) {
+        try{
+            int count;
+            java.io.InputStream input= this.getAssets().open(_file);
+            java.io.OutputStream output = new  java.io.FileOutputStream(_path+_file2);
+            byte data[] = new byte[1024];
+            while ((count = input.read(data))>0) {
+                output.write(data, 0, count);
             }
-            return false;
-        }else {
-            //該手機無root
-            return false;
+            output.flush();
+            output.close();
+            input.close();
+        }catch(Exception e){
         }
     }
+
+    //檢測sound權限判斷是否為su的shizuku第一步
+    private String result_tmp;
+    private void CheckPermissionSoundSuShizuku() {
+        //弄一點延遲
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                result_tmp = mResult.get(mResult.size()-3);
+                //判斷情況
+                if (result_tmp.contains("Permission denied")) {
+                    //沒權限，即非su啟用
+                    CheckPermissionSoundSuShizuku = false;
+                    CheckPermissionSoundSuShizuku2();
+                } else if (result_tmp.contains("or directory")) {
+                    //目錄沒下載，預設為非su啟用
+                    CheckPermissionSoundSuShizuku = false;
+                    CheckPermissionSoundSuShizuku2();
+                } else {
+                    //確認有檔案了，再來複製看看剛剛解壓制tmp的檔案
+                    initializeShell("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/Voice_JuWai.bnk /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese\\(Taiwan\\)/");
+                    waitForShizukuCompletion(() ->
+                            CheckPermissionSoundSuShizuku2());
+                }
+            }
+        }, 500);
+    }
+
+    private void CheckPermissionSoundSuShizuku2() {
+        //弄一點延遲
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                result_tmp = mResult.get(mResult.size()-3);
+                //判斷情況
+                if (result_tmp.contains("Permission denied")) {
+                    //沒權限，即非su啟用
+                    CheckPermissionSoundSuShizuku = false;
+                } else if (result_tmp.contains("or directory")) {
+                    //目錄沒下載，預設為非su啟用
+                    CheckPermissionSoundSuShizuku = false;
+                } else {
+                    //真的沒問題了
+                    CheckPermissionSoundSuShizuku = true;
+                }
+
+                //後續
+                pp.dismiss();
+                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp");
+                if (!CheckPermissionSoundSuShizuku){
+                    //如果shizuku但沒有sound權限 才要檢查授權
+                    try {
+                        muri = Uri.parse(sp.getString("DIRECT_FOLDER_URI", ""));
+                        mfile = DocumentFile.fromTreeUri(HomeActivity.this, muri);
+                        if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
+                            first_install = false;
+                            _askPermission(linear1);
+                        }
+                        if (!mfile.canRead() || !mfile.canWrite()) {
+                            first_install = true;
+                            _askPermission(linear1);
+                        } else {
+                            parenturi = Uri.parse(sp.getString("FOLDER_URI", ""));
+                            first_install = false;
+                            _get_permission();
+                        }
+                    } catch (Exception e) {
+                        first_install = true;
+                        _askPermission(linear1);
+                    }
+                }
+
+
+            }
+        }, 513);
+    }
+
+
+    //Shizuku初始檢測權限狀態
+    private void FirstDetectPermission_Shizuku() {
+        /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
+        if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
+            if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
+                Intent pageJump = new Intent();
+                pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                startActivity(pageJump);
+                finish();
+                overridePendingTransition(0, 0);
+            } else { // 這裡才能執行 shell
+                StartInitializeShell("ls /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Config/");
+                waitForShizukuCompletion(() ->
+                        Second_DetectPermission_Shizuku());
+            }
+        } else {
+            showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
+            Intent pageJump = new Intent();
+            pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+            startActivity(pageJump);
+            finish();
+            overridePendingTransition(0, 0);
+        }
+    }
+    private void Shizuku可能造成卡讀取之判斷() {
+        String result_tmp = mResult.get(mResult.size()-3);
+        //判斷情況
+        if (result_tmp.contains("Permission denied")) {
+            letter1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            letter2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            letter3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            cc1 = getRandom((int)(0), (int)(61));
+            cc2 = getRandom((int)(0), (int)(61));
+            cc3 = getRandom((int)(0), (int)(61));
+            str_tmp1 = (letter1.substring(cc1, cc1+1)+letter2.substring(cc2, cc2+1)+letter3.substring(cc3, cc3+1));
+            StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_"+str_tmp1);
+            waitForShizukuCompletion(() ->
+                    LaunchAOV());
+
+        } else {
+            LaunchAOV();
+        }
+    }
+    private void LaunchAOV() {
+        try {
+            if (mShizukuShell != null)
+                mShizukuShell.destroy();
+        } catch (Exception r) {
+        }
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
+        startActivity(launchIntent);
+        if (ChooseUtilActivity.Method == "Shizuku")
+            StartInitializeShell("am force-stop com.aoveditor.phantomsneak");
+        else
+            finishAffinity();
+    }
+    private void Second_DetectPermission_Shizuku() {
+        String result_tmp = mResult.get(mResult.size()-3);
+        //判斷情況
+        if (result_tmp.contains("No such file or directory")) {
+            //未下載資源
+            AlertDialog.Builder shizuku_permission = new AlertDialog.Builder(this);
+            shizuku_permission.setIcon(R.drawable.downloadlogo);
+            shizuku_permission.setTitle("提示")
+                    .setCancelable(false)
+                    .setMessage("檢測到您尚未下載 傳說對決 資源，點擊「確認」跳轉遊戲下載資源。")
+                    .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            LaunchAOV();
+                        }
+                    });
+            shizuku_permission.create().show();
+
+        } else if (result_tmp.contains("Permission denied")) {
+            //第一次
+            AlertDialog.Builder shizuku_permission = new AlertDialog.Builder(this);
+            shizuku_permission.setIcon(R.drawable.downloadlogo);
+            shizuku_permission.setTitle("自動授權存取步驟 1/2")
+                    .setCancelable(false)
+                    .setMessage("檢測到您 傳說對決 資源無法被白魔法存取，點擊「確認」進行步驟 1/2 自動授權。完成後將自動開啟傳說，下載資源完成後再回白魔法進行步驟 2/2 之授權")
+                    .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_trash0");
+                            waitForShizukuCompletion(() ->
+                                    LaunchAOV());
+                        }
+                    })
+                    .setNegativeButton("切換存取模式", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent pageJump = new Intent();
+                            pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                            startActivity(pageJump);
+                            finish();
+                            overridePendingTransition(0, 0);
+                        }
+                    });
+            shizuku_permission.create().show();
+
+        } else {
+            FileUtil.writeFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/cache/Shizuku", "");
+            //可以 ls，再來判斷能不能 cp
+            StartInitializeShell("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/cache/Shizuku /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"/Config/");
+            waitForShizukuCompletion(() ->
+                    Third_DetectPermission_Shizuku());
+        }
+
+    }
+    private int getRandom(int _min, int _max) {
+        Random random = new Random();
+        return random.nextInt(_max - _min + 1) + _min;
+    }
+    private String letter1,letter2,letter3,str_tmp1;
+    private int cc1,cc2,cc3;
+    private void Third_DetectPermission_Shizuku() {
+        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/cache/Shizuku");
+        String result_tmp = mResult.get(mResult.size()-3);
+        //判斷情況
+        if (result_tmp.contains("Permission denied")) {
+            //自動授權存取步驟 2/2
+            letter1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            letter2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            letter3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            cc1 = getRandom((int)(0), (int)(61));
+            cc2 = getRandom((int)(0), (int)(61));
+            cc3 = getRandom((int)(0), (int)(61));
+            str_tmp1 = (letter1.substring(cc1, cc1+1)+letter2.substring(cc2, cc2+1)+letter3.substring(cc3, cc3+1));
+            StartInitializeShell("mkdir -p /storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1);
+            AlertDialog.Builder shizuku_permission2 = new AlertDialog.Builder(this);
+            shizuku_permission2.setIcon(R.drawable.downloadlogo);
+            shizuku_permission2.setTitle("自動授權存取步驟 2/2")
+                    .setCancelable(false)
+                    .setMessage("恭喜您快要完成授權了~~\n檢測到您 傳說對決 資源無法被白魔法存取，點擊「確認」進行步驟 2/2 自動授權。完成後即可使用接下來白魔法所有功能啦~")
+                    .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/");
+                            //StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/TMP/");
+                            waitForShizukuCompletion(() ->
+                                    Forth_DetectPermission_Shizuku());
+                        }
+                    });
+            shizuku_permission2.create().show();
+        } else {
+            //沒問題拉~~(吧)
+            StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+        }
+
+    }
+    private void Forth_DetectPermission_Shizuku() {
+        //複製到本地後的部分，要來重命名原本了
+        StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_trash1");
+        waitForShizukuCompletion(() ->
+                Fifth_DetectPermission_Shizuku());
+    }
+    private void Fifth_DetectPermission_Shizuku() {
+        //重命名原本了，要把本地移回來了
+        StartInitializeShell("cp -r /storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
+        waitForShizukuCompletion(() ->
+                Sixth_DetectPermission_Shizuku());
+    }
+    private void Sixth_DetectPermission_Shizuku() {
+        StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+        //StartInitializeShell("rm -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/TMP");
+        waitForShizukuCompletion(() ->
+                showMessage("大功告成~~"));
+    }
+
+
+
+
+    // Shizuku 服務
+    private boolean isShizukuING = false;
+
+    private void waitForShizukuCompletion(Runnable callback) {
+        new Handler().postDelayed(() -> {
+            if (!isShizukuING) {
+                callback.run();
+            } else {
+                waitForShizukuCompletion(callback);
+            }
+        }, 100); // 每100毫秒检查一次isShizukuING是否为false
+    }
+
+
+    private void StartInitializeShell(String Command) {
+        isShizukuING = true;
+        if (mShizukuShell != null && mShizukuShell.isBusy()) {
+            mShizukuShell.destroy();
+        } else {
+            initializeShell(Command);
+        }
+    }
+
+    private void initializeShell(String mCommand) {
+        if (mCommand == null || mCommand.trim().isEmpty()) {
+            return;
+        }
+        runShellCommand(mCommand);
+    }
+
+    private void runShellCommand(String command) {
+
+        String finalCommand;
+
+        if (command.startsWith("adb shell ")) {
+            finalCommand = command.replace("adb shell ", "");
+        } else if (command.startsWith("adb -d shell ")) {
+            finalCommand = command.replace("adb -d shell ", "");
+        } else {
+            finalCommand = command;
+        }
+
+        if (finalCommand.equals("clear")) {
+            if (mResult != null) {
+                mResult.clear();
+            }
+            return;
+        }
+
+        if (finalCommand.startsWith("su")) {
+            showMessage("去你的，請勿使用 su 指令");
+            return;
+        }
+
+        if (mResult == null) {
+            mResult = new ArrayList<>();
+        }
+        mResult.add(finalCommand);
+
+        ExecutorService mExecutors = Executors.newSingleThreadExecutor();
+
+        final ProgressDialog prog = new ProgressDialog(this);
+        prog.setIcon(R.drawable.downloadlogo);
+        prog.setMax(100);
+        prog.setIndeterminate(true);
+        prog.setCancelable(false);
+        prog.setMessage("請稍後...");
+        prog.setCanceledOnTouchOutside(false);
+        prog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        prog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
+        prog.show();
+
+        mExecutors.execute(() -> {
+            //Looper.prepare();
+            if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
+                mShizukuShell = new ShizukuShellUtil(mResult, finalCommand);
+                mShizukuShell.exec();
+                try {
+                    TimeUnit.MILLISECONDS.sleep(250);
+                } catch (InterruptedException ignored) {}
+
+            } else {
+                new MaterialAlertDialogBuilder(this)
+                        .setCancelable(false)
+                        .setTitle(getString(R.string.app_name))
+                        .setMessage("權限請求失敗")
+                        .setNegativeButton("結束", (dialogInterface, i) -> finishAffinity())
+                        .setPositiveButton("請求", (dialogInterface, i) -> Shizuku.requestPermission(0)
+                        ).show();
+            }
+
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                    new MaterialAlertDialogBuilder(this)
+                            .setCancelable(false)
+                            .setTitle(getString(R.string.app_name))
+                            .setMessage("權限請求失敗")
+                            .setNegativeButton("結束", (dialogInterface, i) -> finishAffinity())
+                            .setPositiveButton("請求", (dialogInterface, i) -> Shizuku.requestPermission(0)
+                            ).show();
+                }
+                if (mResult != null && mResult.size() > 0) {
+                    mResult.add("<i></i>");
+                    mResult.add("aShell: Finish");
+                }
+            });
+
+            if (!mExecutors.isShutdown()) {
+                mExecutors.shutdown();
+                runOnUiThread(() -> {
+                    prog.dismiss();
+                    isShizukuING = false;
+                });
+            }
+
+        });
+    }
+
+
 
     public class Viewpager1Adapter extends PagerAdapter {
         Context _context;

@@ -1,4 +1,4 @@
-package com.aoveditor.phantomsneak;
+package com.aoveditor.phantomsneak.services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,10 +10,14 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import android.util.Log;
+
+import com.aoveditor.phantomsneak.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import com.aoveditor.phantomsneak.MainActivity;
 
 public class FCMService extends FirebaseMessagingService {
 
