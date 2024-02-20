@@ -797,7 +797,7 @@ public class OtherActivity extends AppCompatActivity {
                 FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
                 _save("窩不知道", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "VeryHighFrameModeBlackList.bytes");
                 dialog_120fps.setTitle("注意");
-                dialog_120fps.setMessage("◑開啟超高幀率模式(120FPS)將擁有更加流暢的遊戲體驗，但可能加快手機耗電、發熱。\n◑啟用該功能並不會直接幫你啟用至120FPS，而是使120FPS選項出現，須手動去戰場設置中開啟\n◑若已開啟超高幀率，但遊戲顯示幀率仍為60，代表傳說對決不認可您的手機適合使用超高幀率，或是有鎖幀的問題\n◑不能保證100%修改成功");
+                dialog_120fps.setMessage("◑開啟超高幀率模式(120FPS)將擁有更加流暢的遊戲體驗，但可能加快手機耗電、發熱。\n◑啟用該功能並不會直接幫你啟用至120FPS，而是使120FPS選項出現，須手動去戰場設置中開啟\n◑若已開啟超高幀率，但遊戲顯示幀率仍為60，代表您的手機可能有鎖幀的問題，須查閱相關資料\n◑不能保證100%修改成功");
                 dialog_120fps.setCancelable(false);
                 dialog_120fps.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     @Override
@@ -820,11 +820,16 @@ public class OtherActivity extends AppCompatActivity {
                                     ModOffest(Device_ID.length()-("xiaomi M2102J20SG".length()));
                                 }
                                 Encrypt();
+                            }
+                            @Override
+                            public void onPostExecute(){
+                                //加密完成
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                                     if (ChooseUtilActivity.Method == "SU") {
                                         if (SuperUserUtil.haveSU()) {
                                             SuperUserUtil.cpWithSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
                                             FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                                            showMessage("完成");
                                         } else {
                                             showMessage("你已撤銷 root 權限");
                                             MainActivity.haveSU = false;
@@ -842,6 +847,7 @@ public class OtherActivity extends AppCompatActivity {
                                         Uri uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
                                         SAFUtil.copyFilePath2Uri(getApplicationContext(), FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), uriA);
                                         FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                                        showMessage("完成");
                                     } else if (ChooseUtilActivity.Method == "Shizuku") {
                                         /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
                                         if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
@@ -853,8 +859,9 @@ public class OtherActivity extends AppCompatActivity {
                                                 finish();
                                                 overridePendingTransition(0, 0);
                                             } else { // 這裡才能執行 shell
-                                                StartInitializeShell("cp " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/VeryHighFrameModeBlackList.bytes" +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
+                                                StartInitializeShell("cp " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
                                                 waitForShizukuCompletion(() -> FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp")));
+                                                showMessage("完成");
                                             }
                                         } else {
                                             showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
@@ -868,12 +875,8 @@ public class OtherActivity extends AppCompatActivity {
                                 } else {
                                     FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
                                     FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                                    showMessage("完成");
                                 }
-                            }
-                            @Override
-                            public void onPostExecute(){
-                                //完成
-                                showMessage("完成");
                                 ProgressBar_Dismiss();
                             }
                         }.execute();
