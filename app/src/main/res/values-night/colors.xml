@@ -7,5 +7,5 @@
 	<color name="black">#FF000000</color>
 	<color name="gray">#FF3A3A3A</color>
 	<color name="white">#FFFFFFFF</color>
-	<color name="text_color">@color/black</color>
+	<color name="text_color">@color/white</color>
 </resources>

@@ -317,7 +317,7 @@ public class SkinActivity extends AppCompatActivity {
                 } else {
                     FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/1-skin"));
                     FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/1-skin"));
-                    Download("https://" + desurl, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/");
+                    Download(plugin, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/");
                     showMessage("下載完成再次點擊以啟用");
                     repair("https://" + language);
                 }
@@ -591,14 +591,15 @@ public class SkinActivity extends AppCompatActivity {
                         } catch (Exception _e) {
                             _e.printStackTrace();
                         }
-                        skin_name = map2.get((int)0).get("plugin").toString();
-                        plugin = map2.get((int)0).get("zurl").toString();
+                        //skin_name = map2.get((int)0).get("plugin").toString();
+                        //plugin = map2.get((int)0).get("zurl").toString();
+                        skin_name = map2.get((int)0).get("plugin_ver").toString();
+                        plugin = map2.get((int)0).get("z_url").toString();
                         video = map2.get((int)0).get("video_url").toString();
                         textview6.setText(skin_name);
                         videoview1.setMediaController(null);
                         videoview1.setVideoURI(Uri.parse(video));
                         videoview1.start();
-                        Decryption();
                         if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/".concat(skin_name))) {
                             button3.setText("啟用");
                         } else {

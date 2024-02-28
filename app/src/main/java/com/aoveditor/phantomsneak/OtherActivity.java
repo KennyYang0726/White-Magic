@@ -380,7 +380,7 @@ public class OtherActivity extends AppCompatActivity {
                         showMessage("完成");
                     }
                 } else {
-                    DownloadHttpUrlConnection("https://" + wiro, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/", "wiro.PS");
+                    DownloadHttpUrlConnection(wiro, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/", "wiro.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -582,7 +582,7 @@ public class OtherActivity extends AppCompatActivity {
                         showMessage("完成");
                     }
                 } else {
-                    DownloadHttpUrlConnection("https://" + Volkath, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/", "volkath.PS");
+                    DownloadHttpUrlConnection(Volkath, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/", "volkath.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -656,7 +656,7 @@ public class OtherActivity extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
-                Other("https://" + tower, "Prefab_Organ.pkg.bytes", "Res");
+                Other(tower, "Prefab_Organ.pkg.bytes", "Res");
             }
         });
 
@@ -669,7 +669,7 @@ public class OtherActivity extends AppCompatActivity {
                 delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface _dialog, int _which) {
-                        Other("https://" + tower0, "Prefab_Organ.pkg.bytes", "Res");
+                        Other(tower0, "Prefab_Organ.pkg.bytes", "Res");
                     }
                 });
                 delete.setNeutralButton("取消", null);
@@ -680,7 +680,7 @@ public class OtherActivity extends AppCompatActivity {
         button7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
-                Other("https://" + soldier, "Prefab_Soldier.pkg.bytes", "Res");
+                Other(soldier, "Prefab_Soldier.pkg.bytes", "Res");
             }
         });
 
@@ -693,7 +693,7 @@ public class OtherActivity extends AppCompatActivity {
                 delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface _dialog, int _which) {
-                        Other("https://" + soldier0, "Prefab_Soldier.pkg.bytes", "Res");
+                        Other(soldier0, "Prefab_Soldier.pkg.bytes", "Res");
                     }
                 });
                 delete.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -709,7 +709,7 @@ public class OtherActivity extends AppCompatActivity {
         button9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
-                Other("https://" + monster, "Prefab_Monster.pkg.bytes", "Res");
+                Other(monster, "Prefab_Monster.pkg.bytes", "Res");
             }
         });
 
@@ -722,7 +722,7 @@ public class OtherActivity extends AppCompatActivity {
                 delete.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface _dialog, int _which) {
-                        Other("https://" + monster0, "Prefab_Monster.pkg.bytes", "Res");
+                        Other(monster0, "Prefab_Monster.pkg.bytes", "Res");
                     }
                 });
                 delete.setNeutralButton("取消", null);
@@ -733,7 +733,7 @@ public class OtherActivity extends AppCompatActivity {
         button16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
-                Other("https://cdn.discordapp.com/attachments/842221289464004608/1022879773078327306/Hero_Wisp_SFX.bnk", "Hero_Wisp_SFX.bnk", "Extra");
+                Other("https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/5-Others/Hero_Wisp_SFX.bnk", "Hero_Wisp_SFX.bnk", "Extra");
             }
         });
 
@@ -1126,99 +1126,108 @@ public class OtherActivity extends AppCompatActivity {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", "MD5"), "251F3675E8E16FD55C90FF9440687A35")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245035180092/wiro.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview12);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/wiro.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview12);
                 } else {
                     imageview12.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245035180092/wiro.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview12);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/wiro.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview12);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png", "MD5"), "DCD63BC4D8DEBC65C3C9A269786DB671")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244775129169/volkath.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview18);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/volkath.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview18);
                 } else {
                     imageview18.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/volkath.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244775129169/volkath.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview18);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/volkath.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview18);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png", "MD5"), "52E71F84EDA74766C35882D83DAA6E27")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244506701924/tower.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview23);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/tower.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview23);
                 } else {
                     imageview23.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/tower.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244506701924/tower.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview23);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/tower.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview23);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png", "MD5"), "C4D53399CB34AD631D1FE4F570A37665")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244242456656/soldier.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview21);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/soldier.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview21);
                 } else {
                     imageview21.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/soldier.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304244242456656/soldier.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview21);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/soldier.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview21);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png", "MD5"), "F9DC628215FEBE3E3E8DA535796443CF")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304243965628467/buff.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview27);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/buff.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview27);
                 } else {
                     imageview27.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/buff.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304243965628467/buff.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview27);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/buff.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview27);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png", "MD5"), "81D433796E339F73EA7B772218D4F2A1")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245303619635/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
                 } else {
                     imageview33.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/zhadanren.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074304245303619635/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/zhadanren.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview33);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png", "MD5"), "C6D31639B84565116DB060CF6A851FF3")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1137475199411957901/120FPS.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview37);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/120FPS.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview37);
                 } else {
                     imageview37.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/120FPS.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1137475199411957901/120FPS.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview37);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/120FPS.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview37);
         }
-        /*
+        /**
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/GOD.png")) {
-            imageview38.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/GOD.png", 1024, 1024));
+            try {
+                if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/GOD.png", "MD5"), 窩不知道)) {
+                    //校驗失敗，重新下載
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/GOD.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview38);
+                } else {
+                    imageview37.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/GOD.png", 1024, 1024));
+                }
+            } catch (Exception e) {
+            }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/1069989755628032142/1163908324518002740/GOD.jpg", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview38);
-        }*/
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/5-Others/GOD.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/", imageview38);
+        }
+        */
         if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"))) {
             FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/4-other"));
         }

@@ -326,7 +326,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/DaoGen1.PS")) {
                     _LinkStart("DaoGen1.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme1, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen1.PS");
+                    DownloadHttpUrlConnection(Main_Theme1, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen1.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -338,7 +338,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/DaoGen2.PS")) {
                     _LinkStart("DaoGen2.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme2, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen2.PS");
+                    DownloadHttpUrlConnection(Main_Theme2, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "DaoGen2.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -350,7 +350,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/Nakaroth.PS")) {
                     _LinkStart("Nakaroth.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme3, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Nakaroth.PS");
+                    DownloadHttpUrlConnection(Main_Theme3, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Nakaroth.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -362,7 +362,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/WAVE.PS")) {
                     _LinkStart("WAVE.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme4, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "WAVE.PS");
+                    DownloadHttpUrlConnection(Main_Theme4, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "WAVE.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -374,7 +374,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2019.PS")) {
                     _LinkStart("newyear2019.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme5, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2019.PS");
+                    DownloadHttpUrlConnection(Main_Theme5, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2019.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -386,7 +386,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2021.PS")) {
                     _LinkStart("newyear2021.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme6, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2021.PS");
+                    DownloadHttpUrlConnection(Main_Theme6, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2021.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -398,7 +398,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/newyear2022.PS")) {
                     _LinkStart("newyear2022.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme7, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2022.PS");
+                    DownloadHttpUrlConnection(Main_Theme7, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "newyear2022.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -410,7 +410,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/AIC2020.PS")) {
                     _LinkStart("AIC2020.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme8, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "AIC2020.PS");
+                    DownloadHttpUrlConnection(Main_Theme8, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "AIC2020.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -422,7 +422,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/Ultraman.PS")) {
                     _LinkStart("Ultraman.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme9, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Ultraman.PS");
+                    DownloadHttpUrlConnection(Main_Theme9, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "Ultraman.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -434,7 +434,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/TiLi.PS")) {
                     _LinkStart("TiLi.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme10, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "TiLi.PS");
+                    DownloadHttpUrlConnection(Main_Theme10, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "TiLi.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -446,7 +446,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/PoolParty.PS")) {
                     _LinkStart("PoolParty.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme11, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "PoolParty.PS");
+                    DownloadHttpUrlConnection(Main_Theme11, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "PoolParty.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -458,7 +458,7 @@ public class LobbyActivity extends AppCompatActivity {
                 if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/SuLi.PS")) {
                     _LinkStart("SuLi.PS");
                 } else {
-                    DownloadHttpUrlConnection("https://" + Main_Theme12, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "SuLi.PS");
+                    DownloadHttpUrlConnection(Main_Theme12, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", "SuLi.PS");
                     showMessage("下載完成再次點擊以啟用");
                 }
             }
@@ -473,7 +473,7 @@ public class LobbyActivity extends AppCompatActivity {
                     if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme1 + ".PS")) {
                         _LinkStart(Other_Theme1 + ".PS");
                     } else {
-                        DownloadHttpUrlConnection("https://" + Other_Theme1_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme1 + ".PS");
+                        DownloadHttpUrlConnection(Other_Theme1_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme1 + ".PS");
                         showMessage("下載完成再次點擊以啟用");
                     }
                 }
@@ -489,7 +489,7 @@ public class LobbyActivity extends AppCompatActivity {
                     if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme2 + ".PS")) {
                         _LinkStart(Other_Theme2 + ".PS");
                     } else {
-                        DownloadHttpUrlConnection("https://" + Other_Theme2_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme2 + ".PS");
+                        DownloadHttpUrlConnection(Other_Theme2_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme2 + ".PS");
                         showMessage("下載完成再次點擊以啟用");
                     }
                 }
@@ -505,7 +505,7 @@ public class LobbyActivity extends AppCompatActivity {
                     if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme3 + ".PS")) {
                         _LinkStart(Other_Theme3 + ".PS");
                     } else {
-                        DownloadHttpUrlConnection("https://" + Other_Theme3_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme3 + ".PS");
+                        DownloadHttpUrlConnection(Other_Theme3_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme3 + ".PS");
                         showMessage("下載完成再次點擊以啟用");
                     }
                 }
@@ -521,7 +521,7 @@ public class LobbyActivity extends AppCompatActivity {
                     if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme4 + ".PS")) {
                         _LinkStart(Other_Theme4 + ".PS");
                     } else {
-                        DownloadHttpUrlConnection("https://" + Other_Theme4_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme4 + ".PS");
+                        DownloadHttpUrlConnection(Other_Theme4_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme4 + ".PS");
                         showMessage("下載完成再次點擊以啟用");
                     }
                 }
@@ -537,7 +537,7 @@ public class LobbyActivity extends AppCompatActivity {
                     if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/" + Other_Theme5 + ".PS")) {
                         _LinkStart(Other_Theme5 + ".PS");
                     } else {
-                        DownloadHttpUrlConnection("https://" + Other_Theme5_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme5 + ".PS");
+                        DownloadHttpUrlConnection(Other_Theme5_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/", Other_Theme5 + ".PS");
                         showMessage("下載完成再次點擊以啟用");
                     }
                 }

@@ -2,10 +2,13 @@ package com.aoveditor.phantomsneak;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -68,6 +71,14 @@ public class ChooseUtilActivity extends AppCompatActivity {
         View customdialogView = inflater.inflate(R.layout.customdialog, null);
         ImageView imageView = customdialogView.findViewById(R.id.imageView);
         TextView textTitle = customdialogView.findViewById(R.id.title);
+
+        // 根據當前模式設置標題文字的顏色
+        if (isDarkMode()) {
+            textTitle.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        } else {
+            textTitle.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
+        }
+
         textTitle.setText("請選擇一種存取方式");
 
         final CharSequence[] items;
@@ -226,9 +237,12 @@ public class ChooseUtilActivity extends AppCompatActivity {
         link_text.setMovementMethod(LinkMovementMethod.getInstance());
 
         link_text.setPadding(67,23,67,23);
-        link_text.setTextColor(Color.BLACK);
+        if (isDarkMode())
+            link_text.setTextColor(Color.WHITE);
+        else
+            link_text.setTextColor(Color.BLACK);
         link_text.setTextSize(15);
-        link_text.setText(Html.fromHtml("<b>選項1：Shizuku</b><br><a>使用者須先下載 Shizuku 應用程式</a><br><a href='https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api&pcampaignid=web_share'>(Play商店連結)</a><br><a>以 wifi無限偵錯 或 連接電腦ADB 啟動 Shizuku 服務來使用系統 API。</a><br><i><font color=#00b050>優點 1：可自動授權 (無需 MT管理器 )</font></i><br><i><font color=#00b050>優點 2：速度快 (堪比 root 用戶 )</font></i><br><i><font color=#CC3333>缺點 1：須啟動 Shizuku 服務才可使用</font></i><br><i><font color=#CC3333>缺點 2：若使用不慎導致遊戲卡加載畫面，須至白魔法主畫面下方，點擊「強制修復資源」</font></i><br>相關文檔：<a href='https://shizuku.rikka.app/zh-hant/guide/setup/'>點我跳轉</a><br><br><b>選項2：SAF</b><br><a>先前的方法，也就是授權 傳說對決 目錄並使用 DocumentFile 進行檔案寫入</a><br><i><font color=#00b050>優點 ：一般型 (多為安卓 11 ) 較方便</font></i><br><i><font color=#CC3333>缺點 1：效率極低</font></i><br><i><font color=#CC3333>缺點 2：無法自動授權 Resources</font></i><br><br><b>選項3：Root (授予root才可見)</b><br><a>給已授予 root 權限的使用者，又不想使用 Shizuku 或是安裝 MagiskModule Sui 的一種方法。</a><b>個人並不推薦</b><a>。原因是 每個「執行」都意味著新程序建立，su 內部使用 socket 與 su daemon 互動，這樣的過程中消耗大量的時間和效能。</a><br><b>※建議做法1：裝 Magisk Sui 模組</b><br><a href='https://github.com/RikkaApps/Sui'>(Github連結)</a><br><a>安裝完成後，返回白魔法選擇 Shizuku(Sui)並按下確認，畫面應如下</a><br><a href='https://cdn.discordapp.com/attachments/869195137803243550/1198456852619460718/Screenshot_20240121_103908.png'>圖片1</a><br><b>※建議做法2：安裝 Shizuku</b><br><a>安裝Shizuku後，以root啟動服務。返回白魔法選擇 Shizuku(Sui)並按下確認，畫面應如下</a><br><a href='https://cdn.discordapp.com/attachments/1069989755628032142/1201955848327540778/Screenshot_20240131_022149_Shizuku.png'>圖片2</a><br>"));
+        link_text.setText(Html.fromHtml("<b>選項1：Shizuku</b><br><a>使用者須先下載 Shizuku 應用程式</a><br><a href='https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api&pcampaignid=web_share'>(Play商店連結)</a><br><a>以 wifi無限偵錯 或 連接電腦ADB 啟動 Shizuku 服務來使用系統 API。</a><br><i><font color=#00b050>優點 1：可自動授權 (無需 MT管理器 )</font></i><br><i><font color=#00b050>優點 2：速度快 (堪比 root 用戶 )</font></i><br><i><font color=#CC3333>缺點 1：須啟動 Shizuku 服務才可使用</font></i><br><i><font color=#CC3333>缺點 2：若使用不慎導致遊戲卡加載畫面，須至白魔法主畫面下方，點擊「強制修復資源」</font></i><br>相關文檔：<a href='https://shizuku.rikka.app/zh-hant/guide/setup/'>點我跳轉</a><br><br><b>選項2：SAF</b><br><a>先前的方法，也就是授權 傳說對決 目錄並使用 DocumentFile 進行檔案寫入</a><br><i><font color=#00b050>優點 ：一般型 (多為安卓 11 ) 較方便</font></i><br><i><font color=#CC3333>缺點 1：效率極低</font></i><br><i><font color=#CC3333>缺點 2：無法自動授權 Resources</font></i><br><br><b>選項3：Root (授予root才可見)</b><br><a>給已授予 root 權限的使用者，又不想使用 Shizuku 或是安裝 MagiskModule Sui 的一種方法。</a><b>個人並不推薦</b><a>。原因是 每個「執行」都意味著新程序建立，su 內部使用 socket 與 su daemon 互動，這樣的過程中消耗大量的時間和效能。</a><br><b>※建議做法1：裝 Magisk Sui 模組</b><br><a href='https://github.com/RikkaApps/Sui'>(Github連結)</a><br><a>安裝完成後，返回白魔法選擇 Shizuku(Sui)並按下確認，畫面應如下</a><br><a href='https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/0-ChooseAsccessMethod/SUI.png'>圖片1</a><br><b>※建議做法2：安裝 Shizuku</b><br><a>安裝Shizuku後，以root啟動服務。返回白魔法選擇 Shizuku(Sui)並按下確認，畫面應如下</a><br><a href='https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/0-ChooseAsccessMethod/Shizuku.png'>圖片2</a><br>"));
 
         scrollView.addView(link_text);
 
@@ -238,6 +252,11 @@ public class ChooseUtilActivity extends AppCompatActivity {
                 .setView(scrollView)
                 .setPositiveButton("OK", null);
         help.create().show();
+    }
+
+    private boolean isDarkMode() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 
     private void showMessage(String s) {

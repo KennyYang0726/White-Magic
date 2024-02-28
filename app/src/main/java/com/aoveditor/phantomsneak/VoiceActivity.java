@@ -563,40 +563,40 @@ public class VoiceActivity extends AppCompatActivity {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/jpv.png", "MD5"), "04F21E26961AE937932EDF6B1D307F0A")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602057048064/jpv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview16);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/3-Voice/jpv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview16);
                 } else {
                     imageview16.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/jpv.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602057048064/jpv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview16);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/3-Voice/jpv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview16);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png", "MD5"), "8287C9CA40EACF277FF4BC35CD119CA5")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555601813766154/env.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview18);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/3-Voice/env.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview18);
                 } else {
                     imageview18.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/env.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555601813766154/env.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview18);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/3-Voice/env.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview18);
         }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png", "MD5"), "A6D227BE3B42F6650C187993FFD21CE7")) {
                     //校驗失敗，重新下載
-                    DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602342248498/krv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview23);
+                    DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/3-Voice/krv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview23);
                 } else {
                     imageview23.setImageBitmap(FileUtil.decodeSampleBitmapFromPath("/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/krv.png", 1024, 1024));
                 }
             } catch (Exception e) {
             }
         } else {
-            DLC("https://cdn.discordapp.com/attachments/842221289464004608/1074555602342248498/krv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview23);
+            DLC("https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/3-Voice/krv.png", "/data/user/0/com.aoveditor.phantomsneak/files/texture/3-Voice/", imageview23);
         }
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/JP"));
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));

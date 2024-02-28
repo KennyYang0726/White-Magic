@@ -111,7 +111,7 @@
 			android:padding="8dp"
 			android:text="啟用"
 			android:textSize="30sp"
-			android:textColor="#000000" />
+			android:textColor="@color/text_color" />
 		<LinearLayout
 			android:id="@+id/linear10"
 			android:layout_width="match_parent"

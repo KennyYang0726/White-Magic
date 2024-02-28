@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.*;
 import android.graphics.drawable.*;
 import android.net.Uri;
@@ -823,25 +824,25 @@ public class HomeActivity extends AppCompatActivity {
         _Internet();
         {
             HashMap<String, Object> _item = new HashMap<>();
-            _item.put("key", "https://cdn.discordapp.com/attachments/872037042337484840/934379368665448468/50112.png");
+            _item.put("key", "https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/1-Home/50112.png");
             map_view.add(_item);
         }
 
         {
             HashMap<String, Object> _item = new HashMap<>();
-            _item.put("key", "https://cdn.discordapp.com/attachments/872037042337484840/927256305368981594/Genos1.png");
+            _item.put("key", "https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/1-Home/Genos1.png");
             map_view.add(_item);
         }
 
         {
             HashMap<String, Object> _item = new HashMap<>();
-            _item.put("key", "https://cdn.discordapp.com/attachments/872037042337484840/927467247339974666/NAK.png");
+            _item.put("key", "https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/1-Home/NAK.png");
             map_view.add(_item);
         }
 
         {
             HashMap<String, Object> _item = new HashMap<>();
-            _item.put("key", "https://cdn.discordapp.com/attachments/872037042337484840/927411590641356870/diaochan.png");
+            _item.put("key", "https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/1-Home/diaochan.png");
             map_view.add(_item);
         }
 
@@ -1055,15 +1056,25 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    /*使選項內Icon與文字並存*/
+
+    private boolean isDarkMode() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    /**使選項內Icon與文字並存*/
     private CharSequence menuIconWithText(Drawable r, String title) {
         r.setBounds(0, 0, r.getIntrinsicWidth(), r.getIntrinsicHeight());
         SpannableString sb = new SpannableString("    " + title);
         ImageSpan imageSpan = new ImageSpan(r, ImageSpan.ALIGN_BOTTOM);
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //if (isDarkMode())
+            //sb.setSpan(new android.text.style.ForegroundColorSpan(Color.WHITE), 0, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //else
+            //sb.setSpan(new android.text.style.ForegroundColorSpan(Color.BLACK), 0, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return sb;
     }
-    /*程式中新增MenuItem選項*/
+    /**程式中新增MenuItem選項*/
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         /**itemId為稍後判斷點擊事件要用的*/
@@ -1082,7 +1093,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onCreateOptionsMenu(menu);
     }
-    /*此處為設置點擊事件*/
+    /**此處為設置點擊事件*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         /*取得Item的ItemId，判斷點擊到哪個元件*/
