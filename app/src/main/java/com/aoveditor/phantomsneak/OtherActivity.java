@@ -1233,6 +1233,23 @@ public class OtherActivity extends AppCompatActivity {
         }
         quit = false;
         _Internet();
+        /***********/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            AlertDialog.Builder abc = new AlertDialog.Builder(this);
+            abc.setTitle("公告")
+                    .setMessage("安卓14以上 此部分尚未完成，此為過渡版本，僅開放造型功能使用")
+                    .setCancelable(false)
+                    .setIcon(R.drawable.app_icon_r)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            page.setClass(getApplicationContext(), HomeActivity.class);
+                            startActivity(page);
+                            overridePendingTransition(0, 0);
+                        }
+                    });
+            abc.create().show();
+        }
     }
 
     @Override

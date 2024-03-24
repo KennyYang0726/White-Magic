@@ -286,17 +286,10 @@ public class LobbyActivity extends AppCompatActivity {
                                         overridePendingTransition(0, 0);
                                     } else { // 這裡才能執行 shell
 
-                                        if(HomeActivity.CheckPermissionSoundSuShizuku) {
-                                            StartInitializeShell("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/".concat(sound));
-                                            waitForShizukuCompletion(() ->
-                                                    StartInitializeShell("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/".concat(movie)));
-                                            showMessage("還原成功");
-                                        } else {
-                                            SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F".concat(sound));
-                                            SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie%2F".concat(movie));
-                                            showMessage("還原成功");
-                                        }
-
+                                        StartInitializeShell("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/".concat(sound));
+                                        waitForShizukuCompletion(() ->
+                                                StartInitializeShell("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/".concat(movie)));
+                                        showMessage("還原成功");
                                     }
                                 } else {
                                     showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
@@ -797,6 +790,23 @@ public class LobbyActivity extends AppCompatActivity {
         }
         quit = false;
         _Internet();
+        /***********/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            AlertDialog.Builder abc = new AlertDialog.Builder(this);
+            abc.setTitle("公告")
+                    .setMessage("安卓14以上 此部分尚未完成，此為過渡版本，僅開放造型功能使用")
+                    .setCancelable(false)
+                    .setIcon(R.drawable.app_icon_r)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            page.setClass(getApplicationContext(), HomeActivity.class);
+                            startActivity(page);
+                            overridePendingTransition(0, 0);
+                        }
+                    });
+            abc.create().show();
+        }
     }
 
     @Override

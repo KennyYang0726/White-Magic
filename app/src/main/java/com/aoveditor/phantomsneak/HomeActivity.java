@@ -157,7 +157,6 @@ public class HomeActivity extends AppCompatActivity {
     private ShizukuShellUtil mShizukuShell = null;
     private List<String> mResult = null;
     public static boolean CheckPermissionSoundSuShizuku = false;
-    private ProgressDialog pp;
 
     @Override
     protected void onCreate(Bundle _savedInstanceState) {
@@ -318,32 +317,18 @@ public class HomeActivity extends AppCompatActivity {
                                         finish();
                                         overridePendingTransition(0, 0);
                                     } else { // 這裡才能執行 shell
-                                        if (!CheckPermissionSoundSuShizuku) {
-                                            //SAF Extra, Shizuku Res
-                                            // Sound_DLC
-                                            SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC");
-                                            // LobbyMovie
-                                            SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie");
-                                            StartInitializeShell("rm -r " + path_res);
-                                            showMessage("還原完畢！");
-                                            waitForShizukuCompletion(() ->
-                                                    LaunchAOV());
-
-                                        } else {
-                                            //Shizuku ALL
+                                        //Shizuku ALL
+                                        StartInitializeShell("rm -r " + path_lobbymovie);
+                                        waitForShizukuCompletion(() -> {
                                             StartInitializeShell("rm -r " + path_lobbymovie);
                                             waitForShizukuCompletion(() -> {
-                                                StartInitializeShell("rm -r " + path_lobbymovie);
+                                                StartInitializeShell("rm -r " + path_res);
                                                 waitForShizukuCompletion(() -> {
-                                                    StartInitializeShell("rm -r " + path_res);
-                                                    waitForShizukuCompletion(() -> {
-                                                        showMessage("還原完畢！");
-                                                        LaunchAOV();
-                                                    });
+                                                    showMessage("還原完畢！");
+                                                    LaunchAOV();
                                                 });
                                             });
-
-                                        }
+                                        });
 
                                     }
                                 } else {
@@ -866,27 +851,10 @@ public class HomeActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 
             if (ChooseUtilActivity.Method == "Shizuku") {
-                //檢測是否有權限直接以 shizuku 寫入 Sound 目錄，是的話就是以root啟用服務或SUI使用者
-                pp = new ProgressDialog(HomeActivity.this);
-                pp.setMessage("請稍等...");
-                pp.setCancelable(false);
-                pp.show();
-                new BackgroundTaskClass(HomeActivity.this){
-                    @Override
-                    public void doInBackground() {
-                        Looper.prepare();
-                        FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
-                        _save("8964", FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/"), "Voice_JuWai.bnk");
-                    }
-                    @Override
-                    public void onPostExecute(){
-                        //存入tmp完成，嘗試列檔案，怕被卡bug，也就是讓系統自動授權後，存在目錄但不存在檔案
-                        initializeShell("ls -s /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese\\(Taiwan\\)/Voice_JuWai.bnk");
-                        waitForShizukuCompletion(() ->
-                                CheckPermissionSoundSuShizuku());
-                    }
-                }.execute();
-                //結束
+                //檢測是否有權限修改Resources目錄擁有者，有的話即SU啟用，直接不檢查
+                initializeShell("chown root /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
+                waitForShizukuCompletion(() ->
+                        CheckPermissionSoundSuShizuku());
             }
 
             if (ChooseUtilActivity.Method == "SAF") {
@@ -973,8 +941,6 @@ public class HomeActivity extends AppCompatActivity {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                                 if (ChooseUtilActivity.Method == "SAF")
                                     _get_permission();
-                                if  (ChooseUtilActivity.Method == "Shizuku")
-                                    _get_permission();
                             }
                         }
                     }
@@ -1006,6 +972,7 @@ public class HomeActivity extends AppCompatActivity {
             finishAffinity();
         }
     }
+
     public void _askPermission(final View _view) {
         AlertDialog.Builder askPermission = new AlertDialog.Builder(this);
         askPermission.setTitle("提示")
@@ -1745,26 +1712,6 @@ public class HomeActivity extends AppCompatActivity {
                                                                     }
                                                                     //builder.create().show();
 
-                                                                } else if (ChooseUtilActivity.Method == "Shizuku") {
-                                                                    if (ISPDiff_access.equals("❌") || extra_access.equals("❌")) {
-                                                                        // ISPDIFF和SOUND其中有尚未完成授權
-                                                                        builder.setTitle("獲取權限資訊狀態")
-                                                                                .setMessage("①Sound_DLC："+extra_access+"\n②LobbyMovie："+ISPDiff_access+"\n")
-                                                                                .setIcon(R.drawable.downloadlogo)
-                                                                                .setCancelable(false)
-                                                                                .setPositiveButton("自動授權①②", new DialogInterface.OnClickListener() {
-                                                                                    @Override
-                                                                                    public void onClick(DialogInterface dialog, int id) {
-                                                                                        page.setClass(getApplicationContext(), WarningActivity.class);
-                                                                                        startActivity(page);
-                                                                                        overridePendingTransition(0, 0);
-                                                                                    }
-                                                                                });
-                                                                       //builder.create().show();
-
-                                                                    } else {
-                                                                        FirstDetectPermission_Shizuku();
-                                                                    }
                                                                 }
 
                                                                 if (!isFinishing()) //不加可能出錯
@@ -1902,26 +1849,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    /**檢測sound權限判斷是否為su的shizuku*/
-    //先解壓去用shizuku複製
-
-    private void _save(final String _file, final String _path, final String _file2) {
-        try{
-            int count;
-            java.io.InputStream input= this.getAssets().open(_file);
-            java.io.OutputStream output = new  java.io.FileOutputStream(_path+_file2);
-            byte data[] = new byte[1024];
-            while ((count = input.read(data))>0) {
-                output.write(data, 0, count);
-            }
-            output.flush();
-            output.close();
-            input.close();
-        }catch(Exception e){
-        }
-    }
-
-    //檢測sound權限判斷是否為su的shizuku第一步
     private String result_tmp;
     private void CheckPermissionSoundSuShizuku() {
         //弄一點延遲
@@ -1929,70 +1856,15 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 result_tmp = mResult.get(mResult.size()-3);
                 //判斷情況
-                if (result_tmp.contains("Permission denied")) {
+                if (result_tmp.contains("Permission denied") || result_tmp.contains("Operation not permitted") || result_tmp.contains("or directory")) {
                     //沒權限，即非su啟用
                     CheckPermissionSoundSuShizuku = false;
-                    CheckPermissionSoundSuShizuku2();
-                } else if (result_tmp.contains("or directory")) {
-                    //目錄沒下載，預設為非su啟用
-                    CheckPermissionSoundSuShizuku = false;
-                    CheckPermissionSoundSuShizuku2();
+                    FirstDetectPermission_Shizuku();
                 } else {
-                    //確認有檔案了，再來複製看看剛剛解壓制tmp的檔案
-                    initializeShell("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/Voice_JuWai.bnk /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/Chinese\\(Taiwan\\)/");
-                    waitForShizukuCompletion(() ->
-                            CheckPermissionSoundSuShizuku2());
+                    CheckPermissionSoundSuShizuku = true;
                 }
             }
         }, 500);
-    }
-
-    private void CheckPermissionSoundSuShizuku2() {
-        //弄一點延遲
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                result_tmp = mResult.get(mResult.size()-3);
-                //判斷情況
-                if (result_tmp.contains("Permission denied")) {
-                    //沒權限，即非su啟用
-                    CheckPermissionSoundSuShizuku = false;
-                } else if (result_tmp.contains("or directory")) {
-                    //目錄沒下載，預設為非su啟用
-                    CheckPermissionSoundSuShizuku = false;
-                } else {
-                    //真的沒問題了
-                    CheckPermissionSoundSuShizuku = true;
-                }
-
-                //後續
-                pp.dismiss();
-                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp");
-                if (!CheckPermissionSoundSuShizuku){
-                    //如果shizuku但沒有sound權限 才要檢查授權
-                    try {
-                        muri = Uri.parse(sp.getString("DIRECT_FOLDER_URI", ""));
-                        mfile = DocumentFile.fromTreeUri(HomeActivity.this, muri);
-                        if (!sp.getString("FOLDER_URI", "").equals("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw")) {
-                            first_install = false;
-                            _askPermission(linear1);
-                        }
-                        if (!mfile.canRead() || !mfile.canWrite()) {
-                            first_install = true;
-                            _askPermission(linear1);
-                        } else {
-                            parenturi = Uri.parse(sp.getString("FOLDER_URI", ""));
-                            first_install = false;
-                            _get_permission();
-                        }
-                    } catch (Exception e) {
-                        first_install = true;
-                        _askPermission(linear1);
-                    }
-                }
-
-
-            }
-        }, 513);
     }
 
 

@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -97,7 +98,6 @@ public class ChooseUtilActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int item) {
                         // Update the selected position
                         selectedPosition[0] = item;
-                        Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -143,15 +143,24 @@ public class ChooseUtilActivity extends AppCompatActivity {
                                 Intent browserintent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api&pcampaignid=web_share"));
                                 startActivity(browserintent);
                             }
-
                             ChooseUtils();
                         }
                     } else if (selectedPosition[0] == 1){
-                        Method = "SAF";
-                        FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/Shizuku");
-                        FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/SU");
-                        FileUtil.writeFile("/data/user/0/com.aoveditor.phantomsneak/SAF", "");
-                        LoadHomeActivity();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                            showMessage("很抱歉，安卓14 起\n無法再使用 SAF 模式進行存取");
+                            Intent intent = new Intent();
+                            intent.setClass(ChooseUtilActivity.this, ChooseUtilActivity.class);
+                            ChooseUtilActivity.this.startActivity(intent);
+                            ChooseUtilActivity.this.finish();
+                            ChooseUtilActivity.this.overridePendingTransition(0, 0);
+                        } else {
+                            Method = "SAF";
+                            FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/Shizuku");
+                            FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/SU");
+                            FileUtil.writeFile("/data/user/0/com.aoveditor.phantomsneak/SAF", "");
+                            LoadHomeActivity();
+                        }
+
                     }  else if (selectedPosition[0] == 2){
                         Method = "SU";
                         FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/Shizuku");

@@ -10,8 +10,8 @@ android {
 		applicationId "com.aoveditor.phantomsneak"
 		minSdkVersion 24
 		targetSdkVersion 34
-		versionCode 24
-		versionName "1.5.7"
+		versionCode 25
+		versionName "1.5.8"
 		resourceConfigurations += []
 	}
 	

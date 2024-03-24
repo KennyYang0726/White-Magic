@@ -146,8 +146,16 @@ public class MainActivity extends AppCompatActivity {
 							intent.setClass(MainActivity.this, HomeActivity.class);
 							if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/Shizuku"))
 								ChooseUtilActivity.Method = "Shizuku";
-							else if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/SAF"))
-								ChooseUtilActivity.Method = "SAF";
+							else if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/SAF")) {
+								if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+									FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/SAF");
+									Toast.makeText(getApplicationContext(), "安卓14起無法使用SAF\n請重新選擇存取模式", Toast.LENGTH_SHORT).show();
+									intent.setClass(MainActivity.this, ChooseUtilActivity.class);
+									startActivity(intent);
+								} else {
+									ChooseUtilActivity.Method = "SAF";
+								}
+							}
 							else if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/SU"))
 								ChooseUtilActivity.Method = "SU";
 							startActivity(intent);
