@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.*;
+import android.util.Log;
 import android.view.View;
 import android.webkit.*;
 import android.widget.*;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.net.URL;
@@ -62,6 +64,7 @@ import rikka.shizuku.Shizuku;
 
 
 public class LobbyActivity extends AppCompatActivity {
+    /**Sound 在 firebase後檢查，movie在啟用後檢查*/
 
     private Timer _timer = new Timer();
     private FirebaseDatabase _firebase = FirebaseDatabase.getInstance();
@@ -750,39 +753,128 @@ public class LobbyActivity extends AppCompatActivity {
                             quiz.setNeutralButton("拒絕", null);
                             quiz.create().show();
                         }
+
+                        /********************* 檢查Sound擁有者 */
+                        if (ChooseUtilActivity.Method == "Shizuku") {
+                            StartInitializeShell("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " | awk \'{print $3}\'");
+                            waitForShizukuCompletion(() -> {
+                                String result_tmp0 = mResult.get(mResult.size() - 3);
+                                if (result_tmp0.contains("or directory")) {
+                                    /** 無 Sound_DLC 目錄 */
+                                    StartInitializeShell("mkdir -p /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android && touch /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound);
+                                } else if (result_tmp0.contains(HomeActivity.AOV_UID)) {
+                                    /** Sound_DLC/Android 目錄存在但目錄本身沒權限 */
+                                    StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
+                                    waitForShizukuCompletion(() -> {
+                                        //複製到本地
+                                        StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/AccessSoundTMP/");
+                                        waitForShizukuCompletion(() -> {
+                                            //複製到本地後的部分，要來重命名原本了
+                                            StartInitializeShell("mv " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC_trash0");
+                                            waitForShizukuCompletion(() -> {
+                                                //複製回去
+                                                StartInitializeShell("cp -r " + "/storage/emulated/0/AccessSoundTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                                waitForShizukuCompletion(() -> {
+                                                    //刪暫存
+                                                    StartInitializeShell("rm -r " + "/storage/emulated/0/AccessSoundTMP");
+                                                    waitForShizukuCompletion(() -> LSSound());
+                                                });
+                                            });
+                                        });
+                                    });
+                                } else {
+                                    /** Sound_DLC/Android 目錄存在，開始檢查 sound 權限 */
+                                    LSSound();
+                                }
+                            });
+                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError _databaseError) {
                     }
                 });
             }
-
             @Override
             public void onChildChanged(DataSnapshot _param1, String _param2) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
             }
-
             @Override
             public void onChildMoved(DataSnapshot _param1, String _param2) {
             }
-
             @Override
             public void onChildRemoved(DataSnapshot _param1) {
-                GenericTypeIndicator<HashMap<String, Object>> _ind = new GenericTypeIndicator<HashMap<String, Object>>() {};
-                final String _childKey = _param1.getKey();
-                final HashMap<String, Object> _childValue = _param1.getValue(_ind);
             }
-
             @Override
             public void onCancelled(DatabaseError _param1) {
-                final int _errorCode = _param1.getCode();
-                final String _errorMessage = _param1.getMessage();
             }
         };
         lobby.addChildEventListener(_lobby_child_listener);
     }
+
+
+    private int getRandom(int _min, int _max) {
+        Random random = new Random();
+        return random.nextInt(_max - _min + 1) + _min;
+    }
+
+    /**LS Sound*/
+    private void LSSound() {
+        StartInitializeShell("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound + " | awk \'{print $3}\'");
+        waitForShizukuCompletion(() -> {
+            String result_tmp = mResult.get(mResult.size()-3);
+            if (result_tmp.contains("or directory")) {
+                /**沒sound*/
+                StartInitializeShell("touch /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound);
+            } else if (result_tmp.contains(HomeActivity.AOV_UID)) {
+                /**權限不足 -> 重命名 Sound 本身   通常是 目錄已有權限，按還原後，讓遊戲下載進來，影片本身沒權限*/
+                String letter1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                String letter2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                String letter3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                int cc1 = getRandom((int)(0), (int)(61));
+                int cc2 = getRandom((int)(0), (int)(61));
+                int cc3 = getRandom((int)(0), (int)(61));
+                String str_tmp1 = (letter1.substring(cc1, cc1+1)+letter2.substring(cc2, cc2+1)+letter3.substring(cc3, cc3+1));
+                StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound + " /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound + "_" + str_tmp1 + "&& touch /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound);
+            }
+        });
+    }
+
+    private String result_tmp;
+    private void MovieDenied() {
+        String letter1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String letter2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String letter3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        int cc1 = getRandom((int)(0), (int)(61));
+        int cc2 = getRandom((int)(0), (int)(61));
+        int cc3 = getRandom((int)(0), (int)(61));
+        String str_tmp1 = (letter1.substring(cc1, cc1+1)+letter2.substring(cc2, cc2+1)+letter3.substring(cc3, cc3+1));
+        //為了確定影片檔存在與否
+        StartInitializeShell("mkdir /storage/emulated/0/AccessMovieTMP && mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/" + movie + " /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/" + movie + "_" + str_tmp1);
+        waitForShizukuCompletion(() -> {
+            result_tmp = mResult.get(mResult.size()-3);
+            // 前2 影片存在且無法重命名，即目錄也是傳說的，最後影片不存在且目錄為傳說的 (目錄要是shell早就不會跑來 MovieDenied)
+            Log.d("asdfgh", result_tmp);
+            if (result_tmp.contains("Permission denied") || result_tmp.contains("Operation not permitted") || result_tmp.contains("or directory")) {
+                StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff /storage/emulated/0/AccessMovieTMP/");
+                waitForShizukuCompletion(() -> {
+                    StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff_trash0");
+                    waitForShizukuCompletion(() -> {
+                        StartInitializeShell("cp -r /storage/emulated/0/AccessMovieTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                        waitForShizukuCompletion(() -> {
+                            StartInitializeShell("rm -r " + "/storage/emulated/0/AccessMovieTMP");
+                            waitForShizukuCompletion(() -> {
+                                showMessage("完成\n請重新啟用修改功能");
+                            });
+                        });
+                    });
+                });
+            } else {
+                //刪暫存
+                StartInitializeShell("rm -r " + "/storage/emulated/0/AccessMovieTMP");
+                showMessage("完成\n請重新啟用修改功能");
+            }
+        });
+    }
+
 
     private void initializeLogic() {
         if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"))) {
@@ -790,23 +882,6 @@ public class LobbyActivity extends AppCompatActivity {
         }
         quit = false;
         _Internet();
-        /***********/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            AlertDialog.Builder abc = new AlertDialog.Builder(this);
-            abc.setTitle("公告")
-                    .setMessage("安卓14以上 此部分尚未完成，此為過渡版本，僅開放造型功能使用")
-                    .setCancelable(false)
-                    .setIcon(R.drawable.app_icon_r)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            page.setClass(getApplicationContext(), HomeActivity.class);
-                            startActivity(page);
-                            overridePendingTransition(0, 0);
-                        }
-                    });
-            abc.create().show();
-        }
     }
 
     @Override
@@ -1052,20 +1127,39 @@ public class LobbyActivity extends AppCompatActivity {
                                         } else { // 這裡才能執行 shell
 
                                             if (HomeActivity.CheckPermissionSoundSuShizuku) {
-                                                StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                                StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
                                                 waitForShizukuCompletion(() ->
-                                                        AfterShizukuCP1());
-                                            } else {
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F".concat(sound));
-                                                uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp/Sound_DLC/Android/".concat(sound), uri2);
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie%2F".concat(movie));
-                                                uri2 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FISPDiff%2FLobbyMovie%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp/ISPDiff/LobbyMovie/".concat(movie), uri2);
+                                                        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp"));
                                                 showMessage("啟用成功");
-                                                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp");
-                                            }
+                                            } else {
 
+
+                                                StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                                waitForShizukuCompletion(() -> {
+                                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp");
+                                                    result_tmp = mResult.get(mResult.size()-3);
+                                                    Log.d("asdfgh", result_tmp);
+                                                    if (result_tmp.contains("Permission denied")) {
+                                                        AlertDialog.Builder alert0 = new AlertDialog.Builder(LobbyActivity.this);
+                                                        alert0.setIcon(R.drawable.app_icon_r)
+                                                                .setTitle("警告")
+                                                                .setMessage("檢測到啟用不完整，是否進行自動授權？\n點擊「授權」進行之。")
+                                                                .setCancelable(false)
+                                                                .setNegativeButton("取消", null)
+                                                                .setPositiveButton("授權", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                                        MovieDenied();
+                                                                    }
+                                                                });
+                                                        alert0.create().show();
+                                                    }/* else if (result_tmp.contains("or directory")) {
+                                                        //根本沒有 ISPDiff 目錄
+                                                    }*/ else {
+                                                        showMessage("啟用成功");
+                                                    }
+                                                });
+                                            }
                                         }
                                     } else {
                                         showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
@@ -1089,14 +1183,6 @@ public class LobbyActivity extends AppCompatActivity {
         }
     }
 
-
-    //Shizuku啟用聲音完成 -> 啟用影片，刪暫存，Toast
-    private void AfterShizukuCP1() {
-        StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp/ISPDiff /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
-        waitForShizukuCompletion(() ->
-                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-lobby/tmp"));
-        showMessage("啟用成功");
-    }
 
     // Shizuku 服務
     private boolean isShizukuING = false;

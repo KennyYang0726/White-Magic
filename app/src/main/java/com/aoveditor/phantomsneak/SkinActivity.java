@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.media.*;
 import android.net.Uri;
 import android.os.*;
+import android.util.Log;
 import android.view.View;
 import android.webkit.*;
 import android.widget.*;
@@ -38,6 +39,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.provider.DocumentsContract;
@@ -643,6 +645,11 @@ public class SkinActivity extends AppCompatActivity {
         skin_plugin.addChildEventListener(_skin_plugin_child_listener);
     }
 
+    private int getRandom(int _min, int _max) {
+        Random random = new Random();
+        return random.nextInt(_max - _min + 1) + _min;
+    }
+
     private void initializeLogic() {
         quit = false;
         FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/1-skin/", files_in_skin);
@@ -652,6 +659,59 @@ public class SkinActivity extends AppCompatActivity {
             textview5.setText(Uri.parse(files_in_skin.get((int)(0))).getLastPathSegment());
         }
         _Internet();
+
+        /** 檢查目錄擁有者，以免不停機權限覆蓋 */
+        if (ChooseUtilActivity.Method == "Shizuku") {
+            StartInitializeShell("ls -lR /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/ | awk \'{print $3}\'");
+            waitForShizukuCompletion(() -> {
+                if (mResult.contains(HomeActivity.AOV_UID)) {
+                    /** 如果有檔案的擁有者是傳說 */
+
+                    String letter1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    String letter2 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    String letter3 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    int cc1 = getRandom((int)(0), (int)(61));
+                    int cc2 = getRandom((int)(0), (int)(61));
+                    int cc3 = getRandom((int)(0), (int)(61));
+                    String str_tmp1 = (letter1.substring(cc1, cc1+1)+letter2.substring(cc2, cc2+1)+letter3.substring(cc3, cc3+1));
+
+                    StartInitializeShell("mkdir -p /storage/emulated/0/Android/.tmp/zzz.zz.z");
+                    AlertDialog.Builder 警告 = new AlertDialog.Builder(SkinActivity.this);
+                    警告.setIcon(R.drawable.app_icon_r)
+                            .setCancelable(false)
+                            .setTitle("警告")
+                            .setMessage("檢測到您的遊戲資源內有些檔案無法被白魔法存取\n(可能導致修改一半，通常是不停機更新導致)\n是否要進行自動授權？")
+                            .setPositiveButton("確認", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/.tmp/zzz.zz.z/");
+                                    waitForShizukuCompletion(() -> {
+                                        //複製到本地後的部分，要來重命名原本了
+                                        StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_" + str_tmp1);
+                                        waitForShizukuCompletion(() -> {
+                                            //複製回去
+                                            StartInitializeShell("cp -r /storage/emulated/0/Android/.tmp/zzz.zz.z/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
+                                            waitForShizukuCompletion(() -> {
+                                                //刪暫存
+                                                StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+                                                waitForShizukuCompletion(() -> {
+                                                    showMessage("大功告成~~");
+                                                });
+                                            });
+                                        });
+                                    });
+                                }
+                            })
+                            .setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+                                }
+                            });
+                    警告.create().show();
+                }
+            });
+        }
     }
 
     @Override

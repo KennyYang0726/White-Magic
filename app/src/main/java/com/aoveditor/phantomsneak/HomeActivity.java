@@ -43,6 +43,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
@@ -78,6 +80,7 @@ import com.aoveditor.phantomsneak.Utils.ShizukuShellUtil;
 import com.aoveditor.phantomsneak.Utils.SAFUtil;
 import com.aoveditor.phantomsneak.network.RequestNetwork;
 import com.aoveditor.phantomsneak.network.RequestNetworkController;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import rikka.shizuku.Shizuku;
 
@@ -157,6 +160,8 @@ public class HomeActivity extends AppCompatActivity {
     private ShizukuShellUtil mShizukuShell = null;
     private List<String> mResult = null;
     public static boolean CheckPermissionSoundSuShizuku = false;
+    /**傳說UID*/
+    public static String AOV_UID = "";
 
     @Override
     protected void onCreate(Bundle _savedInstanceState) {
@@ -689,6 +694,16 @@ public class HomeActivity extends AppCompatActivity {
                             hint.setPositiveButton("確認", null);
                             hint.create().show();
                         }
+
+                        /**檢查權限*/
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            if (ChooseUtilActivity.Method == "Shizuku") {
+                                //檢測是否有權限修改Resources目錄擁有者，有的話即SU啟用，直接不檢查
+                                initializeShell("chown root /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
+                                waitForShizukuCompletion(() ->
+                                        CheckPermissionSoundSuShizuku());
+                            }
+                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError _databaseError) {
@@ -801,6 +816,18 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initializeLogic() {
+        //取得FCM token (測試用)
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        String token = task.getResult();
+                        Log.d("FireBaseFCM_Token", token);
+                    }
+                });
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/1-skin"));
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice"));
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"));
@@ -849,13 +876,6 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-
-            if (ChooseUtilActivity.Method == "Shizuku") {
-                //檢測是否有權限修改Resources目錄擁有者，有的話即SU啟用，直接不檢查
-                initializeShell("chown root /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
-                waitForShizukuCompletion(() ->
-                        CheckPermissionSoundSuShizuku());
-            }
 
             if (ChooseUtilActivity.Method == "SAF") {
                 //如果選擇SAF，才要檢查授權
@@ -1934,11 +1954,19 @@ public class HomeActivity extends AppCompatActivity {
             shizuku_permission.setIcon(R.drawable.downloadlogo);
             shizuku_permission.setTitle("提示")
                     .setCancelable(false)
-                    .setMessage("檢測到您尚未下載 傳說對決 資源，點擊「確認」跳轉遊戲下載資源。")
+                    .setMessage("檢測到您尚未下載 傳說對決 資源，點擊「確認」跳轉遊戲下載資源。\n若您認為這是個錯誤(資源已下載)，點擊「直接授權」進行步驟 1/2 授權。")
                     .setPositiveButton("確認", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             LaunchAOV();
+                        }
+                    })
+                    .setNegativeButton("直接授權", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_trash0");
+                            waitForShizukuCompletion(() ->
+                                    LaunchAOV());
                         }
                     });
             shizuku_permission.create().show();
@@ -2008,7 +2036,6 @@ public class HomeActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/");
-                            //StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/TMP/");
                             waitForShizukuCompletion(() ->
                                     Forth_DetectPermission_Shizuku());
                         }
@@ -2017,29 +2044,40 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             //沒問題拉~~(吧)
             StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+            waitForShizukuCompletion(() -> {
+                //將傳說 UID 儲存，方便檢測權限(擁有者)
+                StartInitializeShell("dumpsys package com.garena.game.kgtw | grep uid | head -n 1 | awk \'{print $1}\'");
+                waitForShizukuCompletion(() -> {
+                    String result_tmp2 = mResult.get(mResult.size()-3);
+                    AOV_UID = "u0_a" + result_tmp2.substring(result_tmp2.length() - 3);
+                    /*************************/
+                });
+            });
         }
 
     }
     private void Forth_DetectPermission_Shizuku() {
         //複製到本地後的部分，要來重命名原本了
         StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_trash1");
-        waitForShizukuCompletion(() ->
-                Fifth_DetectPermission_Shizuku());
-    }
-    private void Fifth_DetectPermission_Shizuku() {
-        //重命名原本了，要把本地移回來了
-        StartInitializeShell("cp -r /storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
-        waitForShizukuCompletion(() ->
-                Sixth_DetectPermission_Shizuku());
-    }
-    private void Sixth_DetectPermission_Shizuku() {
-        StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
-        //StartInitializeShell("rm -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/TMP");
-        waitForShizukuCompletion(() ->
-                showMessage("大功告成~~"));
-    }
+        waitForShizukuCompletion(() -> {
+            //複製回去
+            StartInitializeShell("cp -r /storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
+            waitForShizukuCompletion(() -> {
+                //刪暫存
+                StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+                waitForShizukuCompletion(() -> {
+                    //將傳說 UID 儲存，方便檢測權限(擁有者)
+                    StartInitializeShell("dumpsys package com.garena.game.kgtw | grep uid | head -n 1 | awk \'{print $1}\'");
+                    waitForShizukuCompletion(() -> {
+                        String result_tmp = mResult.get(mResult.size()-3);
+                        AOV_UID = "u0_a" + result_tmp.substring(result_tmp.length() - 3);
+                        showMessage("大功告成~~");
+                    });
 
-
+                });
+            });
+        });
+    }
 
 
     // Shizuku 服務

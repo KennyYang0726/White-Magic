@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.*;
 import android.net.Uri;
 import android.os.*;
+import android.util.Log;
 import android.view.*;
 import android.view.View;
 import android.webkit.*;
@@ -209,6 +210,7 @@ public class OtherActivity extends AppCompatActivity {
 
 
     private void initialize(Bundle _savedInstanceState) {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         button13 = findViewById(R.id.button13);
         imageview12 = findViewById(R.id.imageview12);
         imageview18 = findViewById(R.id.imageview18);
@@ -294,8 +296,8 @@ public class OtherActivity extends AppCompatActivity {
                                     SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FAges%2FPrefab_Characters%2FPrefab_Hero%2FActor_194_Actions.pkg.bytes")));
                                     SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2Fassetbundle%2Ficon%2Fhero%2F194_sulie_icon.assetbundle")));
                                     SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2FlanguageMap_Newbie.txt")));
-                                    SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
-                                    SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
+                                    //SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
+                                    //SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
                                     SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
                                     SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
                                     SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
@@ -307,9 +309,17 @@ public class OtherActivity extends AppCompatActivity {
                                     SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/icon/hero/194_sulie_icon.assetbundle")), uri2);
                                     Uri uri3 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FLanguages%2FCHT_Garena_TW%2F")));
                                     SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/Languages/CHT_Garena_TW/languageMap_Newbie.txt")), uri3);
-                                    Uri uri4 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F");
-                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_low_raw_h.assetbundle", uri4);
-                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_raw_h.assetbundle", uri4);
+                                    //
+                                    Uri uri4 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2Fassetbundle%2Fshow%2Fhero%2F")));
+                                    //這兩檔案有改
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/show/hero/194_sulie_show_base_low_raw_h.assetbundle")), uri4);
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/show/hero/194_sulie_show_base_raw_h.assetbundle")), uri4);
+                                    //以下ab包無改，連同上避免讀取失敗
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/show/hero/194_sulie_show_base.assetbundle")), uri4);
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/show/hero/194_sulie_show_base_low.assetbundle")), uri4);
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/show/hero/194_sulie_show_base_low_raw_mat.assetbundle")), uri4);
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources/".concat(game_ver.concat("/assetbundle/show/hero/194_sulie_show_base_raw_mat.assetbundle")), uri4);
+                                    //
                                     Uri uri5 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
                                     SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk", uri5);
                                     Uri uri6 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
@@ -337,28 +347,19 @@ public class OtherActivity extends AppCompatActivity {
                                                 waitForShizukuCompletion(() -> FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp"));
                                                 showMessage("完成");
                                             } else {
-                                                //SAF rm
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_low_raw_h.assetbundle");
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F194_sulie_show_base_raw_h.assetbundle");
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FHero_Wiro_SFX.bnk");
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_VO.bnk");
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2FHero_Wiro_Show.bnk");
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2FE08074BD2C22D7294436E68F0AEA0E90");
-                                                //SAF cp
-                                                Uri uri4 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_low_raw_h.assetbundle", uri4);
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/assetbundle/show/hero/194_sulie_show_base_raw_h.assetbundle", uri4);
-                                                Uri uri5 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk", uri5);
-                                                Uri uri6 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2FChinese(Taiwan)%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk", uri6);
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk", uri6);
-                                                Uri uri7 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FCDNImage%2FHeroHeadIcon%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90", uri7);
                                                 //Shizuku cp
-                                                StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/Resources" +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/");
-                                                waitForShizukuCompletion(() -> FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp"));
-                                                showMessage("完成");
+                                                StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp/*" +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/");
+                                                waitForShizukuCompletion(() -> {
+                                                    String result_tmp = mResult.get(mResult.size()-3);
+                                                    //判斷情況
+                                                    if (result_tmp.contains("Permission denied") || result_tmp.contains("Operation not permitted")) {
+                                                        ShizukuAccessSound();
+                                                    } else {
+                                                        showMessage("完成");
+                                                    }
+                                                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-other/tmp");
+                                                });
+
                                             }
 
                                         }
@@ -1093,11 +1094,6 @@ public class OtherActivity extends AppCompatActivity {
                         GOD = map2.get((int)0).get("神仙亂鬥").toString();
                         GOD_URL = map2.get((int)0).get("神仙亂鬥_URL").toString();
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            if (ChooseUtilActivity.Method == "SAF" || (ChooseUtilActivity.Method == "Shizuku" && !HomeActivity.CheckPermissionSoundSuShizuku))
-                                get_permission();
-                        }
-
                     }
                     @Override
                     public void onCancelled(DatabaseError _databaseError) {
@@ -1233,23 +1229,6 @@ public class OtherActivity extends AppCompatActivity {
         }
         quit = false;
         _Internet();
-        /***********/
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            AlertDialog.Builder abc = new AlertDialog.Builder(this);
-            abc.setTitle("公告")
-                    .setMessage("安卓14以上 此部分尚未完成，此為過渡版本，僅開放造型功能使用")
-                    .setCancelable(false)
-                    .setIcon(R.drawable.app_icon_r)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            page.setClass(getApplicationContext(), HomeActivity.class);
-                            startActivity(page);
-                            overridePendingTransition(0, 0);
-                        }
-                    });
-            abc.create().show();
-        }
     }
 
     @Override
@@ -1272,6 +1251,43 @@ public class OtherActivity extends AppCompatActivity {
 
     public void _Internet() {
         net.startRequestNetwork(RequestNetworkController.GET, "https://1.1.1.1", "", _net_request_listener);
+    }
+
+
+    /*授權次數越多，垃圾越多(Sound_DLC無法存取所以整個會跑進_trash裡面，每次都進去一層)*/
+    private void ShizukuAccessSound() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
+        alert.setTitle("啟用不全警告")
+                .setIcon(R.drawable.app_icon_r)
+                .setCancelable(false)
+                .setMessage("Sound_DLC 目錄權限不完全，導致修改時語音部分無法修改。點擊「授權」即可授權目錄。\n這可能需要3分鐘(或更久)的時間。\n※授權完成後須重新啟用剛才的功能。")
+                .setPositiveButton("授權", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/AccessSoundTMP/");
+                        waitForShizukuCompletion(() -> {
+                            StartInitializeShell("mv " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC_trash0");
+                            waitForShizukuCompletion(() -> {
+                                StartInitializeShell("cp -r " + "/storage/emulated/0/AccessSoundTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                waitForShizukuCompletion(() -> {
+                                    StartInitializeShell("rm -r " + "/storage/emulated/0/AccessSoundTMP");
+                                    waitForShizukuCompletion(() -> {
+                                        showMessage("授權完畢！");
+                                        showMessage("請重新啟用剛才的功能");
+                                    });
+                                });
+                            });
+                        });
+                    }
+                })
+                .setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        StartInitializeShell("rm -r /storage/emulated/0/AccessSoundTMP");
+                    }
+                });
+        alert.create().show();
     }
 
 
@@ -1570,11 +1586,19 @@ public class OtherActivity extends AppCompatActivity {
                                                 waitForShizukuCompletion(() -> FileUtil.deleteFile(ppath + ffilename));
                                                 showMessage("成功");
                                             } else {
-                                                SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F" + filename);
-                                                Uri uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FExtra%2F2019.V2%2FSound_DLC%2FAndroid%2F");
-                                                SAFUtil.copyFilePath2Uri(getApplicationContext(), Path + filename, uriA);
-                                                FileUtil.deleteFile(Path + filename);
-                                                showMessage("成功");
+                                                StartInitializeShell("cp -r " + Path + filename +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
+                                                String ppath = Path;
+                                                String ffilename = filename;
+                                                waitForShizukuCompletion(() -> {
+                                                    String result_tmp = mResult.get(mResult.size()-3);
+                                                    //判斷情況
+                                                    if (result_tmp.contains("Permission denied") || result_tmp.contains("Operation not permitted")) {
+                                                        ShizukuAccessSound();
+                                                    } else {
+                                                        showMessage("完成");
+                                                    }
+                                                    FileUtil.deleteFile(ppath + ffilename);
+                                                });
                                             }
                                         }
                                     }
@@ -1835,69 +1859,6 @@ public class OtherActivity extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
-    }
-
-
-    public void get_permission() {
-        //稍等的dialog
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(OtherActivity.this);
-        builder1.setTitle("")
-                .setMessage("\n請稍等...\n")
-                .setCancelable(false);
-        AlertDialog alert1 = builder1.create();
-        alert1.show();
-
-        final String[] result_tmp = new String[1];
-        if (ChooseUtilActivity.Method == "Shizuku") {
-            StartInitializeShell("du -sh " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/assetbundle");
-            waitForShizukuCompletion(() -> {
-                result_tmp[0] = mResult.get(mResult.size()-3).split("/")[0];
-            });
-        }
-
-        createdirectoryandfile("/files/Extra/2019.V2/assetbundle/show/hero", "Extra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2Ftest.txt");
-
-        t_delay = new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //after counting down
-                        if (!assetbundle_access){
-                            alert1.dismiss();
-                            builder1.setTitle("獲取權限資訊狀態");
-                            if (ChooseUtilActivity.Method == "Shizuku")
-                                builder1.setMessage("assetbundle 目錄尚未取得權限，您已下載 " + result_tmp[0] + "的資源，點擊「授權」後，會占用 " + result_tmp[0] + "空間的垃圾，並且局內大量資源皆須重新下載，目前僅 維羅國動 需要使用該目錄，若忽略，則國動模型的修改便無效，聲音仍然會修改成功");
-                            else
-                                builder1.setMessage("assetbundle 目錄尚未取得權限，若點擊「授權」，局內大量資源皆須重新下載 (最大可能高達 5 Gb)，目前僅 維羅國動 需要使用該目錄，若忽略，則國動模型的修改便無效，聲音仍然會修改成功");
-                            builder1.setCancelable(true)
-                                    .setNeutralButton("忽略",null)
-                                    .setPositiveButton("授權", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            renameTo("/files/Extra/2019.V2", "assetbundle", "assetbundle_trash");
-                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/show/hero", "Extra%2F2019.V2%2Fassetbundle%2Fshow%2Fhero%2Ftest.txt");
-                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/show/skin", "Extra%2F2019.V2%2Fassetbundle%2Fshow%2Fskin%2Ftest.txt");
-                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/battle/hero", "Extra%2F2019.V2%2Fassetbundle%2Fbattle%2Fhero%2Ftest.txt");
-                                            createdirectoryandfile("/files/Extra/2019.V2/assetbundle/battle/skin", "Extra%2F2019.V2%2Fassetbundle%2Fbattle%2Fskin%2Ftest.txt");
-                                            showMessage("完成");
-                                            showMessage("請先回遊戲，將模型下載回來");
-                                            Intent mIntent = getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
-                                            startActivity(mIntent);
-                                        }
-                                    });
-                            AlertDialog alert1 = builder1.create();
-                            alert1.show();
-                        } else {
-                            alert1.dismiss();
-                        }
-                        //end
-                    }
-                });
-            }
-        };
-        _timer.schedule(t_delay, (int)(500));
     }
 
 
