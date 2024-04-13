@@ -756,37 +756,40 @@ public class LobbyActivity extends AppCompatActivity {
 
                         /********************* 檢查Sound擁有者 */
                         if (ChooseUtilActivity.Method == "Shizuku") {
-                            StartInitializeShell("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " | awk \'{print $3}\'");
-                            waitForShizukuCompletion(() -> {
-                                String result_tmp0 = mResult.get(mResult.size() - 3);
-                                if (result_tmp0.contains("or directory")) {
-                                    /** 無 Sound_DLC 目錄 */
-                                    StartInitializeShell("mkdir -p /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android && touch /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound);
-                                } else if (result_tmp0.contains(HomeActivity.AOV_UID)) {
-                                    /** Sound_DLC/Android 目錄存在但目錄本身沒權限 */
-                                    StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
-                                    waitForShizukuCompletion(() -> {
-                                        //複製到本地
-                                        StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/AccessSoundTMP/");
+                            if (!HomeActivity.CheckPermissionSoundSuShizuku) {  //非su啟用才須檢測目錄權限
+                                StartInitializeShell("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " | awk \'{print $3}\'");
+                                waitForShizukuCompletion(() -> {
+                                    String result_tmp0 = mResult.get(mResult.size() - 3);
+                                    if (result_tmp0.contains("or directory")) {
+                                        /** 無 Sound_DLC 目錄 */
+                                        StartInitializeShell("mkdir -p /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android && touch /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + sound);
+                                    } else if (result_tmp0.contains(HomeActivity.AOV_UID)) {
+                                        /** Sound_DLC/Android 目錄存在但目錄本身沒權限 */
+                                        StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
                                         waitForShizukuCompletion(() -> {
-                                            //複製到本地後的部分，要來重命名原本了
-                                            StartInitializeShell("mv " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC_trash0");
+                                            //複製到本地
+                                            StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/AccessSoundTMP/");
                                             waitForShizukuCompletion(() -> {
-                                                //複製回去
-                                                StartInitializeShell("cp -r " + "/storage/emulated/0/AccessSoundTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                                //複製到本地後的部分，要來重命名原本了
+                                                StartInitializeShell("mv " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC_trash0");
                                                 waitForShizukuCompletion(() -> {
-                                                    //刪暫存
-                                                    StartInitializeShell("rm -r " + "/storage/emulated/0/AccessSoundTMP");
-                                                    waitForShizukuCompletion(() -> LSSound());
+                                                    //複製回去
+                                                    StartInitializeShell("cp -r " + "/storage/emulated/0/AccessSoundTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                                    waitForShizukuCompletion(() -> {
+                                                        //刪暫存
+                                                        StartInitializeShell("rm -r " + "/storage/emulated/0/AccessSoundTMP");
+                                                        waitForShizukuCompletion(() -> LSSound());
+                                                    });
                                                 });
                                             });
                                         });
-                                    });
-                                } else {
-                                    /** Sound_DLC/Android 目錄存在，開始檢查 sound 權限 */
-                                    LSSound();
-                                }
-                            });
+                                    } else {
+                                        /** Sound_DLC/Android 目錄存在，開始檢查 sound 權限 */
+                                        LSSound();
+                                    }
+                                });
+                            }
+
                         }
                     }
                     @Override
@@ -877,6 +880,10 @@ public class LobbyActivity extends AppCompatActivity {
 
 
     private void initializeLogic() {
+        if (ChooseUtilActivity.Method == "") {
+            showMessage("請使用正當方式開啟白魔法");
+            finishAffinity();
+        }
         if (!FileUtil.isExistFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"))) {
             FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/3-lobby"));
         }

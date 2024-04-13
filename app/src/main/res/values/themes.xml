@@ -12,5 +12,8 @@
 		<item name="android:windowContentOverlay">@null</item>
 	</style>
 	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light">
+		<item name="android:textColor">@color/black</item>
+		<item name="android:colorBackground">@color/white</item>
+	</style>
 </resources>

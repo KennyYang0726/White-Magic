@@ -566,49 +566,54 @@ public class VoiceActivity extends AppCompatActivity {
     }
 
     private void initializeLogic() {
-
+        if (ChooseUtilActivity.Method == "") {
+            showMessage("請使用正當方式開啟白魔法");
+            finishAffinity();
+        }
         /** 檢查目錄擁有者，以免不停機 DLC 權限覆蓋 */
         if (ChooseUtilActivity.Method == "Shizuku") {
-            StartInitializeShell("ls -lR /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC | awk \'{print $3}\'");
-            waitForShizukuCompletion(() -> {
-                if (mResult.contains(HomeActivity.AOV_UID)) {
-                    /** 如果有檔案的擁有者是傳說 */
-                    StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
-                    AlertDialog.Builder 警告 = new AlertDialog.Builder(VoiceActivity.this);
-                    警告.setIcon(R.drawable.app_icon_r)
-                            .setCancelable(false)
-                            .setTitle("警告")
-                            .setMessage("Sound_DLC 目錄權限不完全，導致修改時語音部分無法修改。點擊「授權」即可授權目錄。\n這可能需要3分鐘(或更久)的時間。")
-                            .setPositiveButton("授權", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/AccessSoundTMP/");
-                                    waitForShizukuCompletion(() -> {
-                                        //複製到本地後的部分，要來重命名原本了
-                                        StartInitializeShell("mv " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC_trash0");
+            if (!HomeActivity.CheckPermissionSoundSuShizuku) { //非su啟用才須檢測目錄權限
+                StartInitializeShell("ls -lR /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC | awk \'{print $3}\'");
+                waitForShizukuCompletion(() -> {
+                    if (mResult.contains(HomeActivity.AOV_UID)) {
+                        /** 如果有檔案的擁有者是傳說 */
+                        StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
+                        AlertDialog.Builder 警告 = new AlertDialog.Builder(VoiceActivity.this);
+                        警告.setIcon(R.drawable.app_icon_r)
+                                .setCancelable(false)
+                                .setTitle("警告")
+                                .setMessage("Sound_DLC 目錄權限不完全，導致修改時語音部分無法修改。點擊「授權」即可授權目錄。\n這可能需要3分鐘(或更久)的時間。")
+                                .setPositiveButton("授權", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        StartInitializeShell("cp -r " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/AccessSoundTMP/");
                                         waitForShizukuCompletion(() -> {
-                                            //複製回去
-                                            StartInitializeShell("cp -r " + "/storage/emulated/0/AccessSoundTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                            //複製到本地後的部分，要來重命名原本了
+                                            StartInitializeShell("mv " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC_trash0");
                                             waitForShizukuCompletion(() -> {
-                                                //刪暫存
-                                                StartInitializeShell("rm -r " + "/storage/emulated/0/AccessSoundTMP");
+                                                //複製回去
+                                                StartInitializeShell("cp -r " + "/storage/emulated/0/AccessSoundTMP/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
                                                 waitForShizukuCompletion(() -> {
-                                                    showMessage("授權完成~~");
+                                                    //刪暫存
+                                                    StartInitializeShell("rm -r " + "/storage/emulated/0/AccessSoundTMP");
+                                                    waitForShizukuCompletion(() -> {
+                                                        showMessage("授權完成~~");
+                                                    });
                                                 });
                                             });
                                         });
-                                    });
-                                }
-                            })
-                            .setNegativeButton("忽略", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
-                                }
-                            });
-                    警告.create().show();
-                }
-            });
+                                    }
+                                })
+                                .setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
+                                    }
+                                });
+                        警告.create().show();
+                    }
+                });
+            }
         }
 
 
@@ -655,23 +660,6 @@ public class VoiceActivity extends AppCompatActivity {
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/2-voice/EN"));
         quit = false;
         _Internet();
-        /**********
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            AlertDialog.Builder abc = new AlertDialog.Builder(this);
-            abc.setTitle("公告")
-                    .setMessage("安卓14以上 此部分尚未完成，此為過渡版本，僅開放造型功能使用")
-                    .setCancelable(false)
-                    .setIcon(R.drawable.app_icon_r)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            page.setClass(getApplicationContext(), HomeActivity.class);
-                            startActivity(page);
-                            overridePendingTransition(0, 0);
-                        }
-                    });
-            abc.create().show();
-        }*/
     }
 
     @Override

@@ -17,12 +17,24 @@ import android.webkit.*;
 import android.widget.*;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.ChildEventListener;
@@ -79,24 +91,15 @@ public class OtherActivity extends AppCompatActivity {
     private FirebaseDatabase _firebase = FirebaseDatabase.getInstance();
 
     private boolean quit = false;
-    private Uri uri2;
-    private DocumentFile mfile1;
     private String wiro = "";
     private String Volkath = "";
     private String game_ver = "";
     private Uri uriA;
-    private Uri uriB;
-    private Uri uriC;
-    private Uri uriD;
-    private Uri uriE;
-    private Uri uriF;
-    private boolean assetbundle_access;
     private String tower = "";
     private String monster = "";
     private String soldier = "";
     private String skin_string = "";
     private String lobby_string = "";
-    private boolean haveSU = false;
     private String soldier0 = "";
     private String monster0 = "";
     private String tower0 = "";
@@ -108,13 +111,7 @@ public class OtherActivity extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> map2 = new ArrayList<>();
 
     //SAF Main Var
-    private final String mAndroidDataDocId = "primary:Android/data/com.garena.game.kgtw";
-    private final Uri mAndroidUri = DocumentsContract.buildTreeDocumentUri(
-            "com.android.externalstorage.documents", "primary:Android"
-    );
-    private int currentLevel = -1;
-    private int fileCount = 0;
-    private ContentResolver mContentResolver;
+
 
     //Layout Object var
     private Button button13;
@@ -141,6 +138,7 @@ public class OtherActivity extends AppCompatActivity {
     private Button button19;
     private Button button20;
     private AdView banner4;
+    private RewardedAd rewardedAd;
     private ImageView imageview7;
     private ImageView imageview8;
     private ImageView imageview9;
@@ -174,6 +172,8 @@ public class OtherActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
+        loadRewardAds();
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
@@ -246,8 +246,6 @@ public class OtherActivity extends AppCompatActivity {
 
         AdRequest adRequest = new AdRequest.Builder().build();
         banner4.loadAd(adRequest);
-
-        mContentResolver = getContentResolver();
 
         button13.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -803,85 +801,7 @@ public class OtherActivity extends AppCompatActivity {
                 dialog_120fps.setPositiveButton("確認", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface _dialog, int _which) {
-                        Decrypt();
-                        ProgressBar_Show("修改中...請稍後...");
-                        new BackgroundTaskClass(OtherActivity.this){
-                            @Override
-                            public void doInBackground() {
-                                Looper.prepare();
-                                //todo
-                                ModDevice(Device_ID);
-                                if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
-                                    {
-                                        java.io.File dYx4Y = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList0.bytes"));
-                                        java.io.File e5Cyk = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
-                                        dYx4Y.renameTo(e5Cyk);
-                                    }
-                                } else {
-                                    ModOffest(Device_ID.length()-("xiaomi M2102J20SG".length()));
-                                }
-                                Encrypt();
-                            }
-                            @Override
-                            public void onPostExecute(){
-                                //加密完成
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                    if (ChooseUtilActivity.Method == "SU") {
-                                        if (SuperUserUtil.haveSU()) {
-                                            SuperUserUtil.cpWithSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
-                                            FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
-                                            showMessage("完成");
-                                        } else {
-                                            showMessage("你已撤銷 root 權限");
-                                            MainActivity.haveSU = false;
-                                            Intent pageJump = new Intent();
-                                            pageJump.setClass(OtherActivity.this, ChooseUtilActivity.class);
-                                            startActivity(pageJump);
-                                            finish();
-                                            overridePendingTransition(0, 0);
-                                        }
-
-                                    } else if (ChooseUtilActivity.Method == "SAF") {
-                                        //rm
-                                        SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
-                                        //cp
-                                        Uri uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
-                                        SAFUtil.copyFilePath2Uri(getApplicationContext(), FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), uriA);
-                                        FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
-                                        showMessage("完成");
-                                    } else if (ChooseUtilActivity.Method == "Shizuku") {
-                                        /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
-                                        if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
-                                            if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
-                                                showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
-                                                Intent pageJump = new Intent();
-                                                pageJump.setClass(OtherActivity.this, ChooseUtilActivity.class);
-                                                startActivity(pageJump);
-                                                finish();
-                                                overridePendingTransition(0, 0);
-                                            } else { // 這裡才能執行 shell
-                                                StartInitializeShell("cp " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
-                                                waitForShizukuCompletion(() -> FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp")));
-                                                showMessage("完成");
-                                            }
-                                        } else {
-                                            showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
-                                            Intent pageJump = new Intent();
-                                            pageJump.setClass(OtherActivity.this, ChooseUtilActivity.class);
-                                            startActivity(pageJump);
-                                            finish();
-                                            overridePendingTransition(0, 0);
-                                        }
-                                    }
-                                } else {
-                                    FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
-                                    FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
-                                    showMessage("完成");
-                                }
-                                ProgressBar_Dismiss();
-                            }
-                        }.execute();
-                        //結束
+                        showRewardAds();
                     }
                 });
                 dialog_120fps.setNeutralButton("取消", new DialogInterface.OnClickListener() {
@@ -1118,6 +1038,10 @@ public class OtherActivity extends AppCompatActivity {
     }
 
     private void initializeLogic() {
+        if (ChooseUtilActivity.Method == "") {
+            showMessage("請使用正當方式開啟白魔法");
+            finishAffinity();
+        }
         if (FileUtil.isExistFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png")) {
             try {
                 if (!Objects.equals(FileUtil.getFile("/data/user/0/com.aoveditor.phantomsneak/files/texture/5-Other/wiro.png", "MD5"), "251F3675E8E16FD55C90FF9440687A35")) {
@@ -1802,62 +1726,132 @@ public class OtherActivity extends AppCompatActivity {
         return null;
     }
 
-    public void createdirectoryandfile(String dir, String uridelete) {
-        try {
-            Uri uri1 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
-            DocumentFile documentFile = DocumentFile.fromTreeUri(OtherActivity.this, uri1);
-            String[] list = dir.split("/");
-            int i = 0;
-            while (i < list.length) {
-                if (!list[i].equals("")) {
-                    DocumentFile a = getDocumentFile1(documentFile, list[i]);
-                    if (a == null) {
-                        documentFile = documentFile.createDirectory(list[i]);
-                    } else {
-                        documentFile = a;
+
+    private void loadRewardAds() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        rewardedAd.load(this, getResources().getString(R.string.reward), adRequest, new RewardedAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull RewardedAd rewardedad) {
+                super.onAdLoaded(rewardedad);
+                rewardedAd = rewardedad;
+                rewardedad.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdClicked() {
+                        super.onAdClicked();
                     }
-                }
-                i++;
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        super.onAdDismissedFullScreenContent();
+                    }
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        super.onAdFailedToShowFullScreenContent(adError);
+                    }
+                    @Override
+                    public void onAdImpression() {
+                        super.onAdImpression();
+                    }
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        super.onAdShowedFullScreenContent();
+                    }
+                });
             }
-            documentFile = documentFile.createFile("text/plain", "test.txt");
-            uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2F"+uridelete);
-            try {
-                try{
-                    DocumentsContract.deleteDocument(getApplicationContext().getContentResolver(), uriA);
-                    assetbundle_access = true;
-                } catch (FileNotFoundException e) {
-
-                }
-            } catch (Exception e) {
-                assetbundle_access = false;
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                rewardedAd = null;
             }
-        }catch (Exception e){
-
-        }
+        });
     }
 
-    public boolean renameTo(String dir,String fileName,String targetName) {
-        try {
-            Uri uri1 = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw");
-            DocumentFile documentFile = DocumentFile.fromTreeUri(OtherActivity.this, uri1);
-            String[] list = dir.split("/");
-            int i = 0;
-            while (i < list.length) {
-                if (!list[i].equals("")) {
-                    DocumentFile a = getDocumentFile1(documentFile, list[i]);
-                    if (a == null) {
-                        documentFile = documentFile.createDirectory(list[i]);
-                    } else {
-                        documentFile = a;
-                    }
+    private void showRewardAds() {
+        if (rewardedAd != null) {
+            rewardedAd.show(OtherActivity.this, new OnUserEarnedRewardListener() {
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                    //廣告觀看完成
+                    Decrypt();
+                    ProgressBar_Show("修改中...請稍後...");
+                    new BackgroundTaskClass(OtherActivity.this){
+                        @Override
+                        public void doInBackground() {
+                            Looper.prepare();
+                            //todo
+                            ModDevice(Device_ID);
+                            if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
+                                {
+                                    java.io.File dYx4Y = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList0.bytes"));
+                                    java.io.File e5Cyk = new java.io.File(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+                                    dYx4Y.renameTo(e5Cyk);
+                                }
+                            } else {
+                                ModOffest(Device_ID.length()-("xiaomi M2102J20SG".length()));
+                            }
+                            Encrypt();
+                        }
+                        @Override
+                        public void onPostExecute(){
+                            //加密完成
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                if (ChooseUtilActivity.Method == "SU") {
+                                    if (SuperUserUtil.haveSU()) {
+                                        SuperUserUtil.cpWithSU(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
+                                        FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                                        showMessage("完成");
+                                    } else {
+                                        showMessage("你已撤銷 root 權限");
+                                        MainActivity.haveSU = false;
+                                        Intent pageJump = new Intent();
+                                        pageJump.setClass(OtherActivity.this, ChooseUtilActivity.class);
+                                        startActivity(pageJump);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                    }
+
+                                } else if (ChooseUtilActivity.Method == "SAF") {
+                                    //rm
+                                    SAFUtil.rmUriPath(getApplicationContext(), "content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2FVeryHighFrameModeBlackList.bytes")));
+                                    //cp
+                                    Uri uriA = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw/document/primary%3AAndroid%2Fdata%2Fcom.garena.game.kgtw%2Ffiles%2FResources%2F".concat(game_ver.concat("%2FDatabin%2FClient%2FText%2F")));
+                                    SAFUtil.copyFilePath2Uri(getApplicationContext(), FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), uriA);
+                                    FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                                    showMessage("完成");
+                                } else if (ChooseUtilActivity.Method == "Shizuku") {
+                                    /**重要，如果關閉服務，需要先判斷ping才能檢測是否granted，否則異常*/
+                                    if (Shizuku.pingBinder()) { //關閉 shizuku 服務就 ping 不到了
+                                        if (!(Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED)) {
+                                            showMessage("由於您拒絕Shizuku權限\n請重新選擇存取方式");
+                                            Intent pageJump = new Intent();
+                                            pageJump.setClass(OtherActivity.this, ChooseUtilActivity.class);
+                                            startActivity(pageJump);
+                                            finish();
+                                            overridePendingTransition(0, 0);
+                                        } else { // 這裡才能執行 shell
+                                            StartInitializeShell("cp " + "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" +  " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/");
+                                            waitForShizukuCompletion(() -> FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp")));
+                                            showMessage("完成");
+                                        }
+                                    } else {
+                                        showMessage("由於您關閉Shizuku服務\n請重新選擇存取方式");
+                                        Intent pageJump = new Intent();
+                                        pageJump.setClass(OtherActivity.this, ChooseUtilActivity.class);
+                                        startActivity(pageJump);
+                                        finish();
+                                        overridePendingTransition(0, 0);
+                                    }
+                                }
+                            } else {
+                                FileUtil.copyFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"), "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + game_ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
+                                FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext()).concat("/tmp"));
+                                showMessage("完成");
+                            }
+                            ProgressBar_Dismiss();
+                        }
+                    }.execute();
+                    //結束
                 }
-                i++;
-            }
-            documentFile=documentFile.findFile(fileName);
-            return documentFile.renameTo(targetName);
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
+            });
         }
     }
 

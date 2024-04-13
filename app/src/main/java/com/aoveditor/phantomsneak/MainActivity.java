@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 							startActivity(intent);
 						}
 					} else {
+						ChooseUtilActivity.Method = "BelowAndroidR";
 						intent.setClass(MainActivity.this, HomeActivity.class);
 						startActivity(intent);
 					}

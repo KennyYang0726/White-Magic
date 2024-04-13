@@ -816,6 +816,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initializeLogic() {
+        if (ChooseUtilActivity.Method == "") {
+            showMessage("請使用正當方式開啟白魔法");
+            finishAffinity();
+        }
         //取得FCM token (測試用)
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -1044,21 +1048,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private boolean isDarkMode() {
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
-    }
-
     /**使選項內Icon與文字並存*/
     private CharSequence menuIconWithText(Drawable r, String title) {
         r.setBounds(0, 0, r.getIntrinsicWidth(), r.getIntrinsicHeight());
         SpannableString sb = new SpannableString("    " + title);
         ImageSpan imageSpan = new ImageSpan(r, ImageSpan.ALIGN_BOTTOM);
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //if (isDarkMode())
-            //sb.setSpan(new android.text.style.ForegroundColorSpan(Color.WHITE), 0, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //else
-            //sb.setSpan(new android.text.style.ForegroundColorSpan(Color.BLACK), 0, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return sb;
     }
     /**程式中新增MenuItem選項*/
