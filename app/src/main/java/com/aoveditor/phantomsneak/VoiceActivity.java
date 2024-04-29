@@ -607,7 +607,7 @@ public class VoiceActivity extends AppCompatActivity {
                                 .setNegativeButton("忽略", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        StartInitializeShell("mkdir /storage/emulated/0/AccessSoundTMP");
+                                        StartInitializeShell("rm -r /storage/emulated/0/AccessSoundTMP");
                                     }
                                 });
                         警告.create().show();

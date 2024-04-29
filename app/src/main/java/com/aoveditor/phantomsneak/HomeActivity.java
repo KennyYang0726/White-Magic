@@ -54,6 +54,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.io.*;
 import java.util.ArrayList;
@@ -120,6 +121,8 @@ public class HomeActivity extends AppCompatActivity {
     private boolean test_ver = false;
     private static final int PERMISSION_REQUEST_CODE = 200;
     private boolean first_install = true;
+    private String WhiteListToken = "";
+    private boolean IsWhiteListMember = false;
 
 
     private ArrayList<HashMap<String, Object>> map1 = new ArrayList<>();
@@ -134,12 +137,15 @@ public class HomeActivity extends AppCompatActivity {
     private Button button3;
     private Button button4; // 強制修復資源無法下載
     private AdView banner0;
+    private ImageView imageview7; // Home點10下
     private ImageView imageview8;
     private ImageView imageview9;
     private ImageView imageview10;
     private ImageView imageview11;
     private Intent i = new Intent();
     private SharedPreferences sp;
+    private DatabaseReference WhiteList = _firebase.getReference("WhiteList");
+    private Query WhiteListQuery;
     private DatabaseReference Ver = _firebase.getReference("version");
     private ChildEventListener _Ver_child_listener;
     private TimerTask t_pager;
@@ -162,6 +168,7 @@ public class HomeActivity extends AppCompatActivity {
     public static boolean CheckPermissionSoundSuShizuku = false;
     /**傳說UID*/
     public static String AOV_UID = "";
+    private int clickCount = 0; //連續點擊10次Home功能
 
     @Override
     protected void onCreate(Bundle _savedInstanceState) {
@@ -222,6 +229,7 @@ public class HomeActivity extends AppCompatActivity {
         button3 = findViewById(R.id.button3);
         button4 = findViewById(R.id.button4);
         banner0 = findViewById(R.id.banner0);
+        imageview7 = findViewById(R.id.imageview7);
         imageview8 = findViewById(R.id.imageview8);
         imageview9 = findViewById(R.id.imageview9);
         imageview10 = findViewById(R.id.imageview10);
@@ -416,23 +424,52 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+        imageview7.setOnClickListener(new View.OnClickListener() {
+            long lastClickTime = 0;
+            @Override
+            public void onClick(View view) {
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastClickTime < 1000) { // 設置點擊間隔
+                    clickCount++;
+                    if (clickCount == 10) {
+                        ((ClipboardManager) getSystemService(getApplicationContext().CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("clipboard", WhiteListToken));
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+                            showMessage("已複製Token");
+                        showMessage("請於 discord 貼給幻影潛行");
+                        clickCount = 0;
+                    }
+                } else {
+                    clickCount = 0;
+                }
+                lastClickTime = currentTime;
+            }
+        });
+
+
         imageview8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View _view) {
                 if (your_version.equals(last_ver)) {
-                    if (skin_string.equals("") || internet == 0) {
-                        showMessage("初始化中..");
-                    } else if (skin_string.contains("停用")) {
-                        showMessage("無法使用");
-                    } else if (skin_string.contains("更新")) {
-                        if (test_ver) {
+
+                    if (!IsWhiteListMember) { //正常狀態
+                        if (skin_string.equals("") || internet == 0) {
+                            showMessage("初始化中..");
+                        } else if (skin_string.contains("停用")) {
+                            showMessage("無法使用");
+                        } else if (skin_string.contains("更新")) {
+                            if (test_ver) {
+                                page.setClass(getApplicationContext(), SkinActivity.class);
+                                startActivity(page);
+                                overridePendingTransition(0, 0);
+                            } else {
+                                showMessage("更新中");
+                            }
+                        } else {
                             page.setClass(getApplicationContext(), SkinActivity.class);
                             startActivity(page);
                             overridePendingTransition(0, 0);
-                        } else {
-                            showMessage("更新中");
                         }
-                    } else {
+                    } else { //測試人員
                         page.setClass(getApplicationContext(), SkinActivity.class);
                         startActivity(page);
                         overridePendingTransition(0, 0);
@@ -475,23 +512,31 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View _view) {
                 if (your_version.equals(last_ver)) {
-                    if (lobby_string.equals("") || internet == 0) {
-                        showMessage("初始化中..");
-                    } else if (lobby_string.contains("停用")) {
-                        showMessage("無法使用");
-                    } else if (lobby_string.contains("更新")) {
-                        if (test_ver) {
+
+                    if (!IsWhiteListMember) { //正常狀態
+                        if (lobby_string.equals("") || internet == 0) {
+                            showMessage("初始化中..");
+                        } else if (lobby_string.contains("停用")) {
+                            showMessage("無法使用");
+                        } else if (lobby_string.contains("更新")) {
+                            if (test_ver) {
+                                page.setClass(getApplicationContext(), LobbyActivity.class);
+                                startActivity(page);
+                                overridePendingTransition(0, 0);
+                            } else {
+                                showMessage("更新中");
+                            }
+                        } else {
                             page.setClass(getApplicationContext(), LobbyActivity.class);
                             startActivity(page);
                             overridePendingTransition(0, 0);
-                        } else {
-                            showMessage("更新中");
                         }
-                    } else {
+                    } else { //測試人員
                         page.setClass(getApplicationContext(), LobbyActivity.class);
                         startActivity(page);
                         overridePendingTransition(0, 0);
                     }
+
                 } else {
                     if (test_ver) {
                         page.setClass(getApplicationContext(), LobbyActivity.class);
@@ -509,23 +554,31 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View _view) {
                 if (your_version.equals(last_ver)) {
-                    if (other_string.equals("") || internet == 0) {
-                        showMessage("初始化中..");
-                    } else if (other_string.contains("停用")) {
-                        showMessage("無法使用");
-                    } else if (other_string.contains("更新")) {
-                        if (test_ver) {
+
+                    if (!IsWhiteListMember) { //正常狀態
+                        if (other_string.equals("") || internet == 0) {
+                            showMessage("初始化中..");
+                        } else if (other_string.contains("停用")) {
+                            showMessage("無法使用");
+                        } else if (other_string.contains("更新")) {
+                            if (test_ver) {
+                                page.setClass(getApplicationContext(), OtherActivity.class);
+                                startActivity(page);
+                                overridePendingTransition(0, 0);
+                            } else {
+                                showMessage("更新中");
+                            }
+                        } else {
                             page.setClass(getApplicationContext(), OtherActivity.class);
                             startActivity(page);
                             overridePendingTransition(0, 0);
-                        } else {
-                            showMessage("更新中");
                         }
-                    } else {
+                    } else { //測試人員
                         page.setClass(getApplicationContext(), OtherActivity.class);
                         startActivity(page);
                         overridePendingTransition(0, 0);
                     }
+
                 } else {
                     if (test_ver) {
                         page.setClass(getApplicationContext(), OtherActivity.class);
@@ -539,6 +592,8 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
+        /**Firebase Database*/
         _Ver_child_listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot _param1, String _param2) {
@@ -820,7 +875,8 @@ public class HomeActivity extends AppCompatActivity {
             showMessage("請使用正當方式開啟白魔法");
             finishAffinity();
         }
-        //取得FCM token (測試用)
+
+        //取得FCM token (作為測試人員用)
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
@@ -828,8 +884,26 @@ public class HomeActivity extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             return;
                         }
-                        String token = task.getResult();
-                        Log.d("FireBaseFCM_Token", token);
+                        //儲存Token
+                        WhiteListToken = task.getResult();
+                        //存入佇列
+                        WhiteListQuery = WhiteList.orderByValue().equalTo(WhiteListToken);
+                        WhiteListQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    // The token exists in the WhiteList
+                                    IsWhiteListMember = true;
+                                    showMessage("您現在是測試人員\n可由主畫面進入任意功能");
+                                } else {
+                                    // The token doesn't exist in the WhiteList
+                                    IsWhiteListMember = false;
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
                     }
                 });
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext()).concat("/1-skin"));
@@ -2031,8 +2105,28 @@ public class HomeActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             StartInitializeShell("cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/");
-                            waitForShizukuCompletion(() ->
-                                    Forth_DetectPermission_Shizuku());
+                            waitForShizukuCompletion(() -> {
+                                //複製到本地後的部分，要來重命名原本了
+                                StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_"+str_tmp1);
+                                waitForShizukuCompletion(() -> {
+                                    //複製回去
+                                    StartInitializeShell("cp -r /storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
+                                    waitForShizukuCompletion(() -> {
+                                        //刪暫存
+                                        StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
+                                        waitForShizukuCompletion(() -> {
+                                            //將傳說 UID 儲存，方便檢測權限(擁有者)
+                                            StartInitializeShell("dumpsys package com.garena.game.kgtw | grep uid | head -n 1 | awk \'{print $1}\'");
+                                            waitForShizukuCompletion(() -> {
+                                                String result_tmp = mResult.get(mResult.size()-3);
+                                                AOV_UID = "u0_a" + result_tmp.substring(result_tmp.length() - 3);
+                                                showMessage("大功告成~~");
+                                            });
+
+                                        });
+                                    });
+                                });
+                            });
                         }
                     });
             shizuku_permission2.create().show();
@@ -2045,33 +2139,10 @@ public class HomeActivity extends AppCompatActivity {
                 waitForShizukuCompletion(() -> {
                     String result_tmp2 = mResult.get(mResult.size()-3);
                     AOV_UID = "u0_a" + result_tmp2.substring(result_tmp2.length() - 3);
-                    /*************************/
                 });
             });
         }
 
-    }
-    private void Forth_DetectPermission_Shizuku() {
-        //複製到本地後的部分，要來重命名原本了
-        StartInitializeShell("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/"+game_ver+"_trash1");
-        waitForShizukuCompletion(() -> {
-            //複製回去
-            StartInitializeShell("cp -r /storage/emulated/0/Android/.tmp/zzz.zz.z_"+str_tmp1+"/"+game_ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
-            waitForShizukuCompletion(() -> {
-                //刪暫存
-                StartInitializeShell("rm -r /storage/emulated/0/Android/.tmp");
-                waitForShizukuCompletion(() -> {
-                    //將傳說 UID 儲存，方便檢測權限(擁有者)
-                    StartInitializeShell("dumpsys package com.garena.game.kgtw | grep uid | head -n 1 | awk \'{print $1}\'");
-                    waitForShizukuCompletion(() -> {
-                        String result_tmp = mResult.get(mResult.size()-3);
-                        AOV_UID = "u0_a" + result_tmp.substring(result_tmp.length() - 3);
-                        showMessage("大功告成~~");
-                    });
-
-                });
-            });
-        });
     }
 
 

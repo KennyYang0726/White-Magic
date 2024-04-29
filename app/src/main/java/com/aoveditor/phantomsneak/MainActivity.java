@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 				}
 			} else {
 				//Toast.makeText(getApplicationContext(), "ping失敗", Toast.LENGTH_SHORT).show();
-				Toast.makeText(getApplicationContext(), "檢測到關閉Shizuk服務\n稍後請重新選擇存取模式", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "檢測到關閉Shizuku服務\n稍後請重新選擇存取模式", Toast.LENGTH_SHORT).show();
 				FileUtil.deleteFile("/data/user/0/com.aoveditor.phantomsneak/Shizuku");
 			}
 
