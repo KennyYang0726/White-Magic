@@ -1097,7 +1097,7 @@ public class HomeActivity extends AppCompatActivity {
         AlertDialog.Builder builder_A = new AlertDialog.Builder(HomeActivity.this);
         builder_A.setTitle("需要協助？")
                 .setView(image_A)
-                .setMessage("無法正確跳轉至傳說的目錄授權？\n如果是的話，請按底下「跳轉」將 Files 應用程式解除更新後，點擊「重試」。")
+                .setMessage("無法正確跳轉至傳說的目錄授權？\n如果是的話，請按底下「跳轉」將 Files 應用程式解除更新後，點擊「重試」。\n如果是跳轉至正確目錄，但顯示「無法使用這個資料夾」，請點擊下方「切換存取模式」改用 Shizuku 進行。")
                 .setIcon(R.drawable.downloadlogo)
                 .setCancelable(false)
                 .setNegativeButton("解除更新", null);
@@ -1106,6 +1106,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 _askPermission(linear1);
+            }
+        });
+
+        builder_A.setNeutralButton("切換存取模式", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                Intent pageJump = new Intent();
+                pageJump.setClass(HomeActivity.this, ChooseUtilActivity.class);
+                startActivity(pageJump);
+                finish();
+                overridePendingTransition(0, 0);
             }
         });
 
