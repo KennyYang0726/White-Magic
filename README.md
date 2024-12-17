@@ -1,4 +1,5 @@
-<img style="width:64px" src="https://user-images.githubusercontent.com/13403218/228755470-34ae31ec-eb1a-4c1c-9461-bdbaa04d9fef.png" />
+<img style="width:64px" src="
+https://github.com/KennyYang0726/White-Magic/raw/refs/heads/main/app/src/main/res/drawable-xhdpi/ic_launcher.png" />
 
 # 白魔法
 > java version: 1.8  
