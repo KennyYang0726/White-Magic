@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 雖然沒有 Drawer，但用DrawerLayout才能讓上方狀態欄顏色保留 -->
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".Activity3_Settings">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="31dp">
+                    <!-- 設定的內容元素 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_theme" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="7dp"
+                            android:text="@string/Theme"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_color"
+                            android:textSize="17sp" />
+                        <Spinner
+                            android:id="@+id/Theme_Spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="19dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/apply_plugin" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="7dp"
+                            android:layout_weight="1"
+                            android:text="@string/AutoApplyPlugin"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_color"
+                            android:textSize="17sp" />
+                        <Switch
+                            android:id="@+id/autoApplyPlugin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="19dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/bug_report_icon" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="7dp"
+                            android:layout_weight="1"
+                            android:text="@string/Bug_Report_Text"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_color"
+                            android:textSize="17sp" />
+                        <TextView
+                            android:id="@+id/Bug_Cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="17dp"
+                            android:gravity="center"
+                            android:background="@drawable/red_notification_hint_cnt"
+                            android:text="   0   "
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="17sp" />
+                        <Button
+                            android:id="@+id/Sending_Bug"
+                            android:layout_width="wrap_content"
+                            android:layout_height="31dp"
+                            android:background="@drawable/custom_alert_dialog_btn_gray"
+                            android:text="@string/Bug_Report_Btn"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/button_back_to_white_magic"
+                        android:layout_width="match_parent"
+                        android:layout_height="37dp"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginTop="79dp"
+                        android:layout_marginRight="23dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_alert_dialog_btn_blue"
+                        android:text="@string/BackToWhiteMagic"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

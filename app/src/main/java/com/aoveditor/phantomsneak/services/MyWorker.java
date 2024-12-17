@@ -1,4 +1,4 @@
-package com.aoveditor.phantomsneak.services;
+package com.aoveditor.phantomsneak.Services;
 
 import android.content.Context;
 

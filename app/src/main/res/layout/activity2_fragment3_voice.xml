@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity2_Fragment3_Voice">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 主 UI 元件 -->
+            <ImageView
+                android:id="@+id/Voice_JP"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginLeft="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/voice_jp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Voice_Text_Hint"
+                android:textSize="17sp"
+                android:textStyle="italic"
+                android:textColor="#F44336"
+                android:translationY="-13dp"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_SkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_JPVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_LatestSkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_LatestJPVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="13dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button_del_jp_plugin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_DelJPVoicePlugin" />
+                <Button
+                    android:id="@+id/button_recovery_voice_mod1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_RecoveryVoiceMod" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/line"
+                android:scaleType="fitXY" />
+            <ImageView
+                android:id="@+id/Voice_EN"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginLeft="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/voice_en" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Voice_Text_Hint"
+                android:textSize="17sp"
+                android:textStyle="italic"
+                android:textColor="#F44336"
+                android:translationY="-13dp"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_SkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_ENVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_LatestSkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_LatestENVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="19dp"
+                android:padding="13dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button_del_en_plugin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_DelENVoicePlugin" />
+                <Button
+                    android:id="@+id/button_recovery_voice_mod2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_RecoveryVoiceMod" />
+            </LinearLayout>
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/Banner" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

@@ -1,6 +1,140 @@
 <resources>
-    <string name="app_name" translatable="false">白魔法</string>
-    <string name="ad1" translatable="false">ca-app-pub-3897977034034314/1890006363</string>
-    <string name="banner1" translatable="false">ca-app-pub-3897977034034314/3959418899</string>
-    <string name="reward" translatable="false">ca-app-pub-3897977034034314/3716807516</string>
+    <string name="app_name">白魔法</string>
+    <string name="back_again" translatable="false">再按一次退出應用</string>
+    <string name="Update_App" translatable="false">發現新版本</string>
+    <string name="App_Update_Ver" translatable="false">版本：</string>
+    <string name="App_Update_Btn0" translatable="false">忽略</string>
+    <string name="App_Update_Btn1" translatable="false">更新</string>
+    <string name="NetErr_Title" translatable="false">&#160;&#160;&#160;&#160;網路連線失敗</string>
+    <string name="NetErr_Message" translatable="false">目前網路不可用，請檢查是否連接了可用的Wifi或行動網路</string>
+    <string name="NetErr_Btn" translatable="false">重試</string>
+    <string name="Permission_WriteFiles_Title" translatable="false">&#160;&#160;&#160;&#160;讀寫檔案權限</string>
+    <string name="Permission_WriteFiles_Message" translatable="false">該權限為必要權限，若拒絕此權限，將無法進行修改，也無法使用白魔法。按下「OK」以授權。</string>
+    <string name="Permission_Denied" translatable="false">您拒絕了必要權限</string>
+    <!-- 選擇存取模式 -->
+    <string name="PingShizukuErrToast" translatable="false">檢測到關閉Shizuku服務\n請重新選擇存取模式</string>
+    <string name="ChooseUtil" translatable="false">請選擇存取模式</string>
+    <string name="ShizukuNotinstalled" translatable="false">尚未安裝 Shizuku</string>
+    <string name="ShizukuPingFailed" translatable="false">尚未啟動 Shizuku 服務</string>
+    <string name="SAF_ErrorDir" translatable="false">該目錄不可用</string>
+    <string name="SAF_DirectClickHint" translatable="false">請直接點選\n「使用這個資料夾」</string>
+    <string name="ChooseUtilBtn" translatable="false">使用</string>
+    <string name="UnChooseUtilToast" translatable="false">請選擇一種存取模式</string>
+    <string name="ChooseUtilDialogTitle" translatable="false">&#160;&#160;&#160;&#160;幫助</string>
+    <string name="ChooseUtilDialogMessage">
+        &lt;b&gt;選項1：Shizuku&lt;/b&gt;&lt;br&gt;&lt;a&gt;使用者須先下載 Shizuku 應用程式&lt;/a&gt;&lt;br&gt;
+        &lt;a href=\'https://play.google.com/store/apps/details?id=moe.shizuku.privileged.api&amp;pcampaignid=web_share\'&gt;(Play商店連結)&lt;/a&gt;&lt;br&gt;
+        &lt;a&gt;以 wifi無限偵錯 或 連接電腦ADB 啟動 Shizuku 服務來使用系統 API。&lt;/a&gt;&lt;br&gt;
+        &lt;i&gt;&lt;font color=\'#00b050\'&gt;優點 1：可自動授權 (無需 MT管理器 )&lt;/font&gt;&lt;/i&gt;&lt;br&gt;
+        &lt;i&gt;&lt;font color=\'#00b050\'&gt;優點 2：速度快 (堪比 root 用戶 )&lt;/font&gt;&lt;/i&gt;&lt;br&gt;
+        &lt;i&gt;&lt;font color=\'#CC3333\'&gt;缺點 1：須啟動 Shizuku 服務才可使用&lt;/font&gt;&lt;/i&gt;&lt;br&gt;
+        &lt;i&gt;&lt;font color=\'#CC3333\'&gt;缺點 2：有些裝置啟動服務需額外步驟，詳細件 Shizuku 文檔&lt;/font&gt;&lt;/i&gt;&lt;br&gt;
+        相關文檔：&lt;a href=\'https://shizuku.rikka.app/zh-hant/guide/setup/\'&gt;點我跳轉&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+        &lt;b&gt;選項2：SAF (目前不可用)&lt;/b&gt;&lt;br&gt;
+        &lt;i&gt;&lt;font color=\'#CC3333\'&gt;&lt;b&gt;2024/3 更新補丁 已把此方法幹掉，&lt;br&gt;該選項目前對使用者隱藏&lt;/b&gt;&lt;/font&gt;&lt;/i&gt;&lt;br&gt;
+        &lt;br&gt;
+        &lt;b&gt;選項3：Root (授予root才可見)&lt;/b&gt;&lt;br&gt;
+        &lt;a&gt;給已授予 root 權限的使用者，又不想使用 Shizuku 或是安裝 MagiskModule Sui 的一種方法。&lt;/a&gt;
+        &lt;b&gt;個人並不推薦&lt;/b&gt;&lt;a&gt;。原因是 每個「執行」都意味著新程序建立，su 內部使用 socket 與 su daemon 互動，這樣的過程中消耗大量的時間和效能，並且可能有少數裝置授予root權限後仍然無法寫入。&lt;/a&gt;&lt;br&gt;
+        &lt;b&gt;※建議做法1：裝 Magisk Sui 模組&lt;/b&gt;&lt;br&gt;
+        &lt;a href=\'https://github.com/RikkaApps/Sui\'&gt;(Github連結)&lt;/a&gt;&lt;br&gt;
+        &lt;a&gt;安裝完成後，返回白魔法選擇 Shizuku(Sui)並按下確認，畫面應如下&lt;/a&gt;&lt;br&gt;
+        &lt;a href=\'https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/0-ChooseAsccessMethod/SUI.png\'&gt;圖片1&lt;/a&gt;&lt;br&gt;
+        &lt;b&gt;※建議做法2：安裝 Shizuku&lt;/b&gt;&lt;br&gt;
+        &lt;a&gt;安裝Shizuku後，以root啟動服務。返回白魔法選擇 Shizuku(Sui)並按下確認，畫面應如下&lt;/a&gt;&lt;br&gt;
+        &lt;a href=\'https://raw.githubusercontent.com/JamesYang0826/WhiteMagic-Plugins/main/Photos/0-ChooseAsccessMethod/Shizuku.png\'&gt;圖片2&lt;/a&gt;&lt;br&gt;
+    </string>
+    <string name="DialogOK" translatable="false">OK</string>
+    <string name="DialogCancel" translatable="false">取消</string>
+    <!-- 主畫面 Menu -->
+    <string name="YouTube" translatable="false">YouTube</string>
+    <string name="Discord" translatable="false">Discord</string>
+    <string name="Github_OpenSources" translatable="false">Github開源</string>
+    <string name="Rate" translatable="false">評分</string>
+    <string name="MoreApps" translatable="false">更多apps</string>
+    <string name="Settings" translatable="false">設定</string>
+    <string name="Theme" translatable="false">主題：</string>
+    <string-array name="theme_array">
+        <item>跟隨系統</item>
+        <item>亮色</item>
+        <item>暗色</item>
+    </string-array>
+    <string name="AutoApplyPlugin" translatable="false">插件下載完成自動啟用</string>
+    <string name="Bug_Report_Text" translatable="false">Bug回報</string>
+    <string name="Bug_Report_Btn" translatable="false">發送</string>
+    <string name="BackToWhiteMagic" translatable="false">返回白魔法</string>
+    <string name="ChangeAccessMode" translatable="false">切換存取模式</string>
+    <!-- 主畫面 BottomNavigation -->
+    <string name="Home" translatable="false">主畫面</string>
+    <string name="Skin" translatable="false">造型修改</string>
+    <string name="Voice" translatable="false">語音修改</string>
+    <string name="Lobby" translatable="false">大廳主題</string>
+    <string name="Others" translatable="false">其他修改</string>
+    <!-- 主畫面 版本 -->
+    <string name="Version_App" translatable="false">目前版本：</string>
+    <string name="Version_Latest" translatable="false">最新版本：</string>
+    <!-- 主畫面 Text -->
+    <string name="HomePage_Text1" translatable="false">白魔法使用說明</string>
+    <string name="HomePage_Text2" translatable="false">使用時請確定在遊戲下載(更新)後已經開啟過遊戲。\n所有功能均需額外下載插件才可使用。\n如有任何問題歡迎至『Discord群組回報』。\n\n『若曾經被封帳1至3天的玩家不建議再使用修改器』\n\n使用此app需全程連網，若斷開網路會跳出提示\n\n感謝您的閱讀</string>
+    <string name="HomePage_Text3" translatable="false">常見問題Q&amp;A</string>
+    <string name="HomePage_Text4" translatable="false">1. Q:造型修改為什麼無法使用(未來的某天)\n     A:由於官方越抓越嚴，基於玩家安全(避免封帳)，關閉該功能\n\n2. Q:我遊戲的畫面中文全部變成英文或亂碼怎麼辦？\n     A:此畫面滑動至最底部有「語言英文/亂碼修復」，按下去後即可恢復\n\n3. Q:我想清除「所有下載的插件」\n     A:此畫面滑動至最底部有「刪除所有插件」，按下去即可清除\n\n4. Q:我想清除「所有修改的資料」\n     A:此畫面滑動至最底部有「還原所有修改」，按下去即可還原\n\n5. Q:我想清除「部分修改的資料」或「部分下載的插件」\n     A:於各項功能分類中，各有該功能相關的「還原」及「刪除插件」</string>
+    <string name="HomePage_Text5" translatable="false">YouTube搜尋【幻影潛行】</string>
+    <string name="AllState" translatable="false">&#160;&#160;&#160;&#160;各項功能狀態</string>
+    <string name="Successfully" translatable="false">成功</string>
+    <string name="ApplySuccessfullyToast" translatable="false">啟用成功</string>
+    <string name="ApplyFailedToast" translatable="false">啟用失敗</string>
+    <string name="DownloadFailedToast" translatable="false">下載失敗</string>
+    <string name="Hint" translatable="false">&#160;&#160;&#160;&#160;提示</string>
+    <!-- 主畫面 Button -->
+    <string name="button_del_all_components" translatable="false">刪除所有插件</string>
+    <string name="button_recovery_all_modified" translatable="false">還原所有修改</string>
+    <string name="button_fix_languageMap" translatable="false">語言英文 / 亂碼修復</string>
+    <!-- 主畫面 Dialog -->
+    <string name="Dialog_AlertTitle" translatable="false">&#160;&#160;&#160;⚠️警告！⚠️</string>
+    <string name="Dialog_RecoveryAllText" translatable="false">點擊「OK」將還原所有修改，大量 DLC 資源將被清除，是否繼續？</string>
+    <string name="Dialog_RecoveryLanguageMap" translatable="false">點擊「OK」將修復顯示語言為英文亂碼的問題，是否繼續？</string>
+    <!-- 其他通用東西 -->
+    <string name="Delete_Successfully" translatable="false">刪除成功</string>
+    <string name="RecoveryING" translatable="false">還原中...</string>
+    <string name="Recovery_Successfully" translatable="false">還原成功</string>
+    <string name="Modding" translatable="false">啟用中...</string>
+    <string name="DownloadFinishedClickAgainToast" translatable="false">下載完成再次點擊以啟用</string>
+    <!-- 各功能狀態 Toast -->
+    <string name="Initializing" translatable="false">初始化中...</string>
+    <string name="Disabled" translatable="false">已無法使用</string>
+    <string name="Updating" translatable="false">更新中</string>
+    <!-- Skin -->
+    <string name="Btn_DownloadSkin" translatable="false">&#160;&#160;&#160;下載插件&#160;&#160;&#160;</string>
+    <string name="Btn_ModSkin" translatable="false">&#160;&#160;&#160;啟用&#160;&#160;&#160;</string>
+    <string name="PlugNone" translatable="false">尚未下載</string>
+    <string name="Text_SkinPlugVer" translatable="false">目前版本：</string>
+    <string name="Text_LatestSkinPlugVer" translatable="false">最新版本：</string>
+    <string name="DelSkinPlugin" translatable="false">&#160;&#160;&#160;刪除造型插件&#160;&#160;&#160;</string>
+    <string name="DelSkinMod" translatable="false">&#160;&#160;&#160;&#160;&#160;&#160;還原造型修改&#160;&#160;&#160;&#160;&#160;&#160;</string>
+    <!-- Voice -->
+    <string name="Voice_Text_Hint" translatable="false">點擊圖片即可修改</string>
+    <string name="Btn_DelENVoicePlugin" translatable="false">刪除英語插件</string>
+    <string name="Btn_DelJPVoicePlugin" translatable="false">刪除日語插件</string>
+    <string name="Btn_RecoveryVoiceMod" translatable="false">還原語音修改</string>
+    <string name="WaitTillDownloadCompletelyToast" translatable="false">請耐心等候下載完畢\n再次點擊即可啟用</string>
+    <string name="DownloadManagerProgressSeeStatusBarToast" translatable="false">下載進度於\n上方狀態欄</string>
+    <!-- Lobby -->
+    <string name="Text_DelLobbyPlugin" translatable="false">刪除大廳主題插件</string>
+    <string name="Btn_DelLobbyPlugin" translatable="false">刪除</string>
+    <string name="Text_RecoveryLobbyMod" translatable="false">還原大廳主題修改</string>
+    <string name="Btn_RecoveryLobbyMod" translatable="false">還原</string>
+    <string name="LobbyTheme_AOV_Text" translatable="false">傳說主題&#160;&#160;</string>
+    <string name="LobbyTheme_Others_Text" translatable="false">額外主題&#160;&#160;</string>
+    <!-- Others -->
+    <string name="Btn_DelOtherPlugin" translatable="false">刪除插件</string>
+    <string name="Btn_DownloadOtherPlugin" translatable="false">下載插件</string>
+    <string name="Btn_ApplyOtherPlugin" translatable="false">啟用插件</string>
+    <string name="Btn_RecoveryOtherMod" translatable="false">&#160;還原&#160;</string>
+    <string name="Other_Mod_Access_Success_Toast" translatable="false">授權完成\n再次啟用以獲得完整體驗</string>
+    <string name="Come_Anim" translatable="false">出場動作修改&#160;</string>
+    <string name="Recovery_Come_Anim" translatable="false">還原出場動作修改</string>
+    <!-- Ads ID -->
+    <string name="Banner" translatable="false">ca-app-pub-3897977034034314/3959418899</string>
+    <string name="Interstitial" translatable="false">ca-app-pub-3897977034034314/1890006363</string>
+    <string name="Reward" translatable="false">ca-app-pub-3897977034034314/3716807516</string>
 </resources>

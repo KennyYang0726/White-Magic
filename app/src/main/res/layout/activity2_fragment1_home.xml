@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity2_Fragment1_Home">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 主 UI 元件 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_alert_dialog_bg"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/text_appver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/Version_App"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/text_latestver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/Version_Latest"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:translationY="-37dp"
+                app:dotsColor="@color/dotsindicator_unselect"
+                app:selectedDotColor="@color/dotsindicator_select"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:text="@string/HomePage_Text1"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:text="@string/HomePage_Text2"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_color" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:src="@drawable/line"
+                    android:scaleType="fitXY" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:text="@string/HomePage_Text3"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:text="@string/HomePage_Text4"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_color" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:src="@drawable/line"
+                    android:scaleType="fitXY" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:text="@string/HomePage_Text5"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF7043" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:src="@drawable/line"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="11dp"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/button_del_all_components"
+                        android:layout_width="wrap_content"
+                        android:layout_height="43dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_alert_dialog_btn_red"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:text="@string/button_del_all_components" />
+                    <Button
+                        android:id="@+id/button_recovery_all_modified"
+                        android:layout_width="wrap_content"
+                        android:layout_height="43dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_alert_dialog_btn_red"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:text="@string/button_recovery_all_modified" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/button_fix_languages"
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginBottom="13dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_orange"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/button_fix_languageMap" />
+            </LinearLayout>
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/Banner" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

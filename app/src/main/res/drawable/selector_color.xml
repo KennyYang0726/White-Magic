@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 設定選中狀態的顏色 -->
+    <item android:color="?attr/colorControlHighlight" android:state_checked="true" />
+    <!-- 讓其他狀態使用系統預設顏色 -->
+    <item android:color="?android:attr/textColorSecondary" />
+</selector>

@@ -1,4 +1,4 @@
-package com.aoveditor.phantomsneak.services;
+package com.aoveditor.phantomsneak.Services;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,16 +8,18 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import androidx.core.app.NotificationCompat;
 import android.util.Log;
 
-import com.aoveditor.phantomsneak.R;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
+import androidx.core.app.NotificationCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.aoveditor.phantomsneak.MainActivity;
+import com.aoveditor.phantomsneak.Activity0_Logo;
+import com.aoveditor.phantomsneak.R;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+
 
 public class FCMService extends FirebaseMessagingService {
 
@@ -129,7 +131,7 @@ public class FCMService extends FirebaseMessagingService {
 
 
     private void sendNotification(String messageTitle, String messageBody) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Activity0_Logo.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
@@ -137,7 +139,7 @@ public class FCMService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.app_icon_r)
+                        .setSmallIcon(R.drawable.ic_launcher_round)
                         .setContentTitle(messageTitle)
                         .setContentText(messageBody)
                         .setAutoCancel(true)

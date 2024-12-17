@@ -1,11 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#292929</color>
-	<color name="colorPrimaryDark">#0084C2</color>
-	<color name="colorAccent">#008DCD</color>
-	<color name="colorControlHighlight">#008DCD</color>
-	<color name="colorControlNormal">#57BEEE</color>
-	<color name="black">#FF000000</color>
-	<color name="gray">#FF3A3A3A</color>
-	<color name="white">#FFFFFFFF</color>
-	<color name="text_color">@color/black</color>
+    <color name="colorPrimary">#0D47A1</color>
+    <color name="colorPrimaryDark">#093881</color>
+    <color name="colorAccent">#1565C0</color>
+    <color name="colorControlHighlight">#008DCD</color>
+    <color name="colorControlNormal">#1565C0</color>
+    <color name="black">#FF000000</color>
+    <color name="gray">#FF3A3A3A</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="app_update_btn">#F18D4B</color>
+    <color name="text_color">@color/black</color>
+    <color name="text_color_secondary">#6A6A6A</color>
+    <color name="text_color_midium">#FFBDBDBD</color>
+    <color name="custom_dialog_bg">#ECECEC</color>
+    <color name="dotsindicator_select">#757575</color>
+    <color name="dotsindicator_unselect">#CFCFCF</color>
+    <color name="text_color_TabUnSelect">#CDCDCD</color>
 </resources>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".Activity2_Fragment5_Other_Tab1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!-- 主 UI 元件 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="19dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/other_wiro" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/Wiro"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_round_btn"
+                android:textSize="17sp"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:text="@string/Btn_DownloadOtherPlugin" />
+            <Button
+                android:id="@+id/button_recovery_wiro_mod"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/custom_alert_dialog_btn_red"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="@string/Btn_RecoveryOtherMod" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/line"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="19dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/other_wisp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/Wisp"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_round_btn"
+                android:textSize="17sp"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:text="@string/Btn_DownloadOtherPlugin" />
+            <Button
+                android:id="@+id/button_recovery_wisp_mod"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/custom_alert_dialog_btn_red"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="@string/Btn_RecoveryOtherMod" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/line"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="19dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/other_tower" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/Tower"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_round_btn"
+                android:textSize="17sp"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:text="@string/Btn_DownloadOtherPlugin" />
+            <Button
+                android:id="@+id/button_recovery_tower_mod"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/custom_alert_dialog_btn_red"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="@string/Btn_RecoveryOtherMod" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/line"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="19dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/other_soldier" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/Soldier"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_round_btn"
+                android:textSize="17sp"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:text="@string/Btn_DownloadOtherPlugin" />
+            <Button
+                android:id="@+id/button_recovery_soldier_mod"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/custom_alert_dialog_btn_red"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="@string/Btn_RecoveryOtherMod" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/line"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="19dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/other_buff" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/Monster"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="7dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_round_btn"
+                android:textSize="17sp"
+                android:textColor="@color/text_color"
+                android:textAllCaps="false"
+                android:text="@string/Btn_DownloadOtherPlugin" />
+            <Button
+                android:id="@+id/button_recovery_monster_mod"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="23dp"
+                android:background="@drawable/custom_alert_dialog_btn_red"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:text="@string/Btn_RecoveryOtherMod" />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/line"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:id="@+id/FPS"
+            android:layout_width="match_parent"
+            android:layout_height="213dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="19dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/other_fps" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:orientation="horizontal">
+        </LinearLayout>
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/Banner" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

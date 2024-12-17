@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity2_Fragment2_Skin">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbarStyle="outsideOverlay">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- 主 UI 元件 -->
+                <VideoView
+                    android:id="@+id/video"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp" />
+                <Button
+                    android:id="@+id/button_mod_skin"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginRight="23dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_bg"
+                    android:textSize="29sp"
+                    android:textColor="@color/text_color"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_DownloadSkin" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="43dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="19sp"
+                            android:textColor="@color/text_color"
+                            android:textAllCaps="false"
+                            android:text="@string/Text_SkinPlugVer" />
+                        <TextView
+                            android:id="@+id/Text_SkinPlugVer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="19sp"
+                            android:textColor="@color/text_color"
+                            android:textAllCaps="false" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="19sp"
+                            android:textColor="@color/text_color"
+                            android:textAllCaps="false"
+                            android:text="@string/Text_LatestSkinPlugVer" />
+                        <TextView
+                            android:id="@+id/Text_LatestSkinPlugVer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="19sp"
+                            android:textColor="@color/text_color"
+                            android:textAllCaps="false" />
+                    </LinearLayout>
+                </LinearLayout>
+                <Button
+                    android:id="@+id/button_recovery_all_modified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="41dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/DelSkinMod" />
+            </LinearLayout>
+        </ScrollView>
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/Banner" />
+    </LinearLayout>
+</FrameLayout>

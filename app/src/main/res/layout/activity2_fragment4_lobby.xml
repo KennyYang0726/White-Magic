@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity2_Fragment4_Lobby">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:scrollbarStyle="outsideOverlay">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 主 UI 元件 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_alert_dialog_bg"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/delete_icon2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="11dp"
+                    android:text="@string/Text_DelLobbyPlugin"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:layout_weight="1" />
+                <Button
+                    android:id="@+id/button_delete_lobby_plugins"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="13dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="19sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_DelLobbyPlugin" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_alert_dialog_bg"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitEnd"
+                    android:src="@drawable/delete_icon" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="11dp"
+                    android:text="@string/Text_RecoveryLobbyMod"
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:layout_weight="1" />
+                <Button
+                    android:id="@+id/button_recovery_lobby_modified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="13dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="19sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_RecoveryLobbyMod" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="17dp"
+                android:text="@string/LobbyTheme_AOV_Text"
+                android:textSize="25sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/text_color" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby01_sao1" />
+                <ImageView
+                    android:id="@+id/lobby_02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby02_sao2" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby03_nakaroth" />
+                <ImageView
+                    android:id="@+id/lobby_04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby04_wave" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_05"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby05_newyear2019" />
+                <ImageView
+                    android:id="@+id/lobby_06"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby06_newyear2021" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_07"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby07_newyear2022" />
+                <ImageView
+                    android:id="@+id/lobby_08"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby08_aic2020" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_09"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby09_ultraman" />
+                <ImageView
+                    android:id="@+id/lobby_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby10_dolia" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby11_poolparty" />
+                <ImageView
+                    android:id="@+id/lobby_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby12_suli" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="17dp"
+                android:text="@string/LobbyTheme_Others_Text"
+                android:textSize="25sp"
+                android:textStyle="bold|italic"
+                android:textColor="@color/text_color" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_41"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+                <ImageView
+                    android:id="@+id/lobby_42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_43"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+                <ImageView
+                    android:id="@+id/lobby_44"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_45"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+                <ImageView
+                    android:id="@+id/lobby_46"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+            </LinearLayout>
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/Banner" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

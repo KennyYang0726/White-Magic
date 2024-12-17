@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 雖然沒有 Drawer，但用DrawerLayout才能讓上方狀態欄顏色保留 -->
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".Activity1_ChooseUtils">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:orientation="vertical">
+        <!-- 佔位用 View -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="53dp"
+            android:layout_marginLeft="53dp"
+            android:background="@drawable/custom_alert_dialog_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/ChooseUtil"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:textSize="23sp" />
+                <ImageView
+                    android:id="@+id/image_Iillustrate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="11dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_help_grey" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="23dp"
+                android:orientation="vertical">
+                <RadioButton
+                    android:id="@+id/btnShizuku"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="Shizuku (Sui)" />
+                <RadioButton
+                    android:id="@+id/btnSAF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="SAF"
+                    android:visibility="gone"/>
+                <RadioButton
+                    android:id="@+id/btnSU"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="Root"
+                    android:visibility="gone" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/button_ChooseUtil"
+                android:layout_width="match_parent"
+                android:layout_height="37dp"
+                android:layout_marginLeft="47dp"
+                android:layout_marginRight="47dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="13dp"
+                android:background="@drawable/custom_alert_dialog_btn_gray"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:text="@string/ChooseUtilBtn" />
+
+        </LinearLayout>
+        <!-- 佔位用 View -->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
