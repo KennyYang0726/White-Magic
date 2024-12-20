@@ -48,7 +48,7 @@ import com.aoveditor.phantomsneak.ZipManager.ZipManager;
 
 
 
-public class Activity2_Fragment5_Other_Tab1  extends Fragment {
+public class Activity2_Fragment5_Other_Tab1 extends Fragment {
 
     /**Element*/
     private Button Mod_Wiro;

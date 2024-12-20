@@ -372,11 +372,11 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                             }).start();
                         }
                     }
+                } else {
+                    showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                    Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                    startActivity(page);
                 }
-            } else {
-                showMessage(getResources().getString(R.string.ShizukuPingFailed));
-                Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
-                startActivity(page);
             }
         }
     }

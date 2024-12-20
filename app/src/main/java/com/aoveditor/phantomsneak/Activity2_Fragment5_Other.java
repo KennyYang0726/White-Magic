@@ -71,8 +71,10 @@ public class Activity2_Fragment5_Other extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
             if (position == 0) {
                 tab.setText("其他修改");
-            } else {
+            } else if (position == 1) {
                 tab.setText("出場動作修改");
+            } else {
+                tab.setText("個性按鈕修改");
             }
         }).attach();
     }
@@ -146,14 +148,13 @@ public class Activity2_Fragment5_Other extends Fragment {
 
                         }
                     }
+                } else {
+                    showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                    Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                    startActivity(page);
                 }
-            } else {
-                showMessage(getResources().getString(R.string.ShizukuPingFailed));
-                Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
-                startActivity(page);
             }
         }
-
     }
 
     // 檢查 Shizuku 權限

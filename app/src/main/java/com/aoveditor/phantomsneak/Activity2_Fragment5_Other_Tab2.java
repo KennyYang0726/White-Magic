@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 import rikka.shizuku.Shizuku;
 
-public class Activity2_Fragment5_Other_Tab2  extends Fragment {
+public class Activity2_Fragment5_Other_Tab2 extends Fragment {
 
     /**Element*/
     private Button btn_recovery_come_modified;

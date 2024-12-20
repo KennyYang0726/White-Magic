@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.aoveditor.phantomsneak.Activity2_Fragment5_Other_Tab1;
 import com.aoveditor.phantomsneak.Activity2_Fragment5_Other_Tab2;
+import com.aoveditor.phantomsneak.Activity2_Fragment5_Other_Tab3;
 
 public class Fragment5_TabFragmentAdapter extends FragmentStateAdapter {
 
@@ -18,14 +19,16 @@ public class Fragment5_TabFragmentAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         if (position == 0) {
             return new Activity2_Fragment5_Other_Tab1();
-        } else {
+        } else if (position == 1) {
             return new Activity2_Fragment5_Other_Tab2();
+        } else {
+            return new Activity2_Fragment5_Other_Tab3();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 2; // 總共有 2 個頁面
+        return 2; // 總共有 3 個頁面
     }
 
     @Override

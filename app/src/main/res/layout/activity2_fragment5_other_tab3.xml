@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".Activity2_Fragment5_Other_Tab2">
+    tools:context=".Activity2_Fragment5_Other_Tab3">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,13 +25,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="11dp"
-                android:text="@string/Recovery_Come_Anim"
+                android:text="@string/Recovery_Personal_Btn"
                 android:textSize="23sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_color"
                 android:layout_weight="1" />
             <Button
-                android:id="@+id/button_recovery_come_modified"
+                android:id="@+id/button_recovery_btn_modified"
                 android:layout_width="wrap_content"
                 android:layout_height="37dp"
                 android:layout_gravity="center"

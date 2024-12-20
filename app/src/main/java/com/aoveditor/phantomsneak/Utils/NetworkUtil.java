@@ -17,7 +17,7 @@ public class NetworkUtil {
 
     public static boolean isInternetReachable() {
         try {
-            HttpURLConnection urlConnection = (HttpURLConnection) (new URL("https://1.1.1.1").openConnection());
+            HttpURLConnection urlConnection = (HttpURLConnection) (new URL("https://dlmobilegarena-a.akamaihd.net/kgtw/hok/PlayerHeadFrame/pifu_HeadFrame371.png").openConnection());
             urlConnection.setRequestMethod("HEAD"); // Set method to HEAD
             urlConnection.setRequestProperty("User-Agent", "Test");
             urlConnection.setRequestProperty("Connection", "close");

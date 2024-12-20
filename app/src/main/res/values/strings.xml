@@ -133,6 +133,7 @@
     <string name="Other_Mod_Access_Success_Toast" translatable="false">授權完成\n再次啟用以獲得完整體驗</string>
     <string name="Come_Anim" translatable="false">出場動作修改&#160;</string>
     <string name="Recovery_Come_Anim" translatable="false">還原出場動作修改</string>
+    <string name="Recovery_Personal_Btn" translatable="false">還原個性按鈕修改</string>
     <!-- Ads ID -->
     <string name="Banner" translatable="false">ca-app-pub-3897977034034314/3959418899</string>
     <string name="Interstitial" translatable="false">ca-app-pub-3897977034034314/1890006363</string>
