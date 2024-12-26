@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import rikka.shizuku.Shizuku;
+
 import com.aoveditor.phantomsneak.AlertDialog.CustomAlertDialog2;
 import com.aoveditor.phantomsneak.BackgroundTask.BackgroundTask;
 import com.aoveditor.phantomsneak.DownloadManager.DownloadManager;
@@ -25,9 +27,7 @@ import com.aoveditor.phantomsneak.Utils.ShizukuUtil;
 import com.aoveditor.phantomsneak.ZipManager.ZipManager;
 import com.google.android.gms.ads.AdView;
 
-import java.util.ArrayList;
 
-import rikka.shizuku.Shizuku;
 
 public class Activity2_Fragment5_Other_Tab3 extends Fragment {
 
@@ -63,28 +63,28 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
     /**Variable*/
     private String Game_Ver = "";
     private String AccessMethod = "";
-    private final String url_10620 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_10620.PS";
-    private final String url_11115 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11115.PS";
-    private final String url_11614 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11614.PS";
-    private final String url_11616 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11616.PS";
-    private final String url_11812 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11812.PS";
-    private final String url_13015 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_13015.PS";
-    private final String url_13116 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_13116.PS";
-    private final String url_13613 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_13613.PS";
-    private final String url_14111 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_14111.PS";
-    private final String url_15012 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15012.PS";
-    private final String url_15013 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15013.PS";
-    private final String url_15015 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15015.PS";
-    private final String url_15212 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15212.PS";
-    private final String url_15412 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15412.PS";
-    private final String url_15711 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15711.PS";
-    private final String url_19015 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_19015.PS";
-    private final String url_19508 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_19508.PS";
-    private final String url_19906 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_19906.PS";
-    private final String url_51015 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_51015.PS";
-    private final String url_52011 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_52011.PS";
-    private final String url_54307 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_54307.PS";
-    private final String url_59702 = "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_59702.PS";
+    private final String url_10620 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_10620.PS";
+    private final String url_11115 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11115.PS";
+    private final String url_11614 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11614.PS";
+    private final String url_11616 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11616.PS";
+    private final String url_11812 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11812.PS";
+    private final String url_13015 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_13015.PS";
+    private final String url_13116 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_13116.PS";
+    private final String url_13613 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_13613.PS";
+    private final String url_14111 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_14111.PS";
+    private final String url_15012 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15012.PS";
+    private final String url_15013 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15013.PS";
+    private final String url_15015 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15015.PS";
+    private final String url_15212 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15212.PS";
+    private final String url_15412 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15412.PS";
+    private final String url_15711 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_15711.PS";
+    private final String url_19015 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_19015.PS";
+    private final String url_19508 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_19508.PS";
+    private final String url_19906 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_19906.PS";
+    private final String url_51015 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_51015.PS";
+    private final String url_52011 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_52011.PS";
+    private final String url_54307 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_54307.PS";
+    private final String url_59702 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_59702.PS";
     private boolean AutoMod = false;
 
 
@@ -109,8 +109,52 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
         admobService.loadInterstitialAd(getString(R.string.Interstitial));
         // 元件
         btn_recovery_btn_modified = v.findViewById(R.id.button_recovery_btn_modified);
+        Mod_10620 = v.findViewById(R.id.btn_01);
+        Mod_11115 = v.findViewById(R.id.btn_02);
+        Mod_11614 = v.findViewById(R.id.btn_03);
+        Mod_11616 = v.findViewById(R.id.btn_04);
+        Mod_11812 = v.findViewById(R.id.btn_05);
+        Mod_13015 = v.findViewById(R.id.btn_06);
+        Mod_13116 = v.findViewById(R.id.btn_07);
+        Mod_13613 = v.findViewById(R.id.btn_08);
+        Mod_14111 = v.findViewById(R.id.btn_09);
+        Mod_15012 = v.findViewById(R.id.btn_10);
+        Mod_15013 = v.findViewById(R.id.btn_11);
+        Mod_15015 = v.findViewById(R.id.btn_12);
+        Mod_15212 = v.findViewById(R.id.btn_13);
+        Mod_15412 = v.findViewById(R.id.btn_14);
+        Mod_15711 = v.findViewById(R.id.btn_15);
+        Mod_19015 = v.findViewById(R.id.btn_16);
+        Mod_19508 = v.findViewById(R.id.btn_17);
+        Mod_19906 = v.findViewById(R.id.btn_18);
+        Mod_51015 = v.findViewById(R.id.btn_19);
+        Mod_52011 = v.findViewById(R.id.btn_20);
+        Mod_54307 = v.findViewById(R.id.btn_21);
+        Mod_59702 = v.findViewById(R.id.btn_22);
         // 事件
-
+        btn_recovery_btn_modified.setOnClickListener(v1 -> ClearModClick());
+        Mod_10620.setOnClickListener(v12 -> ImageClickEvent("PersonalBtn_10620.PS", url_10620, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_11115.setOnClickListener(v13 -> ImageClickEvent("PersonalBtn_11115.PS", url_11115, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_11614.setOnClickListener(v14 -> ImageClickEvent("PersonalBtn_11614.PS", url_11614, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_11616.setOnClickListener(v15 -> ImageClickEvent("PersonalBtn_11616.PS", url_11616, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_11812.setOnClickListener(v16 -> ImageClickEvent("PersonalBtn_11812.PS", url_11812, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_13015.setOnClickListener(v17 -> ImageClickEvent("PersonalBtn_13015.PS", url_13015, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_13116.setOnClickListener(v18 -> ImageClickEvent("PersonalBtn_13116.PS", url_13116, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_13613.setOnClickListener(v19 -> ImageClickEvent("PersonalBtn_13613.PS", url_13613, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_14111.setOnClickListener(v110 -> ImageClickEvent("PersonalBtn_14111.PS", url_14111, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15012.setOnClickListener(v111 -> ImageClickEvent("PersonalBtn_15012.PS", url_15012, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15013.setOnClickListener(v112 -> ImageClickEvent("PersonalBtn_15013.PS", url_15013, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15015.setOnClickListener(v113 -> ImageClickEvent("PersonalBtn_15015.PS", url_15015, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15212.setOnClickListener(v114 -> ImageClickEvent("PersonalBtn_15212.PS", url_15212, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15412.setOnClickListener(v115 -> ImageClickEvent("PersonalBtn_15412.PS", url_15412, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15711.setOnClickListener(v116 -> ImageClickEvent("PersonalBtn_15711.PS", url_15711, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_19015.setOnClickListener(v117 -> ImageClickEvent("PersonalBtn_19015.PS", url_19015, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_19508.setOnClickListener(v118 -> ImageClickEvent("PersonalBtn_19508.PS", url_19508, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_19906.setOnClickListener(v119 -> ImageClickEvent("PersonalBtn_19906.PS", url_19906, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_51015.setOnClickListener(v120 -> ImageClickEvent("PersonalBtn_51015.PS", url_51015, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_52011.setOnClickListener(v121 -> ImageClickEvent("PersonalBtn_52011.PS", url_52011, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_54307.setOnClickListener(v122 -> ImageClickEvent("PersonalBtn_54307.PS", url_54307, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_59702.setOnClickListener(v123 -> ImageClickEvent("PersonalBtn_59702.PS", url_59702, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);
         admobService.loadBannerAd(banner);
@@ -136,8 +180,8 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
             // 不存在插件，進入下載程序
             // 載入廣告計數
             int showInterstitialAdCnt = AppSettings.getInt("showInterstitialAdCnt", 3);
-            if (showInterstitialAdCnt%3 == 0) {
-                // 3個一數，顯示廣告
+            if (showInterstitialAdCnt%2 == 0) {
+                // 2個一數，顯示廣告
                 admobService.showInterstitialAd(getString(R.string.Interstitial));
             }
             showInterstitialAdCnt += 1;
@@ -205,8 +249,10 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
             ZipManager.UnzipWithoutPwd(requireContext(), true, "啟用中","/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/" + PluginName, TargetRootDir, () -> requireActivity().runOnUiThread(() -> showMessage(getString(R.string.ApplySuccessfullyToast))));
         }
     }
+    
 
-    private void ClearMod() {
+    // 點擊還原按鈕 先檢查是否存在還原檔
+    private void ClearModClick() {
         CustomAlertDialog2.showDialog(
                 requireContext(),
                 false,
@@ -217,32 +263,59 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
                 0,
                 isConfirmed -> {
                     if (isConfirmed) {
-                        /*
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                            new BackgroundTask(requireActivity(), () -> {
-                                if (AccessMethod.equals("SAF")) {
-                                    // 在這裡處理 SAF 的邏輯
-                                } else if (AccessMethod.equals("Shizuku")) {
-                                    if (Shizuku.pingBinder()) {
-                                        if (checkShizukuPermission()) {
-                                            ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/" + str);
-                                        }
-                                    } else {
-                                        showMessage(getResources().getString(R.string.ShizukuPingFailed));
-                                        Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
-                                        startActivity(page);
-                                    }
-                                } else if (AccessMethod.equals("Root")) {
-                                    RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/" + str);
+                        if (!FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/PersonalBtn_0.PS")) {
+                            DownloadManager.downloadPlugins(requireContext(), "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_0.PS", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/", "下載還原檔...", "PersonalBtn_0.PS", new DownloadManager.UIDownloadCallback() {
+                                @Override
+                                public void onDownloadComplete(String filePath) {
+                                    requireActivity().runOnUiThread(() -> ClearMod());
                                 }
-                                return ""; // 不需要返回值
-                            }, getString(R.string.RecoveryING), Activity2_Fragment5_Other_Tab3::onTaskCompleted).execute();
+                                @Override
+                                public void onDownloadFailed(String error) {
+                                    requireActivity().runOnUiThread(() -> showMessage(getString(R.string.DownloadFailedToast)));
+                                }
+                            });
                         } else {
-                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/" + str);
-                        }*/
+                            ClearMod();
+                        }
                     }
                 });
     }
+    
+    // 還原邏輯
+    private void ClearMod() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            FileUtil.makeDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/tmp");
+            ZipManager.UnzipWithoutPwd(requireContext(), false, "解壓中","/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/PersonalBtn_0.PS", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/tmp/", () -> {
+                // 解壓完成再調用 BackGroundTask
+                new BackgroundTask(requireActivity(), () -> {
+                    if (AccessMethod.equals("SAF")) {
+                        // 在這裡處理 SAF 的邏輯
+                    } else if (AccessMethod.equals("Shizuku")) {
+                        if (Shizuku.pingBinder()) {
+                            if (checkShizukuPermission()) {
+                                ShizukuUtil.executeShellCommandWithShizuku("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/tmp/*" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/");
+                            }
+                        } else {
+                            showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                            Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                            startActivity(page);
+                        }
+                    } else if (AccessMethod.equals("Root")) {
+                        RootUtil.executeRootCommand("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/tmp/*" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/");
+                    }
+                    return ""; // 不需要返回值
+                }, getString(R.string.RecoveryING), result -> {
+                    // 在這裡處理結果，例如顯示結果到 Toast 或更新 UI
+                    requireActivity().runOnUiThread(() -> showMessage("還原成功"));
+                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/tmp");
+                }).execute();
+            });
+        } else {
+            ZipManager.UnzipWithoutPwd(requireContext(), true, getString(R.string.RecoveryING), "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/PersonalBtn_0.PS", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/", () -> requireActivity().runOnUiThread(() -> showMessage("還原成功")));
+        }
+    }
+    
+    
 
     // 檢查 Shizuku 權限
     private boolean checkShizukuPermission() {

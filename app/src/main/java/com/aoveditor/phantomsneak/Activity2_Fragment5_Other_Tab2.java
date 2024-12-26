@@ -100,24 +100,12 @@ public class Activity2_Fragment5_Other_Tab2 extends Fragment {
             ClearList.add("hero/535_wish_show_base_raw_h.assetbundle");
             ClearMod(ClearList);
         });
-        Mod_136.setOnClickListener(v1 -> {
-            ImageClickEvent("136_Anim.PS", url_136, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/");
-        });
-        Mod_175.setOnClickListener(v12 -> {
-            ImageClickEvent("175_Anim.PS", url_175, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/");
-        });
-        Mod_506.setOnClickListener(v13 -> {
-            ImageClickEvent("506_Anim.PS", url_506, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/");
-        });
-        Mod_518.setOnClickListener(v14 -> {
-            ImageClickEvent("518_Anim.PS", url_518, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/");
-        });
-        Mod_521.setOnClickListener(v15 -> {
-            ImageClickEvent("521_Anim.PS", url_521, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/");
-        });
-        Mod_535.setOnClickListener(v16 -> {
-            ImageClickEvent("535_Anim.PS", url_535, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/");
-        });
+        Mod_136.setOnClickListener(v1 -> ImageClickEvent("136_Anim.PS", url_136, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_175.setOnClickListener(v12 -> ImageClickEvent("175_Anim.PS", url_175, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_506.setOnClickListener(v13 -> ImageClickEvent("506_Anim.PS", url_506, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_518.setOnClickListener(v14 -> ImageClickEvent("518_Anim.PS", url_518, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_521.setOnClickListener(v15 -> ImageClickEvent("521_Anim.PS", url_521, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_535.setOnClickListener(v16 -> ImageClickEvent("535_Anim.PS", url_535, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);
         admobService.loadBannerAd(banner);

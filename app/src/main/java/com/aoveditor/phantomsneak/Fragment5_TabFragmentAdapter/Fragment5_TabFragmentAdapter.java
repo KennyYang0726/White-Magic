@@ -28,7 +28,7 @@ public class Fragment5_TabFragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2; // 總共有 3 個頁面
+        return 3; // 總共有 3 個頁面
     }
 
     @Override
