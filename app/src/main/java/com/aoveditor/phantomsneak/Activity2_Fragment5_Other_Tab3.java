@@ -34,6 +34,7 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
     /**Element*/
     private Button btn_recovery_btn_modified;
     private ImageView Mod_10620;
+    private ImageView Mod_11107;
     private ImageView Mod_11115;
     private ImageView Mod_11614;
     private ImageView Mod_11616;
@@ -55,6 +56,18 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
     private ImageView Mod_52011;
     private ImageView Mod_54307;
     private ImageView Mod_59702;
+    // 其他主題
+    private ImageView Mod_11119;
+    private ImageView Mod_12912;
+    private ImageView Mod_15204;
+    private ImageView Mod_19007;
+    private ImageView Mod_19109;
+    private ImageView Mod_19509;
+    private ImageView Mod_51009;
+    private ImageView Mod_53308;
+    private ImageView Mod_53503;
+    private ImageView Mod_54804;
+
 
     /**Components*/
     private SharedPreferences AppSettings; // 儲存 主題色, SAF授權目錄, AccessMethod, ...
@@ -64,6 +77,7 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
     private String Game_Ver = "";
     private String AccessMethod = "";
     private final String url_10620 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_10620.PS";
+    private final String url_11107 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11107.PS";
     private final String url_11115 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11115.PS";
     private final String url_11614 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11614.PS";
     private final String url_11616 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_11616.PS";
@@ -85,6 +99,18 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
     private final String url_52011 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_52011.PS";
     private final String url_54307 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_54307.PS";
     private final String url_59702 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_59702.PS";
+    // 其他主題
+    private final String url_11119 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_11119.PS";
+    private final String url_12912 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_12912.PS";
+    private final String url_15204 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_15204.PS";
+    private final String url_19007 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_19007.PS";
+    private final String url_19109 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_19109.PS";
+    private final String url_19509 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_19509.PS";
+    private final String url_51009 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_51009.PS";
+    private final String url_53308 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_53308.PS";
+    private final String url_53503 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_53503.PS";
+    private final String url_54804 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/PersonalBtn/PersonalBtn_Other_54804.PS";
+
     private boolean AutoMod = false;
 
 
@@ -109,31 +135,45 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
         admobService.loadInterstitialAd(getString(R.string.Interstitial));
         // 元件
         btn_recovery_btn_modified = v.findViewById(R.id.button_recovery_btn_modified);
-        Mod_10620 = v.findViewById(R.id.btn_01);
-        Mod_11115 = v.findViewById(R.id.btn_02);
-        Mod_11614 = v.findViewById(R.id.btn_03);
-        Mod_11616 = v.findViewById(R.id.btn_04);
-        Mod_11812 = v.findViewById(R.id.btn_05);
-        Mod_13015 = v.findViewById(R.id.btn_06);
-        Mod_13116 = v.findViewById(R.id.btn_07);
-        Mod_13613 = v.findViewById(R.id.btn_08);
-        Mod_14111 = v.findViewById(R.id.btn_09);
-        Mod_15012 = v.findViewById(R.id.btn_10);
-        Mod_15013 = v.findViewById(R.id.btn_11);
-        Mod_15015 = v.findViewById(R.id.btn_12);
-        Mod_15212 = v.findViewById(R.id.btn_13);
-        Mod_15412 = v.findViewById(R.id.btn_14);
-        Mod_15711 = v.findViewById(R.id.btn_15);
-        Mod_19015 = v.findViewById(R.id.btn_16);
-        Mod_19508 = v.findViewById(R.id.btn_17);
-        Mod_19906 = v.findViewById(R.id.btn_18);
-        Mod_51015 = v.findViewById(R.id.btn_19);
-        Mod_52011 = v.findViewById(R.id.btn_20);
-        Mod_54307 = v.findViewById(R.id.btn_21);
-        Mod_59702 = v.findViewById(R.id.btn_22);
+        Mod_10620 = v.findViewById(R.id.btn_aov_10620);
+        Mod_11107 = v.findViewById(R.id.btn_aov_11107);
+        Mod_11115 = v.findViewById(R.id.btn_aov_11115);
+        Mod_11614 = v.findViewById(R.id.btn_aov_11614);
+        Mod_11616 = v.findViewById(R.id.btn_aov_11616);
+        Mod_11812 = v.findViewById(R.id.btn_aov_11812);
+        Mod_13015 = v.findViewById(R.id.btn_aov_13015);
+        Mod_13116 = v.findViewById(R.id.btn_aov_13116);
+        Mod_13613 = v.findViewById(R.id.btn_aov_13613);
+        Mod_14111 = v.findViewById(R.id.btn_aov_14111);
+        Mod_15012 = v.findViewById(R.id.btn_aov_15012);
+        Mod_15013 = v.findViewById(R.id.btn_aov_15013);
+        Mod_15015 = v.findViewById(R.id.btn_aov_15015);
+        Mod_15212 = v.findViewById(R.id.btn_aov_15212);
+        Mod_15412 = v.findViewById(R.id.btn_aov_15412);
+        Mod_15711 = v.findViewById(R.id.btn_aov_15711);
+        Mod_19015 = v.findViewById(R.id.btn_aov_19015);
+        Mod_19508 = v.findViewById(R.id.btn_aov_19508);
+        Mod_19906 = v.findViewById(R.id.btn_aov_19906);
+        Mod_51015 = v.findViewById(R.id.btn_aov_51015);
+        Mod_52011 = v.findViewById(R.id.btn_aov_52011);
+        Mod_54307 = v.findViewById(R.id.btn_aov_54307);
+        Mod_59702 = v.findViewById(R.id.btn_aov_59702);
+        // 其他主題
+        Mod_11119 = v.findViewById(R.id.btn_other_11119);
+        Mod_12912 = v.findViewById(R.id.btn_other_12912);
+        Mod_15204 = v.findViewById(R.id.btn_other_15204);
+        Mod_19007 = v.findViewById(R.id.btn_other_19007);
+        Mod_19109 = v.findViewById(R.id.btn_other_19109);
+        Mod_19509 = v.findViewById(R.id.btn_other_19509);
+        Mod_51009 = v.findViewById(R.id.btn_other_51009);
+        Mod_53308 = v.findViewById(R.id.btn_other_53308);
+        Mod_53503 = v.findViewById(R.id.btn_other_53503);
+        Mod_54804 = v.findViewById(R.id.btn_other_54804);
+
         // 事件
         btn_recovery_btn_modified.setOnClickListener(v1 -> ClearModClick());
-        Mod_10620.setOnClickListener(v12 -> ImageClickEvent("PersonalBtn_10620.PS", url_10620, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_10620.setOnClickListener(v11 -> ImageClickEvent("PersonalBtn_10620.PS", url_10620, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_11107.setOnClickListener(v12 -> ImageClickEvent("PersonalBtn_11107.PS", url_11107, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
         Mod_11115.setOnClickListener(v13 -> ImageClickEvent("PersonalBtn_11115.PS", url_11115, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
         Mod_11614.setOnClickListener(v14 -> ImageClickEvent("PersonalBtn_11614.PS", url_11614, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
         Mod_11616.setOnClickListener(v15 -> ImageClickEvent("PersonalBtn_11616.PS", url_11616, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
@@ -155,6 +195,18 @@ public class Activity2_Fragment5_Other_Tab3 extends Fragment {
         Mod_52011.setOnClickListener(v121 -> ImageClickEvent("PersonalBtn_52011.PS", url_52011, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
         Mod_54307.setOnClickListener(v122 -> ImageClickEvent("PersonalBtn_54307.PS", url_54307, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
         Mod_59702.setOnClickListener(v123 -> ImageClickEvent("PersonalBtn_59702.PS", url_59702, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        // 其他主題
+        Mod_11119.setOnClickListener(v124 -> ImageClickEvent("PersonalBtn_Other_11119.PS", url_11119, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_12912.setOnClickListener(v125 -> ImageClickEvent("PersonalBtn_Other_12912.PS", url_12912, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_15204.setOnClickListener(v126 -> ImageClickEvent("PersonalBtn_Other_15204.PS", url_15204, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_19007.setOnClickListener(v127 -> ImageClickEvent("PersonalBtn_Other_19007.PS", url_19007, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_19109.setOnClickListener(v128 -> ImageClickEvent("PersonalBtn_Other_19109.PS", url_19109, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_19509.setOnClickListener(v129 -> ImageClickEvent("PersonalBtn_Other_19509.PS", url_19509, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_51009.setOnClickListener(v130 -> ImageClickEvent("PersonalBtn_Other_51009.PS", url_51009, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_53308.setOnClickListener(v131 -> ImageClickEvent("PersonalBtn_Other_53308.PS", url_53308, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_53503.setOnClickListener(v132 -> ImageClickEvent("PersonalBtn_Other_53503.PS", url_53503, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+        Mod_54804.setOnClickListener(v133 -> ImageClickEvent("PersonalBtn_Other_54804.PS", url_54804, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/"));
+
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);
         admobService.loadBannerAd(banner);

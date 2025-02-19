@@ -281,7 +281,7 @@ public class Activity2_Fragment1_Home extends Fragment {
         } else if (content.contains("開放")) {
             return "✅已開放\n";
         } else {
-            return "⚠️未知\n";
+            return "⚠️停止維護\n";
         }
     }
 

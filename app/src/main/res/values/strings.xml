@@ -134,6 +134,8 @@
     <string name="Come_Anim" translatable="false">出場動作修改&#160;</string>
     <string name="Recovery_Come_Anim" translatable="false">還原出場動作修改</string>
     <string name="Recovery_Personal_Btn" translatable="false">還原個性按鈕修改</string>
+    <string name="Personal_Btn_AOV" translatable="false">傳說主題&#160;&#160;</string>
+    <string name="Personal_Btn_HOK" translatable="false">其他 (王者 )主題&#160;&#160;</string>
     <!-- Ads ID -->
     <string name="Banner" translatable="false">ca-app-pub-3897977034034314/3959418899</string>
     <string name="Interstitial" translatable="false">ca-app-pub-3897977034034314/1890006363</string>

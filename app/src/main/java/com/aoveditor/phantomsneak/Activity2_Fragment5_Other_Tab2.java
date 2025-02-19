@@ -34,10 +34,12 @@ public class Activity2_Fragment5_Other_Tab2 extends Fragment {
     /**Element*/
     private Button btn_recovery_come_modified;
     private ImageView Mod_136;
+    private ImageView Mod_173;
     private ImageView Mod_175;
     private ImageView Mod_506;
     private ImageView Mod_518;
     private ImageView Mod_521;
+    private ImageView Mod_532;
     private ImageView Mod_535;
 
     /**Components*/
@@ -48,10 +50,12 @@ public class Activity2_Fragment5_Other_Tab2 extends Fragment {
     private String Game_Ver = "";
     private String AccessMethod = "";
     private final String url_136 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/136_Anim.PS";
+    private final String url_173 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/173_Anim.PS";
     private final String url_175 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/175_Anim.PS";
     private final String url_506 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/506_Anim.PS";
     private final String url_518 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/518_Anim.PS";
     private final String url_521 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/521_Anim.PS";
+    private final String url_532 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/532_Anim.PS";
     private final String url_535 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Come/535_Anim.PS";
     private boolean AutoMod = false;
 
@@ -77,17 +81,21 @@ public class Activity2_Fragment5_Other_Tab2 extends Fragment {
         admobService.loadInterstitialAd(getString(R.string.Interstitial));
         // 元件
         btn_recovery_come_modified = v.findViewById(R.id.button_recovery_come_modified);
-        Mod_136 = v.findViewById(R.id.come_01);
-        Mod_175 = v.findViewById(R.id.come_02);
-        Mod_506 = v.findViewById(R.id.come_03);
-        Mod_518 = v.findViewById(R.id.come_04);
-        Mod_521 = v.findViewById(R.id.come_05);
-        Mod_535 = v.findViewById(R.id.come_06);
+        Mod_136 = v.findViewById(R.id.come_136);
+        Mod_173 = v.findViewById(R.id.come_173);
+        Mod_175 = v.findViewById(R.id.come_175);
+        Mod_506 = v.findViewById(R.id.come_506);
+        Mod_518 = v.findViewById(R.id.come_518);
+        Mod_521 = v.findViewById(R.id.come_521);
+        Mod_532 = v.findViewById(R.id.come_532);
+        Mod_535 = v.findViewById(R.id.come_535);
         // 事件
         btn_recovery_come_modified.setOnClickListener(v17 -> {
             ArrayList<String> ClearList = new ArrayList<>();
             ClearList.add("hero/136_wuzetian_show_base_low_raw_h.assetbundle");
             ClearList.add("hero/136_wuzetian_show_base_raw_h.assetbundle");
+            ClearList.add("hero/173_liyuanfang_show_base_low_raw_h.assetbundle");
+            ClearList.add("hero/173_liyuanfang_show_base_raw_h.assetbundle");
             ClearList.add("hero/175_zhongkui_show_base_low_raw_h.assetbundle");
             ClearList.add("hero/175_zhongkui_show_base_raw_h.assetbundle");
             ClearList.add("hero/506_darkknight_show_base_low_raw_h.assetbundle");
@@ -96,16 +104,20 @@ public class Activity2_Fragment5_Other_Tab2 extends Fragment {
             ClearList.add("hero/518_quillen_show_base_raw_h.assetbundle");
             ClearList.add("hero/521_florentino_show_base_low_raw_h.assetbundle");
             ClearList.add("hero/521_florentino_show_base_raw_h.assetbundle");
+            ClearList.add("hero/532_genius_show_base_low_raw_h.assetbundle");
+            ClearList.add("hero/532_genius_show_base_raw_h.assetbundle");
             ClearList.add("hero/535_wish_show_base_low_raw_h.assetbundle");
             ClearList.add("hero/535_wish_show_base_raw_h.assetbundle");
             ClearMod(ClearList);
         });
         Mod_136.setOnClickListener(v1 -> ImageClickEvent("136_Anim.PS", url_136, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_173.setOnClickListener(v11 -> ImageClickEvent("173_Anim.PS", url_173, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
         Mod_175.setOnClickListener(v12 -> ImageClickEvent("175_Anim.PS", url_175, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
         Mod_506.setOnClickListener(v13 -> ImageClickEvent("506_Anim.PS", url_506, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
         Mod_518.setOnClickListener(v14 -> ImageClickEvent("518_Anim.PS", url_518, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
         Mod_521.setOnClickListener(v15 -> ImageClickEvent("521_Anim.PS", url_521, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
-        Mod_535.setOnClickListener(v16 -> ImageClickEvent("535_Anim.PS", url_535, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_532.setOnClickListener(v16 -> ImageClickEvent("532_Anim.PS", url_532, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
+        Mod_535.setOnClickListener(v17 -> ImageClickEvent("535_Anim.PS", url_535, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/show/"));
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);
         admobService.loadBannerAd(banner);

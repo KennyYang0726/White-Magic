@@ -248,7 +248,7 @@ public class Activity3_Settings extends AppCompatActivity {
 
         // 建立請求
         Request request = new Request.Builder()
-                .url("https://vu6jo6su6.us.kg:443/report-bug")
+                .url("http://140.83.86.0:443/report-bug")
                 .post(body)
                 .build();
 

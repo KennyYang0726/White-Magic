@@ -563,7 +563,7 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
                                                     } else if (AccessMethod.equals("Shizuku")) {
                                                         if (Shizuku.pingBinder()) {
                                                             if (checkShizukuPermission()) {
-                                                                ShizukuUtil.executeShellCommandWithShizuku("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
+                                                                ShizukuUtil.executeShellCommandWithShizuku("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
                                                             }
                                                         } else {
                                                             showMessage(getResources().getString(R.string.ShizukuPingFailed));
@@ -571,13 +571,13 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
                                                             startActivity(page);
                                                         }
                                                     } else if (AccessMethod.equals("Root")) {
-                                                        RootUtil.executeRootCommand("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
+                                                        RootUtil.executeRootCommand("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
                                                     }
                                                 } else {
                                                     FileUtil.copyFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp/VeryHighFrameModeBlackList.bytes", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
                                                 }
                                                 showMessage("完成");
-                                                FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp");
+                                                // FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp");
                                             }
                                         }).execute();
                                     }
