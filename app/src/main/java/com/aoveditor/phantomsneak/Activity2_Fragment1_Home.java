@@ -141,13 +141,13 @@ public class Activity2_Fragment1_Home extends Fragment {
                                         // ADB啟用，刪除時要檢查權限
                                         ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver);
                                         ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-                                        ShizukuUtil.executeShellCommandWithShizuku("find /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie -exec rm -f {} + 2>/dev/null");
-                                        ShizukuUtil.executeShellCommandWithShizuku("find /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC -exec rm -f {} + 2>/dev/null");
+                                        ShizukuUtil.executeShellCommandWithShizuku("find /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie -exec rm -f {} + 2>/dev/null");
+                                        ShizukuUtil.executeShellCommandWithShizuku("find /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC -exec rm -f {} + 2>/dev/null");
                                     } else {
                                         ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
                                         ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-                                        ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie");
-                                        ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                                        ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie");
+                                        ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC");
                                     }
                                 }
                             } else {
@@ -159,15 +159,15 @@ public class Activity2_Fragment1_Home extends Fragment {
                             // 使用 Root 權限執行刪除命令
                             RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
                             RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-                            RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie");
-                            RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                            RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie");
+                            RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC");
                         }
                     } else {
                         // Android 11 以下使用 FileUtil 進行刪除
                         FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
                         FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-                        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie");
-                        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie");
+                        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC");
                     }
                     return ""; // 不需要返回值
                 }, getString(R.string.RecoveryING), result -> {
@@ -180,6 +180,38 @@ public class Activity2_Fragment1_Home extends Fragment {
         }));
         button_fix_languages.setOnClickListener(v13 -> CustomAlertDialog2.showDialog(requireContext(), false, getString(R.string.Dialog_AlertTitle), getString(R.string.Dialog_RecoveryLanguageMap), getString(R.string.DialogCancel), getString(R.string.DialogOK), 0, isConfirmed -> {
             if (isConfirmed) {
+                // 背景執行，避免組塞主執行緒
+                new BackgroundTask(requireActivity(), () -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        if (AccessMethod.equals("SAF")) {
+                            // 在這裡處理 SAF 的邏輯
+                        } else if (AccessMethod.equals("Shizuku")) {
+                            if (Shizuku.pingBinder()) {
+                                if (checkShizukuPermission()) {
+                                    String randomString = generateRandomString();
+                                    ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver);
+                                    ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + randomString);
+                                }
+                            } else {
+                                showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                                Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                                startActivity(page);
+                            }
+                        } else if (AccessMethod.equals("Root")) {
+                            RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/");
+                        }
+                    } else {
+                        // Android 11 以下使用 FileUtil 進行刪除
+                        FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
+                    }
+                    return ""; // 不需要返回值
+                }, getString(R.string.RecoveryING), result -> {
+                    // 在這裡處理結果，例如顯示結果到 Toast 或更新 UI
+                    if (result != null) {
+                        showMessage(getString(R.string.Recovery_Successfully));
+                    }
+                }).execute();
+                /*
                 DownloadManager.downloadInBackground(getContext(), "https://github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/languageMap.txt", FileUtil.getPackageDataDir(requireActivity())+"/", "languageMap.txt", new DownloadManager.DownloadCallback() {
                     @Override
                     public void onDownloadInBackgroundComplete(String filePath) {
@@ -209,7 +241,7 @@ public class Activity2_Fragment1_Home extends Fragment {
                     @Override
                     public void onDownloadFailed(String error) {
                     }
-                });
+                });*/
             }
         }));
         // 加載和顯示橫幅廣告

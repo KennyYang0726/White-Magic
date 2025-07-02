@@ -105,7 +105,7 @@ public class Activity2_Fragment5_Other extends Fragment {
                         if (AppSettings.contains("GameUID")) {
                             // 若存在 GameUID -> ADB 啟用
                             String GameUID = AppSettings.getString("GameUID", "");
-                            String lsld_SoundDLC = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -ld /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android")).trim();
+                            String lsld_SoundDLC = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -ld /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android")).trim();
                             if (lsld_SoundDLC.contains(GameUID)) {
                                 // 將 Sound_DLC 授權
                                 // 同時產生亂數，加在無法授權的目錄後方，以避免後續授權卡讀取
@@ -119,11 +119,11 @@ public class Activity2_Fragment5_Other extends Fragment {
                                             // 背景執行，避免組塞主執行緒
                                             String Access_command =
                                                     "mkdir /storage/emulated/0/" + randomString + " &&" +
-                                                            "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
+                                                            "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
                                                             "/storage/emulated/0/" + randomString + "/ && " +
-                                                            "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
-                                                            "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + "_" + randomString + " && " +
-                                                            "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/" + " && " +
+                                                            "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
+                                                            "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + "_" + randomString + " && " +
+                                                            "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/" + " && " +
                                                             "rm -r /storage/emulated/0/" + randomString;
 
                                             String Message = "正在為語音目錄授權..."; // 自訂 prog 訊息

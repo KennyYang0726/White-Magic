@@ -201,6 +201,101 @@
                     android:padding="11dp"
                     android:src="@drawable/lobby12_suli" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby13_nymph" />
+                <ImageView
+                    android:id="@+id/lobby_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby14_dasikong" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby15_goverra" />
+                <ImageView
+                    android:id="@+id/lobby_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby16_reunion_of_time" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby17_yao" />
+                <ImageView
+                    android:id="@+id/lobby_18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby18_bonnie" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby19_wukongevo" />
+                <ImageView
+                    android:id="@+id/lobby_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby20_bleach" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/lobby_21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/lobby21_harleyquinn" />
+                <ImageView
+                    android:id="@+id/lobby_22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="11dp"
+                    android:src="@drawable/none" />
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

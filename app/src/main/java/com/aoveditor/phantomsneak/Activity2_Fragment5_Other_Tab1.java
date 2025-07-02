@@ -127,9 +127,9 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
         button_recovery_wiro_modified.setOnClickListener(v13 -> {
             ArrayList<String> ClearList = new ArrayList<>();
             ClearList.add("CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-            ClearList.add("Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
-            ClearList.add("Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
-            ClearList.add("Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
+            ClearList.add("Extra/2022.V3/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
+            ClearList.add("Extra/2022.V3/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
+            ClearList.add("Extra/2022.V3/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
             ClearList.add("Resources/" + Game_Ver);
             ClearMod("8964", ClearList, "點擊 OK 還原\n「維羅國動」\n完成後強制為您開啟遊戲，是否繼續？", true);
         });
@@ -137,14 +137,14 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
             // SoundList 僅用於 有語音修改的
             ArrayList<String> SoundList = new ArrayList<>();
             SoundList.add("Hero_Wisp_SFX.bnk");
-            OtherImageClickEvent("Hero_Wisp_SFX.bnk", Wisp, true, "*", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/", SoundList);
+            OtherImageClickEvent("Hero_Wisp_SFX.bnk", Wisp, true, "*", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/", SoundList);
         });
         button_recovery_wisp_modified.setOnClickListener(v14 -> {
             ArrayList<String> ClearList = new ArrayList<>();
             ClearList.add("CDNImage/HeroHeadIcon/E08074BD2C22D7294436E68F0AEA0E90");
-            ClearList.add("Extra/2019.V2/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
-            ClearList.add("Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
-            ClearList.add("Extra/2019.V2/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
+            ClearList.add("Extra/2022.V3/Sound_DLC/Android/Hero_Wiro_SFX.bnk");
+            ClearList.add("Extra/2022.V3/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_Show.bnk");
+            ClearList.add("Extra/2022.V3/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
             ClearList.add("Resources/" + Game_Ver);
             ClearMod("8964", ClearList, "點擊 OK 還原\n「靈靈專業配音」\n是否繼續？", false);
         });
@@ -500,7 +500,7 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
                             // 背景執行，避免組塞主執行緒
                             // 直接重命名檔案，不理會結果
                             for (String str : SoundList) {
-                                new Thread(() -> ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + str + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + str + "_" + randomString)).start();
+                                new Thread(() -> ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/" + str + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/" + str + "_" + randomString)).start();
                             }
                             String Message = "正在為語音目錄授權..."; // 自訂 prog 訊息
                             // 創建並執行 BackgroundTask，傳入具體的背景任務

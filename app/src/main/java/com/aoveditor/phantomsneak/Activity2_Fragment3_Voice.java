@@ -272,7 +272,7 @@ public class Activity2_Fragment3_Voice extends Fragment {
                         if (AppSettings.contains("GameUID")) {
                             // 若存在 GameUID -> ADB 啟用
                             // 判斷裡面是否有 擁有者為 AOV 的檔案
-                            String LSlR_Result = ShizukuUtil.executeShellCommandWithShizuku("ls -lR /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/");
+                            String LSlR_Result = ShizukuUtil.executeShellCommandWithShizuku("ls -lR /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/");
                             // Log.d("ShizukuResult-d", LSlR_Result);
                             String GameUID = AppSettings.getString("GameUID", "");
                             assert LSlR_Result != null;
@@ -288,11 +288,11 @@ public class Activity2_Fragment3_Voice extends Fragment {
                                             // 背景執行，避免組塞主執行緒
                                             String Access_command =
                                                     "mkdir /storage/emulated/0/" + randomString + " &&" +
-                                                    "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
+                                                    "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
                                                     "/storage/emulated/0/" + randomString + "/ && " +
-                                                    "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
-                                                    "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + "_" + randomString + " && " +
-                                                    "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/" + " && " +
+                                                    "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
+                                                    "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + "_" + randomString + " && " +
+                                                    "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/" + " && " +
                                                     "rm -r /storage/emulated/0/" + randomString;
 
                                             String Message = "正在為語音目錄授權..."; // 自訂 prog 訊息
@@ -352,9 +352,9 @@ public class Activity2_Fragment3_Voice extends Fragment {
                         if (checkShizukuPermission()) {
                             if (AppSettings.contains("GameUID")) {
                                 // ADB啟用，刪除時要檢查權限
-                                ShizukuUtil.executeShellCommandWithShizuku("find /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC -exec rm -f {} + 2>/dev/null");
+                                ShizukuUtil.executeShellCommandWithShizuku("find /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC -exec rm -f {} + 2>/dev/null");
                             } else {
-                                ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                                ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC");
                             }
                         }
                     } else {
@@ -364,11 +364,11 @@ public class Activity2_Fragment3_Voice extends Fragment {
                     }
                 } else if (AccessMethod.equals("Root")) {
                     // 使用 Root 權限執行刪除命令
-                    RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                    RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC");
                 }
             } else {
                 // Android 11 以下使用 FileUtil 進行刪除
-                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC");
+                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC");
             }
             return ""; // 不需要返回值
         }, getString(R.string.RecoveryING), result -> {
@@ -400,7 +400,7 @@ public class Activity2_Fragment3_Voice extends Fragment {
                         } else if (AccessMethod.equals("Shizuku")) {
                             if (Shizuku.pingBinder()) {
                                 if (checkShizukuPermission()) {
-                                    ShizukuUtil.executeShellCommandWithShizuku("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
+                                    ShizukuUtil.executeShellCommandWithShizuku("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/");
                                 }
                             } else {
                                 showMessage(getResources().getString(R.string.ShizukuPingFailed));
@@ -408,7 +408,7 @@ public class Activity2_Fragment3_Voice extends Fragment {
                                 startActivity(page);
                             }
                         } else if (AccessMethod.equals("Root")) {
-                            RootUtil.executeRootCommand("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
+                            RootUtil.executeRootCommand("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/");
                         }
                         return ""; // 不需要返回值
                     }, getString(R.string.Modding), result -> {
@@ -423,8 +423,8 @@ public class Activity2_Fragment3_Voice extends Fragment {
             }
 
         } else {
-            FileUtil.makeDir("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/");
-            ZipManager.UnzipWithoutPwd(requireContext(), true, "啟用中","/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/"+Language+"/"+Version, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/", () -> requireActivity().runOnUiThread(() -> showMessage(getString(R.string.ApplySuccessfullyToast))));
+            FileUtil.makeDir("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/");
+            ZipManager.UnzipWithoutPwd(requireContext(), true, "啟用中","/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/"+Language+"/"+Version, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/", () -> requireActivity().runOnUiThread(() -> showMessage(getString(R.string.ApplySuccessfullyToast))));
         }
     }
 

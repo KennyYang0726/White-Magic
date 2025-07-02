@@ -113,6 +113,10 @@ public class AdmobService {
         }
     }
 
+    public boolean isRewardedAdLoaded() {
+        return rewardedAd != null;
+    }
+
     public interface OnAdCompletionListener {
         void onAdCompleted(boolean completed);
     }

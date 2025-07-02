@@ -88,7 +88,7 @@
     <!-- 主畫面 Button -->
     <string name="button_del_all_components" translatable="false">刪除所有插件</string>
     <string name="button_recovery_all_modified" translatable="false">還原所有修改</string>
-    <string name="button_fix_languageMap" translatable="false">語言英文 / 亂碼修復</string>
+    <string name="button_fix_languageMap" translatable="false">語言亂碼 / 卡讀取 修復</string>
     <!-- 主畫面 Dialog -->
     <string name="Dialog_AlertTitle" translatable="false">&#160;&#160;&#160;⚠️警告！⚠️</string>
     <string name="Dialog_RecoveryAllText" translatable="false">點擊「OK」將還原所有修改，大量 DLC 資源將被清除，是否繼續？</string>
@@ -107,6 +107,7 @@
     <string name="Btn_DownloadSkin" translatable="false">&#160;&#160;&#160;下載插件&#160;&#160;&#160;</string>
     <string name="Btn_ModSkin" translatable="false">&#160;&#160;&#160;啟用&#160;&#160;&#160;</string>
     <string name="PlugNone" translatable="false">尚未下載</string>
+    <string name="AdNotFinishedYet" translatable="false">請待廣告加載完畢</string>
     <string name="Text_SkinPlugVer" translatable="false">目前版本：</string>
     <string name="Text_LatestSkinPlugVer" translatable="false">最新版本：</string>
     <string name="DelSkinPlugin" translatable="false">&#160;&#160;&#160;刪除造型插件&#160;&#160;&#160;</string>

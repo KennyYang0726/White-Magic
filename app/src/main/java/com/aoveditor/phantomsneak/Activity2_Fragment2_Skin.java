@@ -96,116 +96,126 @@ public class Activity2_Fragment2_Skin extends Fragment {
         // 事件
         Btn_DownloadSkin.setOnClickListener(v1 -> {
             if (isDownload) {
-                // 下載插件
-                if (!AutoMod) {
-                    showMessage(getString(R.string.DownloadFinishedClickAgainToast));
-                }
                 // 清空 2-Skin 目錄
                 FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity()).concat("/2-Skin"));
                 FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity()).concat("/2-Skin"));
-                // 顯示獎勵廣告
-                admobService.showRewardedAd(completed -> {
-                   if (completed) {
-                       // 先背景下載語言包
-                       DownloadManager.downloadInBackground(requireContext(), "https://" + languageMap, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/", "languageMap.txt", new DownloadManager.DownloadCallback() {
-                           @Override
-                           public void onDownloadInBackgroundComplete(String filePath) {
-                               // 下載完成語言包，按照存取模式放進去
-                               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                   if (AccessMethod.equals("SAF")) {
-                                       // 在這裡處理 SAF 的邏輯
-                                   } else if (AccessMethod.equals("Shizuku")) {
-                                       if (Shizuku.pingBinder()) {
-                                           if (checkShizukuPermission()) {
-                                               ShizukuUtil.executeShellCommandWithShizuku("cp " + filePath + " /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Languages/CHT_Garena_TW/");
-                                           }
-                                       } else {
-                                           showMessage(getResources().getString(R.string.ShizukuPingFailed));
-                                           Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
-                                           startActivity(page);
-                                       }
-                                   } else if (AccessMethod.equals("Root")) {
-                                       RootUtil.executeRootCommand("cp " + filePath + " /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Languages/CHT_Garena_TW/");
-                                   }
-                               } else {
-                                   FileUtil.copyFile(filePath, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Languages/CHT_Garena_TW/languageMap.txt");
-                               }
-                               FileUtil.deleteFile(filePath);
-                           }
-                           @Override
-                           public void onDownloadFailed(String error) {
-                           }
-                       });
-                       // 同時再下載插件
-                       DownloadManager.downloadPlugins(requireContext(), "https://" + Skin_Url, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-Skin/", "下載造型插件中...", Latest_Skin_Version, new DownloadManager.UIDownloadCallback() {
-                           @Override
-                           public void onDownloadComplete(String filePath) {
-                               // 把該改變的狀態全部修正
-                               isDownload = false;
-                               requireActivity().runOnUiThread(() -> {
-                                   Text_SkinPlugVer.setText(Latest_Skin_Version);
-                                   Btn_DownloadSkin.setText(getString(R.string.Btn_ModSkin));
-                               });
-                               // 判斷是否自動啟用插件
-                               if (AutoMod) {
-                                   StartModSkin();
-                               }
-                           }
-                           @Override
-                           public void onDownloadFailed(String error) {
-                               requireActivity().runOnUiThread(() -> showMessage(getString(R.string.DownloadFailedToast)));
-                           }
-                       });
-                   }
-                });
+
+                if (admobService.isRewardedAdLoaded()) { // 確認廣告加載完成
+                    // 顯示獎勵廣告
+                    admobService.showRewardedAd(completed -> {
+                        if (completed) {
+                            // 下載插件
+                            if (!AutoMod) {
+                                showMessage(getString(R.string.DownloadFinishedClickAgainToast));
+                            }
+                            // 先背景下載語言包
+                            DownloadManager.downloadInBackground(requireContext(), "https://" + languageMap, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/", "languageMap.txt", new DownloadManager.DownloadCallback() {
+                                @Override
+                                public void onDownloadInBackgroundComplete(String filePath) {
+                                    // 下載完成語言包，按照存取模式放進去
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                        if (AccessMethod.equals("SAF")) {
+                                            // 在這裡處理 SAF 的邏輯
+                                        } else if (AccessMethod.equals("Shizuku")) {
+                                            if (Shizuku.pingBinder()) {
+                                                if (checkShizukuPermission()) {
+                                                    ShizukuUtil.executeShellCommandWithShizuku("cp " + filePath + " /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Languages/CHT_Garena_TW/");
+                                                }
+                                            } else {
+                                                showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                                                Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                                                startActivity(page);
+                                            }
+                                        } else if (AccessMethod.equals("Root")) {
+                                            RootUtil.executeRootCommand("cp " + filePath + " /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Languages/CHT_Garena_TW/");
+                                        }
+                                    } else {
+                                        FileUtil.copyFile(filePath, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Languages/CHT_Garena_TW/languageMap.txt");
+                                    }
+                                    FileUtil.deleteFile(filePath);
+                                }
+                                @Override
+                                public void onDownloadFailed(String error) {
+                                }
+                            });
+                            // 同時再下載插件
+                            DownloadManager.downloadPlugins(requireContext(), "https://" + Skin_Url, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/2-Skin/", "下載造型插件中...", Latest_Skin_Version, new DownloadManager.UIDownloadCallback() {
+                                @Override
+                                public void onDownloadComplete(String filePath) {
+                                    // 把該改變的狀態全部修正
+                                    isDownload = false;
+                                    requireActivity().runOnUiThread(() -> {
+                                        Text_SkinPlugVer.setText(Latest_Skin_Version);
+                                        Btn_DownloadSkin.setText(getString(R.string.Btn_ModSkin));
+                                    });
+                                    // 判斷是否自動啟用插件
+                                    if (AutoMod) {
+                                        StartModSkin();
+                                    }
+                                }
+                                @Override
+                                public void onDownloadFailed(String error) {
+                                    requireActivity().runOnUiThread(() -> showMessage(getString(R.string.DownloadFailedToast)));
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    showMessage(getString(R.string.AdNotFinishedYet));
+                }
+
             } else {
                 // 啟用插件
                 StartModSkin();
             }
         });
         Btn_ClearMod.setOnClickListener(v12 -> {
-            // 按照存取模式還原，這裡用背景回調
-            new BackgroundTask(requireActivity(), () -> {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    // 根據 AccessMethod 進行不同的操作
-                    if (AccessMethod.equals("SAF")) {
-                        // 在這裡處理 SAF 的邏輯
-                    } else if (AccessMethod.equals("Shizuku")) {
-                        // 使用 Shizuku 執行刪除命令
-                        if (Shizuku.pingBinder()) {
-                            if (checkShizukuPermission()) {
-                                ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver);
+            // 再次確認
+            CustomAlertDialog2.showDialog(requireContext(), true, getString(R.string.Hint), "確認是否還原造型修改？", getString(R.string.DialogCancel), getString(R.string.DialogOK), 0, isConfirmed1 -> {
+                if (isConfirmed1) {
+                    // 按照存取模式還原，這裡用背景回調
+                    new BackgroundTask(requireActivity(), () -> {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            // 根據 AccessMethod 進行不同的操作
+                            if (AccessMethod.equals("SAF")) {
+                                // 在這裡處理 SAF 的邏輯
+                            } else if (AccessMethod.equals("Shizuku")) {
+                                // 使用 Shizuku 執行刪除命令
+                                if (Shizuku.pingBinder()) {
+                                    if (checkShizukuPermission()) {
+                                        ShizukuUtil.executeShellCommandWithShizuku("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver);
+                                    }
+                                } else {
+                                    showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                                    Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                                    startActivity(page);
+                                }
+                            } else if (AccessMethod.equals("Root")) {
+                                // 使用 Root 權限執行刪除命令
+                                RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
                             }
                         } else {
-                            showMessage(getResources().getString(R.string.ShizukuPingFailed));
-                            Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
-                            startActivity(page);
+                            // Android 11 以下使用 FileUtil 進行刪除
+                            FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
                         }
-                    } else if (AccessMethod.equals("Root")) {
-                        // 使用 Root 權限執行刪除命令
-                        RootUtil.executeRootCommand("rm -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
-                    }
-                } else {
-                    // Android 11 以下使用 FileUtil 進行刪除
-                    FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources");
-                }
-                return ""; // 不需要返回值
-            }, getString(R.string.RecoveryING), result -> {
-                // 在這裡處理結果，例如顯示結果到 Toast 或更新 UI
-                if (result != null) {
-                    showMessage(getString(R.string.Recovery_Successfully));
-                    // 詢問開啟遊戲
-                    CustomAlertDialog2.showDialog(requireContext(), false, getString(R.string.Hint), "已還原造型修改\n是否幫您自動開啟遊戲？", getString(R.string.DialogCancel), getString(R.string.DialogOK), 0, isConfirmed -> {
-                        if (isConfirmed) {
-                            Intent launchIntent = requireActivity().getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
-                            startActivity(launchIntent);
-                        } else {
-                            requireActivity().finishAffinity();
+                        return ""; // 不需要返回值
+                    }, getString(R.string.RecoveryING), result -> {
+                        // 在這裡處理結果，例如顯示結果到 Toast 或更新 UI
+                        if (result != null) {
+                            showMessage(getString(R.string.Recovery_Successfully));
+                            // 詢問開啟遊戲
+                            CustomAlertDialog2.showDialog(requireContext(), false, getString(R.string.Hint), "已還原造型修改\n是否幫您自動開啟遊戲？", getString(R.string.DialogCancel), getString(R.string.DialogOK), 0, isConfirmed -> {
+                                if (isConfirmed) {
+                                    Intent launchIntent = requireActivity().getPackageManager().getLaunchIntentForPackage("com.garena.game.kgtw");
+                                    startActivity(launchIntent);
+                                } else {
+                                    requireActivity().finishAffinity();
+                                }
+                            });
                         }
-                    });
+                    }).execute();
                 }
-            }).execute();
-
+            });
         });
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);

@@ -63,6 +63,15 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private ImageView lobby_10;
     private ImageView lobby_11;
     private ImageView lobby_12;
+    private ImageView lobby_13;
+    private ImageView lobby_14;
+    private ImageView lobby_15;
+    private ImageView lobby_16;
+    private ImageView lobby_17;
+    private ImageView lobby_18;
+    private ImageView lobby_19;
+    private ImageView lobby_20;
+    private ImageView lobby_21;
     // 額外主題
     private ImageView lobby_41;
     private ImageView lobby_42;
@@ -91,6 +100,15 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private final String Lobby10 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/10-DoRiA.PS";
     private final String Lobby11 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/11-PoolParty.PS";
     private final String Lobby12 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/12-SuLi.PS";
+    private final String Lobby13 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/13-Nymph.PS";
+    private final String Lobby14 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/14-DaSiKong.PS";
+    private final String Lobby15 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/15-Goverra.PS";
+    private final String Lobby16 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/16-時之奇旅.PS";
+    private final String Lobby17 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/17-Yao.PS";
+    private final String Lobby18 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/18-Bonnie.PS";
+    private final String Lobby19 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/19-WuKongEVO.PS";
+    private final String Lobby20 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/20-BLEACH.PS";
+    private final String Lobby21 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/21-HarleyQuinn.PS";
     private String Lobby41 = "";
     private String Lobby41_IMG = "";
     private String Lobby42 = "";
@@ -147,6 +165,15 @@ public class Activity2_Fragment4_Lobby extends Fragment {
         lobby_10 = v.findViewById(R.id.lobby_10);
         lobby_11 = v.findViewById(R.id.lobby_11);
         lobby_12 = v.findViewById(R.id.lobby_12);
+        lobby_13 = v.findViewById(R.id.lobby_13);
+        lobby_14 = v.findViewById(R.id.lobby_14);
+        lobby_15 = v.findViewById(R.id.lobby_15);
+        lobby_16 = v.findViewById(R.id.lobby_16);
+        lobby_17 = v.findViewById(R.id.lobby_17);
+        lobby_18 = v.findViewById(R.id.lobby_18);
+        lobby_19 = v.findViewById(R.id.lobby_19);
+        lobby_20 = v.findViewById(R.id.lobby_20);
+        lobby_21 = v.findViewById(R.id.lobby_21);
         lobby_41 = v.findViewById(R.id.lobby_41);
         lobby_42 = v.findViewById(R.id.lobby_42);
         lobby_43 = v.findViewById(R.id.lobby_43);
@@ -220,32 +247,78 @@ public class Activity2_Fragment4_Lobby extends Fragment {
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby12);
         });
-        lobby_41.setOnClickListener(v114 -> {
+        lobby_13.setOnClickListener(v114 -> {
+            String name = Uri.parse(Lobby13).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby13);
+        });
+        lobby_14.setOnClickListener(v115 -> {
+            String name = Uri.parse(Lobby14).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby14);
+        });
+        lobby_15.setOnClickListener(v116 -> {
+            String name = Uri.parse(Lobby15).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby15);
+        });
+        lobby_16.setOnClickListener(v117 -> {
+            String name = Uri.parse(Lobby16).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby16);
+        });
+        lobby_17.setOnClickListener(v118 -> {
+            String name = Uri.parse(Lobby17).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby17);
+        });
+        lobby_18.setOnClickListener(v119 -> {
+            String name = Uri.parse(Lobby18).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby18);
+        });
+        lobby_19.setOnClickListener(v120 -> {
+            String name = Uri.parse(Lobby19).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby19);
+        });
+        lobby_20.setOnClickListener(v121 -> {
+            String name = Uri.parse(Lobby20).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby20);
+        });
+        lobby_21.setOnClickListener(v122 -> {
+            String name = Uri.parse(Lobby21).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby21);
+        });
+
+        lobby_41.setOnClickListener(v144 -> {
             String name = Uri.parse(Lobby41).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby41);
         });
-        lobby_42.setOnClickListener(v115 -> {
+        lobby_42.setOnClickListener(v145 -> {
             String name = Uri.parse(Lobby42).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby42);
         });
-        lobby_43.setOnClickListener(v116 -> {
+        lobby_43.setOnClickListener(v146 -> {
             String name = Uri.parse(Lobby43).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby43);
         });
-        lobby_44.setOnClickListener(v117 -> {
+        lobby_44.setOnClickListener(v147 -> {
             String name = Uri.parse(Lobby44).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby44);
         });
-        lobby_45.setOnClickListener(v118 -> {
+        lobby_45.setOnClickListener(v148 -> {
             String name = Uri.parse(Lobby45).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby45);
         });
-        lobby_46.setOnClickListener(v119 -> {
+        lobby_46.setOnClickListener(v149 -> {
             String name = Uri.parse(Lobby46).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby46);
@@ -337,7 +410,7 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                             boolean[] MovieAccess = {false};
                             // 檢測語音
                             new Thread(() -> {
-                                String lsld_SoundDLC = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -ld /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android")).trim();
+                                String lsld_SoundDLC = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -ld /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android")).trim();
                                 if (lsld_SoundDLC.contains(GameUID)) {
                                     // 將 Sound_DLC 授權
                                     canMod = false;
@@ -350,7 +423,7 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                             }).start();
                             // 檢測影片
                             new Thread(() -> {
-                                String lsld_LobbyMovie = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -ld /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie")).trim();
+                                String lsld_LobbyMovie = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -ld /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie")).trim();
                                 if (lsld_LobbyMovie.contains(GameUID)) {
                                     // 將 ISPDiff 授權
                                     canMod = false;
@@ -390,39 +463,39 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                 showAccessDialog(
                         "檢測到您的 Sound_DLC 目錄 及 LobbyMovie 目錄皆無法存取，需要授權才能使用。點擊「OK」進行自動授權。\n過程非常漫長(10~15分鐘)，請耐心等候...\n期間「請勿」跳離畫面，以免授權失敗或不完全。",
                         "mkdir /storage/emulated/0/" + randomString + " &&" +
-                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
+                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
                               "/storage/emulated/0/" + randomString + "/ && " +
-                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
-                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + "_" + randomString + " && " +
-                              "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/" + " && " +
+                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
+                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + "_" + randomString + " && " +
+                              "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/" + " && " +
                               "rm -r /storage/emulated/0/" + randomString,
                         "mkdir /storage/emulated/0/tmp" + " &&" +
-                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff" + " " +
+                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff" + " " +
                               "/storage/emulated/0/tmp/" + " && " +
-                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff" + " " +
-                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff" + "_" + randomString + " && " +
-                              "mv /storage/emulated/0/tmp/ISPDiff /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/" + " && " +
+                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff" + " " +
+                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff" + "_" + randomString + " && " +
+                              "mv /storage/emulated/0/tmp/ISPDiff /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/" + " && " +
                               "rm -r /storage/emulated/0/tmp");
             } else if (!SoundAccess) {
                 showAccessDialog(
                         "檢測到您的 Sound_DLC 目錄無法存取，需要授權才能使用。點擊「OK」進行自動授權。\n過程非常漫長(7~10分鐘)，請耐心等候...\n期間「請勿」跳離畫面，以免授權失敗或不完全。",
                         "mkdir /storage/emulated/0/" + randomString + " &&" +
-                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
+                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
                               "/storage/emulated/0/" + randomString + "/ && " +
-                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + " " +
-                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC" + "_" + randomString + " && " +
-                              "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/" + " && " +
+                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + " " +
+                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC" + "_" + randomString + " && " +
+                              "mv /storage/emulated/0/" + randomString + "/Sound_DLC /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/" + " && " +
                               "rm -r /storage/emulated/0/" + randomString,
                         "");
             } else if (!MovieAccess) {
                 showAccessDialog(
                         "檢測到您的 LobbyMovie 目錄無法存取，需要授權才能使用。點擊「OK」進行自動授權。\n過程非常漫長(7~13分鐘)，請耐心等候...\n期間「請勿」跳離畫面，以免授權失敗或不完全。",
                         "mkdir /storage/emulated/0/" + randomString + " &&" +
-                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff" + " " +
+                              "cp -r /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff" + " " +
                               "/storage/emulated/0/" + randomString + "/ && " +
-                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff" + " " +
-                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff" + "_" + randomString + " && " +
-                              "mv /storage/emulated/0/" + randomString + "/ISPDiff /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/" + " && " +
+                              "mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff" + " " +
+                              "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff" + "_" + randomString + " && " +
+                              "mv /storage/emulated/0/" + randomString + "/ISPDiff /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/" + " && " +
                               "rm -r /storage/emulated/0/" + randomString,
                         "");
             }
@@ -501,8 +574,8 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                     // 使用 Shizuku 執行刪除命令
                     if (Shizuku.pingBinder()) {
                         if (checkShizukuPermission()) {
-                            ShizukuUtil.executeShellCommandWithShizuku("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + Delete_Sound);
-                            ShizukuUtil.executeShellCommandWithShizuku("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/" + Delete_Movie);
+                            ShizukuUtil.executeShellCommandWithShizuku("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/" + Delete_Sound);
+                            ShizukuUtil.executeShellCommandWithShizuku("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie/" + Delete_Movie);
                         }
                     } else {
                         showMessage(getResources().getString(R.string.ShizukuPingFailed));
@@ -511,13 +584,13 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                     }
                 } else if (AccessMethod.equals("Root")) {
                     // 使用 Root 權限執行刪除命令
-                    RootUtil.executeRootCommand("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + Delete_Sound);
-                    RootUtil.executeRootCommand("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/" + Delete_Movie);
+                    RootUtil.executeRootCommand("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/" + Delete_Sound);
+                    RootUtil.executeRootCommand("rm /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie/" + Delete_Movie);
                 }
             } else {
                 // Android 11 以下使用 FileUtil 進行刪除
-                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + Delete_Sound);
-                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/" + Delete_Movie);
+                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/" + Delete_Sound);
+                FileUtil.deleteFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie/" + Delete_Movie);
             }
             return ""; // 不需要返回值
         }, getString(R.string.RecoveryING), result -> {
@@ -586,18 +659,18 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                                         String GameUID = AppSettings.getString("GameUID", "");
                                         // 檢查 mp4 權限 及 bnk 權限
                                         // 不包含 GameUID 可能是沒檔案或已授權完畢，無論如何皆可成功複製
-                                        String lsl_bnk = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/" + Delete_Sound)).trim();
-                                        String lsl_mp4 = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/" + Delete_Movie)).trim();
+                                        String lsl_bnk = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/" + Delete_Sound)).trim();
+                                        String lsl_mp4 = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("ls -l /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie/" + Delete_Movie)).trim();
                                         if (lsl_bnk.contains(GameUID)) {
                                             // 直接重命名
-                                            ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/"+Delete_Sound + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/Sound_DLC/Android/"+Delete_Sound+"_"+randomString);
+                                            ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/"+Delete_Sound + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/Sound_DLC/Android/"+Delete_Sound+"_"+randomString);
                                         }
                                         if (lsl_mp4.contains(GameUID)) {
                                             // 直接重命名
-                                            ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/"+Delete_Movie + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/ISPDiff/LobbyMovie/"+Delete_Movie+"_"+randomString);
+                                            ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie/"+Delete_Movie + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/ISPDiff/LobbyMovie/"+Delete_Movie+"_"+randomString);
                                         }
                                     }
-                                    ShizukuUtil.executeShellCommandWithShizuku("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                                    ShizukuUtil.executeShellCommandWithShizuku("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/");
                                 }
                             } else {
                                 showMessage(getResources().getString(R.string.ShizukuPingFailed));
@@ -605,7 +678,7 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                                 startActivity(page);
                             }
                         } else if (AccessMethod.equals("Root")) {
-                            RootUtil.executeRootCommand("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
+                            RootUtil.executeRootCommand("cp -r /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby/tmp/* /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/");
                         }
                         return ""; // 不需要返回值
                     }, getString(R.string.Modding), result -> {
@@ -619,8 +692,8 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                 showMessage("請先進行授權");
             }
         } else {
-            FileUtil.makeDir("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/");
-            ZipManager.UnzipWithoutPwd(requireContext(), true, "啟用中","/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby/"+PluginName, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2019.V2/", () -> requireActivity().runOnUiThread(() -> showMessage(getString(R.string.ApplySuccessfullyToast))));
+            FileUtil.makeDir("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/");
+            ZipManager.UnzipWithoutPwd(requireContext(), true, "啟用中","/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby/"+PluginName, "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Extra/2022.V3/", () -> requireActivity().runOnUiThread(() -> showMessage(getString(R.string.ApplySuccessfullyToast))));
         }
     }
 
