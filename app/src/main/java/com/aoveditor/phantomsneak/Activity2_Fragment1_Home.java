@@ -351,7 +351,7 @@ public class Activity2_Fragment1_Home extends Fragment {
                         } else {
                             // 權限不足 -> ADB 啟用服務
                             new Thread(() -> {
-                                String getUIDResult = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("dumpsys package com.garena.game.kgtw | grep uid | head -n 1 | awk '{print $1}' | sed 's/.*\\([0-9]\\{3\\}\\)$/u0_a\\1/'")).trim();
+                                String getUIDResult = Objects.requireNonNull(ShizukuUtil.executeShellCommandWithShizuku("dumpsys package com.garena.game.kgtw | grep uid | head -n1 | awk -F= '{print \"u0_a\" ($2 - 10000)}'")).trim();
                                 // 儲存 傳說對決 UID 到 sp
                                 AppSettings.edit().putString("GameUID", getUIDResult).apply();
                             }).start();
