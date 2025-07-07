@@ -72,6 +72,11 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private ImageView lobby_19;
     private ImageView lobby_20;
     private ImageView lobby_21;
+    private ImageView lobby_22;
+    private ImageView lobby_23;
+    private ImageView lobby_24;
+    private ImageView lobby_25;
+    private ImageView lobby_26;
     // 額外主題
     private ImageView lobby_41;
     private ImageView lobby_42;
@@ -109,6 +114,11 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private final String Lobby19 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/19-WuKongEVO.PS";
     private final String Lobby20 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/20-BLEACH.PS";
     private final String Lobby21 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/21-HarleyQuinn.PS";
+    private final String Lobby22 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/22-Yue.PS";
+    private final String Lobby23 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/23-Tachi.PS";
+    private final String Lobby24 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/24-Classic.PS";
+    private final String Lobby25 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/25-AIC2018.PS";
+    private final String Lobby26 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/26-AWC2021.PS";
     private String Lobby41 = "";
     private String Lobby41_IMG = "";
     private String Lobby42 = "";
@@ -174,6 +184,11 @@ public class Activity2_Fragment4_Lobby extends Fragment {
         lobby_19 = v.findViewById(R.id.lobby_19);
         lobby_20 = v.findViewById(R.id.lobby_20);
         lobby_21 = v.findViewById(R.id.lobby_21);
+        lobby_22 = v.findViewById(R.id.lobby_22);
+        lobby_23 = v.findViewById(R.id.lobby_23);
+        lobby_24 = v.findViewById(R.id.lobby_24);
+        lobby_25 = v.findViewById(R.id.lobby_25);
+        lobby_26 = v.findViewById(R.id.lobby_26);
         lobby_41 = v.findViewById(R.id.lobby_41);
         lobby_42 = v.findViewById(R.id.lobby_42);
         lobby_43 = v.findViewById(R.id.lobby_43);
@@ -291,6 +306,31 @@ public class Activity2_Fragment4_Lobby extends Fragment {
             String name = Uri.parse(Lobby21).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby21);
+        });
+        lobby_22.setOnClickListener(v123 -> {
+            String name = Uri.parse(Lobby22).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby22);
+        });
+        lobby_23.setOnClickListener(v124 -> {
+            String name = Uri.parse(Lobby23).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby23);
+        });
+        lobby_24.setOnClickListener(v125 -> {
+            String name = Uri.parse(Lobby24).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby24);
+        });
+        lobby_25.setOnClickListener(v126 -> {
+            String name = Uri.parse(Lobby25).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby25);
+        });
+        lobby_26.setOnClickListener(v127 -> {
+            String name = Uri.parse(Lobby26).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby26);
         });
 
         lobby_41.setOnClickListener(v144 -> {

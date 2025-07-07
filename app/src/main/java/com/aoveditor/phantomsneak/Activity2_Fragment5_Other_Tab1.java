@@ -2,6 +2,8 @@ package com.aoveditor.phantomsneak;
 
 import static android.content.Context.DISPLAY_SERVICE;
 
+import static com.google.common.primitives.Bytes.indexOf;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -34,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -74,6 +77,7 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
     private String AccessMethod = "";
     private String Wiro = "";
     private String Wiro_UpdateDate = "";
+    private String Wiro_CrcXor = "";
     private final String Wisp = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/refs/heads/main/Plugins/5-Others/Hero_Wisp_SFX.bnk";
     private String Prefab_ = "";
     private String Prefab_UpdateDate = "";
@@ -221,6 +225,7 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
                 Wiro = dataSnapshot.child("wiro/wiro").getValue(String.class);
                 String wiro_updateDate = Objects.requireNonNull(dataSnapshot.child("wiro/更新日期").getValue(String.class));
                 Wiro_UpdateDate = "_" + wiro_updateDate.split("/")[1] + "_" + wiro_updateDate.split("/")[2];
+                Wiro_CrcXor = Objects.requireNonNull(dataSnapshot.child("wiro/crcxor").getValue(String.class));
                 Prefab_ = dataSnapshot.child("prefab/Prefab_").getValue(String.class);
                 String prefab_updateDate = Objects.requireNonNull(dataSnapshot.child("prefab/更新日期").getValue(String.class));
                 Prefab_UpdateDate = "_" + prefab_updateDate.split("/")[1] + "_" + prefab_updateDate.split("/")[2];
@@ -295,6 +300,10 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
 
     // 啟用其他修改
     private void StartModOther(String PluginName, boolean SingleFile, String Source, String TargetRootDir, ArrayList<String> SoundList) {
+        // 若是國動修改，要改效驗包
+        if (PluginName.contains("wiro")) {
+            ModVertifyAssetBundle_Wiro();
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             final String[] ShizukuResult = {""};
             if (!SingleFile) {
@@ -624,6 +633,69 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
             Log.e("ERR", e.toString());
         }
     }
+
+    /** 維羅國動 修改 效驗包 */
+    private void ModVertifyAssetBundle_Wiro() {
+        // 創建並執行 BackgroundTask，傳入具體的背景任務
+        new BackgroundTask(requireActivity(), () -> {
+            // 若安卓11以上，用 Shizuku 複製，否則用 FileUtil
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                return ShizukuUtil.executeShellCommandWithShizuku("cp /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+            } else {
+                FileUtil.copyFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
+                return "hmmm";
+            }
+        }, "", result -> {
+            // 在這裡處理結果，開始讀取並修改
+            if (result != null) {
+                byte[] data = FileUtil.readBinaryFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
+                patchBytesWithHex(data, "Actor_194_Actions.pkg.bytes", Wiro_CrcXor);
+                FileUtil.writeBinaryFile(data, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
+                // 若安卓11以上，用 Shizuku 複製，否則用 FileUtil
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/");
+                } else {
+                    FileUtil.moveFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle");
+                }
+            }
+        }).execute();
+    }
+
+    // 轉換 hexstring 成 byte array
+    private static byte[] hexStringToBytes(String hex) {
+        byte[] bytes = new byte[8];
+        for (int i = 0; i < 8; i++) {
+            int index = i * 2;
+            bytes[i] = (byte) Integer.parseInt(hex.substring(index, index + 2), 16);
+        }
+        return bytes;
+    }
+
+    // 尋找 byte array 在 data 中的 index，並替換 (crcxor)
+    public static void patchBytesWithHex(byte[] data, String marker, String hexString) {
+        try {
+            byte[] markerBytes = (marker + "\0\0").getBytes(StandardCharsets.UTF_8);
+            int index = indexOf(data, markerBytes);
+            if (index == -1) {
+                System.out.println("Marker not found.");
+                return;
+            }
+
+            int offset = index + markerBytes.length;
+            byte[] patchBytes = hexStringToBytes(hexString);
+
+            if (offset + patchBytes.length > data.length) {
+                System.out.println("Data too short to patch.");
+                return;
+            }
+
+            System.arraycopy(patchBytes, 0, data, offset, patchBytes.length);
+            System.out.println("Patch complete.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     // 檢查 Shizuku 權限

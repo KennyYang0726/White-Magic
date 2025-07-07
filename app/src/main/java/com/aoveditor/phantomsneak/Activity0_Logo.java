@@ -205,6 +205,7 @@ public class Activity0_Logo extends AppCompatActivity {
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext())+"/3-Voice/EN");
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext())+"/4-Lobby");
         FileUtil.makeDir(FileUtil.getPackageDataDir(getApplicationContext())+"/5-Other");
+        FileUtil.deleteFile(FileUtil.getPackageDataDir(getApplicationContext())+"/tmp"); // 刪除 tmp 目錄
         // 3 秒後檢查 version，即可跳轉畫面
         new Handler().postDelayed(new Runnable() {
             public void run() {
