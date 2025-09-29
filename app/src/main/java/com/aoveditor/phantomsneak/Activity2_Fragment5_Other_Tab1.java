@@ -638,22 +638,55 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
     private void ModVertifyAssetBundle_Wiro() {
         // 創建並執行 BackgroundTask，傳入具體的背景任務
         new BackgroundTask(requireActivity(), () -> {
-            // 若安卓11以上，用 Shizuku 複製，否則用 FileUtil
+            // 若安卓11以上，用 Shizuku/Root 複製，否則用 FileUtil
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                return ShizukuUtil.executeShellCommandWithShizuku("cp /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+                if (AccessMethod.equals("SAF")) {
+                    // 在這裡處理 SAF 的邏輯
+                    return null;
+                } else if (AccessMethod.equals("Shizuku")) {
+                    if (Shizuku.pingBinder()) {
+                        if (checkShizukuPermission()) {
+                            ShizukuUtil.executeShellCommandWithShizuku("cp /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+                        }
+                    } else {
+                        showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                        Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                        startActivity(page);
+                        return null;
+                    }
+                } else if (AccessMethod.equals("Root")) {
+                    RootUtil.executeRootCommand("cp /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/");
+                }
             } else {
                 FileUtil.copyFile("/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle", "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
                 return "hmmm";
             }
+            return "aboveR";
         }, "", result -> {
             // 在這裡處理結果，開始讀取並修改
             if (result != null) {
+                // root 環境下，要先 chmod 660 才能改，否則改失敗 (非root已經授權 2/2 即 660)
+                if (!AppSettings.contains("GameUID")) {
+                    if (AccessMethod.equals("SAF")) {
+                        // 在這裡處理 SAF 的邏輯
+                    } else if (AccessMethod.equals("Shizuku")) {
+                        ShizukuUtil.executeShellCommandWithShizuku("chmod 660 /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
+                    } else if (AccessMethod.equals("Root")) {
+                        RootUtil.executeRootCommand("chmod 660 /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
+                    }
+                }
                 byte[] data = FileUtil.readBinaryFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
                 patchBytesWithHex(data, "Actor_194_Actions.pkg.bytes", Wiro_CrcXor);
                 FileUtil.writeBinaryFile(data, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle");
                 // 若安卓11以上，用 Shizuku 複製，否則用 FileUtil
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/");
+                    if (AccessMethod.equals("SAF")) {
+                        // 在這裡處理 SAF 的邏輯
+                    } else if (AccessMethod.equals("Shizuku")) {
+                        ShizukuUtil.executeShellCommandWithShizuku("mv /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/");
+                    } else if (AccessMethod.equals("Root")) {
+                        RootUtil.executeRootCommand("mv /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle /storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/");
+                    }
                 } else {
                     FileUtil.moveFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/resourceverificationinfosetall.assetbundle", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/assetbundle/resourceverificationinfosetall.assetbundle");
                 }
