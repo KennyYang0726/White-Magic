@@ -106,8 +106,8 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
         // 加載獎勵廣告
         admobService.loadRewardedAd(getString(R.string.Reward));
         // 元件
-        Mod_Wiro = v.findViewById(R.id.Wiro);
-        button_recovery_wiro_modified = v.findViewById(R.id.button_recovery_wiro_mod);
+        // Mod_Wiro = v.findViewById(R.id.Wiro);
+        // button_recovery_wiro_modified = v.findViewById(R.id.button_recovery_wiro_mod);
         Mod_Wisp = v.findViewById(R.id.Wisp);
         button_recovery_wisp_modified = v.findViewById(R.id.button_recovery_wisp_mod);
         Mod_Tower = v.findViewById(R.id.Tower);
@@ -118,6 +118,7 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
         button_recovery_monster_modified = v.findViewById(R.id.button_recovery_monster_mod);
         Mod_FPS = v.findViewById(R.id.FPS);
         // 事件
+        /*
         Mod_Wiro.setOnClickListener(v1 -> {
             String name = Uri.parse(Wiro).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Wiro_UpdateDate + ".PS";
@@ -136,7 +137,7 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
             ClearList.add("Extra/2022.V3/Sound_DLC/Android/Chinese(Taiwan)/Hero_Wiro_VO.bnk");
             ClearList.add("Resources/" + Game_Ver);
             ClearMod("8964", ClearList, "點擊 OK 還原\n「維羅國動」\n完成後強制為您開啟遊戲，是否繼續？", true);
-        });
+        });*/
         Mod_Wisp.setOnClickListener(v12 -> {
             // SoundList 僅用於 有語音修改的
             ArrayList<String> SoundList = new ArrayList<>();
@@ -241,11 +242,12 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
     // 更新 UI 資料 ( 改變按鈕文字 )
     private void updateUI() {
         // 維羅
+        /*
         if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/" + "wiro" + Wiro_UpdateDate + ".PS")) {
             Mod_Wiro.setText(getString(R.string.Btn_ApplyOtherPlugin));
         } else {
             Mod_Wiro.setText(getString(R.string.Btn_DownloadOtherPlugin));
-        }
+        }*/
         // wisp
         if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/Hero_Wisp_SFX.bnk")) {
             Mod_Wisp.setText(getString(R.string.Btn_ApplyOtherPlugin));

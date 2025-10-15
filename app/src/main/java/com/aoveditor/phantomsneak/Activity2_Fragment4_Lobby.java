@@ -77,6 +77,10 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private ImageView lobby_24;
     private ImageView lobby_25;
     private ImageView lobby_26;
+    private ImageView lobby_27;
+    private ImageView lobby_28;
+    private ImageView lobby_29;
+    private ImageView lobby_30;
     // 額外主題
     private ImageView lobby_41;
     private ImageView lobby_42;
@@ -84,6 +88,8 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private ImageView lobby_44;
     private ImageView lobby_45;
     private ImageView lobby_46;
+    private ImageView lobby_47;
+    private ImageView lobby_48;
 
     /**Components*/
     private SharedPreferences AppSettings; // 儲存 主題色, SAF授權目錄, AccessMethod, ...
@@ -119,6 +125,10 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private final String Lobby24 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/24-Classic.PS";
     private final String Lobby25 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/25-AIC2018.PS";
     private final String Lobby26 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/26-AWC2021.PS";
+    private final String Lobby27 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/27-Nakaroth_aov_day.PS";
+    private final String Lobby28 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/28-Telannas_SilverWing.PS";
+    private final String Lobby29 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/29-ZhouYu.PS";
+    private final String Lobby30 = "github.com/JamesYang0826/WhiteMagic-Plugins/raw/main/Plugins/4-Lobby/30-TiLi.PS";
     private String Lobby41 = "";
     private String Lobby41_IMG = "";
     private String Lobby42 = "";
@@ -131,6 +141,10 @@ public class Activity2_Fragment4_Lobby extends Fragment {
     private String Lobby45_IMG = "";
     private String Lobby46 = "";
     private String Lobby46_IMG = "";
+    private String Lobby47 = "";
+    private String Lobby47_IMG = "";
+    private String Lobby48 = "";
+    private String Lobby48_IMG = "";
     private String Delete_Sound = "";
     private String Delete_Movie = "";
     private String Update_Date = "";
@@ -189,12 +203,18 @@ public class Activity2_Fragment4_Lobby extends Fragment {
         lobby_24 = v.findViewById(R.id.lobby_24);
         lobby_25 = v.findViewById(R.id.lobby_25);
         lobby_26 = v.findViewById(R.id.lobby_26);
+        lobby_27 = v.findViewById(R.id.lobby_27);
+        lobby_28 = v.findViewById(R.id.lobby_28);
+        lobby_29 = v.findViewById(R.id.lobby_29);
+        lobby_30 = v.findViewById(R.id.lobby_30);
         lobby_41 = v.findViewById(R.id.lobby_41);
         lobby_42 = v.findViewById(R.id.lobby_42);
         lobby_43 = v.findViewById(R.id.lobby_43);
         lobby_44 = v.findViewById(R.id.lobby_44);
         lobby_45 = v.findViewById(R.id.lobby_45);
         lobby_46 = v.findViewById(R.id.lobby_46);
+        lobby_47 = v.findViewById(R.id.lobby_47);
+        lobby_48 = v.findViewById(R.id.lobby_48);
         // 事件
         button_delete_lobby_plugins.setOnClickListener(v120 -> {
             FileUtil.deleteFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/4-Lobby");
@@ -332,6 +352,26 @@ public class Activity2_Fragment4_Lobby extends Fragment {
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby26);
         });
+        lobby_27.setOnClickListener(v128 -> {
+            String name = Uri.parse(Lobby27).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby27);
+        });
+        lobby_28.setOnClickListener(v129 -> {
+            String name = Uri.parse(Lobby28).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby28);
+        });
+        lobby_29.setOnClickListener(v130 -> {
+            String name = Uri.parse(Lobby29).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby29);
+        });
+        lobby_30.setOnClickListener(v131 -> {
+            String name = Uri.parse(Lobby30).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby30);
+        });
 
         lobby_41.setOnClickListener(v144 -> {
             String name = Uri.parse(Lobby41).getLastPathSegment();
@@ -362,6 +402,16 @@ public class Activity2_Fragment4_Lobby extends Fragment {
             String name = Uri.parse(Lobby46).getLastPathSegment();
             String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
             LobbyImageClickEvent(PluginName, Lobby46);
+        });
+        lobby_47.setOnClickListener(v150 -> {
+            String name = Uri.parse(Lobby47).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby47);
+        });
+        lobby_48.setOnClickListener(v151 -> {
+            String name = Uri.parse(Lobby48).getLastPathSegment();
+            String PluginName = Objects.requireNonNull(name).substring(0, name.length()-3) + Update_Date + ".PS";
+            LobbyImageClickEvent(PluginName, Lobby48);
         });
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);
@@ -407,6 +457,10 @@ public class Activity2_Fragment4_Lobby extends Fragment {
                 Lobby45_IMG = dataSnapshot.child("Other5").getValue(String.class);
                 Lobby46 = dataSnapshot.child("Other6_URL").getValue(String.class);
                 Lobby46_IMG = dataSnapshot.child("Other6").getValue(String.class);
+                Lobby47 = dataSnapshot.child("Other7_URL").getValue(String.class);
+                Lobby47_IMG = dataSnapshot.child("Other7").getValue(String.class);
+                Lobby48 = dataSnapshot.child("Other8_URL").getValue(String.class);
+                Lobby48_IMG = dataSnapshot.child("Other8").getValue(String.class);
                 Delete_Sound = dataSnapshot.child("delete_sound").getValue(String.class);
                 Delete_Movie = dataSnapshot.child("delete_movie").getValue(String.class);
                 String update_date = Objects.requireNonNull(dataSnapshot.child("更新日期").getValue(String.class));
@@ -431,6 +485,8 @@ public class Activity2_Fragment4_Lobby extends Fragment {
         LoadExtraThemePtoto(Lobby44_IMG, lobby_44);
         LoadExtraThemePtoto(Lobby45_IMG, lobby_45);
         LoadExtraThemePtoto(Lobby46_IMG, lobby_46);
+        LoadExtraThemePtoto(Lobby47_IMG, lobby_47);
+        LoadExtraThemePtoto(Lobby48_IMG, lobby_48);
         // 安卓 11 以上 檢查目錄權限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             // 檢查修改權限是否充足

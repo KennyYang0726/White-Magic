@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <!-- 主 UI 元件 -->
+        <!--
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="213dp"
@@ -53,7 +54,7 @@
             android:layout_height="8dp"
             android:layout_marginTop="13dp"
             android:src="@drawable/line"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY" /> -->
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="213dp"
@@ -233,7 +234,6 @@
             android:src="@drawable/line"
             android:scaleType="fitXY" />
     </LinearLayout>
-
         <ImageView
             android:id="@+id/FPS"
             android:layout_width="match_parent"
