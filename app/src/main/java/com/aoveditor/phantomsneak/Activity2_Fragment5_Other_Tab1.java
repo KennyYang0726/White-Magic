@@ -241,12 +241,11 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
     // 更新 UI 資料 ( 改變按鈕文字 )
     private void updateUI() {
         // 維羅
-        /*
         if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/" + "wiro" + Wiro_UpdateDate + ".PS")) {
             Mod_Wiro.setText(getString(R.string.Btn_ApplyOtherPlugin));
         } else {
             Mod_Wiro.setText(getString(R.string.Btn_DownloadOtherPlugin));
-        }*/
+        }
         // wisp
         if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/5-Other/Hero_Wisp_SFX.bnk")) {
             Mod_Wisp.setText(getString(R.string.Btn_ApplyOtherPlugin));
