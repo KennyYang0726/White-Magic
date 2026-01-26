@@ -13,7 +13,7 @@ android {
         minSdk 24
         //noinspection EditedTargetSdkVersion
         targetSdk 35
-        versionCode 39
+        versionCode 40
         versionName "1.7.1"
         resourceConfigurations += []
     }
