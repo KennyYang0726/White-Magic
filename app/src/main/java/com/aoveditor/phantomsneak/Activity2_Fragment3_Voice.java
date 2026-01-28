@@ -53,10 +53,20 @@ public class Activity2_Fragment3_Voice extends Fragment {
     private ImageView EN_Voice;
     private TextView Text_EN_Version;
     private TextView Text_EN_Last_ver;
+    private ImageView Tai_Voice;
+    private TextView Text_Tai_Version;
+    private TextView Text_Tai_Last_ver;
+    private ImageView VN_Voice;
+    private TextView Text_VN_Version;
+    private TextView Text_VN_Last_ver;
     private Button button_del_jp_plugin;
     private Button button_del_en_plugin;
+    private Button button_del_tai_plugin;
+    private Button button_del_vn_plugin;
     private Button button_recovery_voice_mod1;
     private Button button_recovery_voice_mod2;
+    private Button button_recovery_voice_mod3;
+    private Button button_recovery_voice_mod4;
 
     /**Components*/
     private SharedPreferences AppSettings; // 儲存 主題色, SAF授權目錄, AccessMethod, ...
@@ -69,10 +79,16 @@ public class Activity2_Fragment3_Voice extends Fragment {
     private String EN_Plugin_Ver = "";
     private String JP_URL = "";
     private String JP_Plugin_Ver = "";
+    private String Tai_URL = "";
+    private String Tai_Plugin_Ver = "";
+    private String VN_URL = "";
+    private String VN_Plugin_Ver = "";
     private String AccessMethod = "";
     private boolean AutoMod = false;
     private final ArrayList<String> files_in_en_voice = new ArrayList<>();
     private final ArrayList<String> files_in_jp_voice = new ArrayList<>();
+    private final ArrayList<String> files_in_tai_voice = new ArrayList<>();
+    private final ArrayList<String> files_in_vn_voice = new ArrayList<>();
     private boolean canMod = true;
     // 產生亂數，應用不可動的目錄
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -107,10 +123,20 @@ public class Activity2_Fragment3_Voice extends Fragment {
         EN_Voice = v.findViewById(R.id.Voice_EN);
         Text_EN_Version = v.findViewById(R.id.Text_ENVoicePlugVer);
         Text_EN_Last_ver = v.findViewById(R.id.Text_LatestENVoicePlugVer);
+        Tai_Voice = v.findViewById(R.id.Voice_Tai);
+        Text_Tai_Version = v.findViewById(R.id.Text_TaiVoicePlugVer);
+        Text_Tai_Last_ver = v.findViewById(R.id.Text_LatestTaiVoicePlugVer);
+        VN_Voice = v.findViewById(R.id.Voice_VN);
+        Text_VN_Version = v.findViewById(R.id.Text_VNVoicePlugVer);
+        Text_VN_Last_ver = v.findViewById(R.id.Text_LatestVNVoicePlugVer);
         button_del_jp_plugin = v.findViewById(R.id.button_del_jp_plugin);
         button_del_en_plugin = v.findViewById(R.id.button_del_en_plugin);
+        button_del_tai_plugin = v.findViewById(R.id.button_del_tai_plugin);
+        button_del_vn_plugin = v.findViewById(R.id.button_del_vn_plugin);
         button_recovery_voice_mod1 = v.findViewById(R.id.button_recovery_voice_mod1);
         button_recovery_voice_mod2 = v.findViewById(R.id.button_recovery_voice_mod2);
+        button_recovery_voice_mod3 = v.findViewById(R.id.button_recovery_voice_mod3);
+        button_recovery_voice_mod4 = v.findViewById(R.id.button_recovery_voice_mod4);
         // 事件
         JP_Voice.setOnClickListener(v16 -> {
             // 若有插件，啟用
@@ -180,6 +206,74 @@ public class Activity2_Fragment3_Voice extends Fragment {
                 }
             }
         });
+        Tai_Voice.setOnClickListener(v14 -> {
+            // 若有插件，啟用
+            if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/Tai/".concat(Tai_Plugin_Ver))) {
+                StartModVoice("Tai", Tai_Plugin_Ver);
+            } else {
+                if (!AutoMod) {
+                    showMessage(getString(R.string.DownloadFinishedClickAgainToast));
+                }
+                FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/Tai");
+                FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/Tai");
+                // 開始下載插件
+                if (AutoMod) {
+                    DownloadManager.downloadPlugins(requireContext(), "https://" + Tai_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/Tai/", "下載泰語插件中...", Tai_Plugin_Ver, new DownloadManager.UIDownloadCallback() {
+                        @Override
+                        public void onDownloadComplete(String filePath) {
+                            // 把該改變的狀態全部修正
+                            requireActivity().runOnUiThread(() -> {
+                                Text_Tai_Version.setText(Tai_Plugin_Ver);
+                            });
+                            StartModVoice("Tai", Tai_Plugin_Ver);
+                        }
+                        @Override
+                        public void onDownloadFailed(String error) {
+                        }
+                    });
+                } else {
+                    admobService.showInterstitialAd(getString(R.string.Interstitial));
+                    showMessage(getString(R.string.WaitTillDownloadCompletelyToast));
+                    showMessage(getString(R.string.DownloadManagerProgressSeeStatusBarToast));
+                    DownloadManager.downloadManager(requireContext(), "https://" + Tai_URL, "Android/data/com.aoveditor.phantomsneak/files/3-Voice/Tai/", Tai_Plugin_Ver);
+                    updateUI();
+                }
+            }
+        });
+        VN_Voice.setOnClickListener(v13 -> {
+            // 若有插件，啟用
+            if (FileUtil.isExistFile("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/VN/".concat(VN_Plugin_Ver))) {
+                StartModVoice("VN", VN_Plugin_Ver);
+            } else {
+                if (!AutoMod) {
+                    showMessage(getString(R.string.DownloadFinishedClickAgainToast));
+                }
+                FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/VN");
+                FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/VN");
+                // 開始下載插件
+                if (AutoMod) {
+                    DownloadManager.downloadPlugins(requireContext(), "https://" + VN_URL, "/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/VN/", "下載越南語插件中...", VN_Plugin_Ver, new DownloadManager.UIDownloadCallback() {
+                        @Override
+                        public void onDownloadComplete(String filePath) {
+                            // 把該改變的狀態全部修正
+                            requireActivity().runOnUiThread(() -> {
+                                Text_VN_Version.setText(VN_Plugin_Ver);
+                            });
+                            StartModVoice("VN", VN_Plugin_Ver);
+                        }
+                        @Override
+                        public void onDownloadFailed(String error) {
+                        }
+                    });
+                } else {
+                    admobService.showInterstitialAd(getString(R.string.Interstitial));
+                    showMessage(getString(R.string.WaitTillDownloadCompletelyToast));
+                    showMessage(getString(R.string.DownloadManagerProgressSeeStatusBarToast));
+                    DownloadManager.downloadManager(requireContext(), "https://" + VN_URL, "Android/data/com.aoveditor.phantomsneak/files/3-Voice/VN/", VN_Plugin_Ver);
+                    updateUI();
+                }
+            }
+        });
         button_del_jp_plugin.setOnClickListener(v14 -> {
             FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/JP");
             FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/JP");
@@ -190,8 +284,20 @@ public class Activity2_Fragment3_Voice extends Fragment {
             FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/EN");
             updateUI();
         });
+        button_del_tai_plugin.setOnClickListener(v12 -> {
+            FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/Tai");
+            FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/Tai");
+            updateUI();
+        });
+        button_del_vn_plugin.setOnClickListener(v11 -> {
+            FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/VN");
+            FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/3-Voice/VN");
+            updateUI();
+        });
         button_recovery_voice_mod1.setOnClickListener(v12 -> ClearAllVoiceMod());
         button_recovery_voice_mod2.setOnClickListener(v1 -> ClearAllVoiceMod());
+        button_recovery_voice_mod3.setOnClickListener(v1 -> ClearAllVoiceMod());
+        button_recovery_voice_mod4.setOnClickListener(v1 -> ClearAllVoiceMod());
         // 加載和顯示橫幅廣告
         AdView banner = v.findViewById(R.id.banner);
         admobService.loadBannerAd(banner);
@@ -228,6 +334,10 @@ public class Activity2_Fragment3_Voice extends Fragment {
                 EN_Plugin_Ver = dataSnapshot.child("en_ver").getValue(String.class);
                 JP_URL = dataSnapshot.child("jp").getValue(String.class);
                 JP_Plugin_Ver = dataSnapshot.child("jp_ver").getValue(String.class);
+                Tai_URL = dataSnapshot.child("tai").getValue(String.class);
+                Tai_Plugin_Ver = dataSnapshot.child("tai_ver").getValue(String.class);
+                VN_URL = dataSnapshot.child("vn").getValue(String.class);
+                VN_Plugin_Ver = dataSnapshot.child("vn_ver").getValue(String.class);
                 if (!isBusying) {
                     updateUI();
                 }
@@ -244,12 +354,18 @@ public class Activity2_Fragment3_Voice extends Fragment {
         // 清空 List 避免誤判
         files_in_en_voice.clear();
         files_in_jp_voice.clear();
+        files_in_tai_voice.clear();
+        files_in_vn_voice.clear();
         // 設置最新插件版本文字
         Text_EN_Last_ver.setText(EN_Plugin_Ver);
         Text_JP_Last_ver.setText(JP_Plugin_Ver);
+        Text_Tai_Last_ver.setText(JP_Plugin_Ver);
+        Text_VN_Last_ver.setText(JP_Plugin_Ver);
         // 設置目前插件版本文字
         FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/EN/", files_in_en_voice);
         FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/JP/", files_in_jp_voice);
+        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/Tai/", files_in_tai_voice);
+        FileUtil.listDir("/storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/3-Voice/VN/", files_in_vn_voice);
         if (files_in_en_voice.isEmpty()) {
             Text_EN_Version.setText(getString(R.string.PlugNone));
         } else {
@@ -259,6 +375,16 @@ public class Activity2_Fragment3_Voice extends Fragment {
             Text_JP_Version.setText(getString(R.string.PlugNone));
         } else {
             Text_JP_Version.setText(Uri.parse(files_in_jp_voice.get((0))).getLastPathSegment());
+        }
+        if (files_in_tai_voice.isEmpty()) {
+            Text_Tai_Version.setText(getString(R.string.PlugNone));
+        } else {
+            Text_Tai_Version.setText(Uri.parse(files_in_tai_voice.get((0))).getLastPathSegment());
+        }
+        if (files_in_vn_voice.isEmpty()) {
+            Text_VN_Version.setText(getString(R.string.PlugNone));
+        } else {
+            Text_VN_Version.setText(Uri.parse(files_in_vn_voice.get((0))).getLastPathSegment());
         }
         // 安卓 11 以上 檢查目錄權限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

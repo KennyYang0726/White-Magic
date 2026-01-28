@@ -210,6 +210,206 @@
                     android:textAllCaps="false"
                     android:text="@string/Btn_RecoveryVoiceMod" />
             </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/line"
+                android:scaleType="fitXY" />
+            <ImageView
+                android:id="@+id/Voice_Tai"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginLeft="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/voice_tai" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Voice_Text_Hint"
+                android:textSize="17sp"
+                android:textStyle="italic"
+                android:textColor="#F44336"
+                android:translationY="-13dp"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_SkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_TaiVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_LatestSkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_LatestTaiVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="13dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button_del_tai_plugin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_DelTaiVoicePlugin" />
+                <Button
+                    android:id="@+id/button_recovery_voice_mod3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_RecoveryVoiceMod" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/line"
+                android:scaleType="fitXY" />
+            <ImageView
+                android:id="@+id/Voice_VN"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginRight="19dp"
+                android:layout_marginLeft="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/voice_vn" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Voice_Text_Hint"
+                android:textSize="17sp"
+                android:textStyle="italic"
+                android:textColor="#F44336"
+                android:translationY="-13dp"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_SkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_VNVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false"
+                        android:text="@string/Text_LatestSkinPlugVer" />
+                    <TextView
+                        android:id="@+id/Text_LatestVNVoicePlugVer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="19sp"
+                        android:textColor="@color/text_color"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="13dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button_del_vn_plugin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_DelVNVoicePlugin" />
+                <Button
+                    android:id="@+id/button_recovery_voice_mod4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_alert_dialog_btn_red"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:text="@string/Btn_RecoveryVoiceMod" />
+            </LinearLayout>
             <com.google.android.gms.ads.AdView
                 xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/banner"

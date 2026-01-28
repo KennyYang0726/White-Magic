@@ -116,6 +116,8 @@
     <string name="Voice_Text_Hint" translatable="false">點擊圖片即可修改</string>
     <string name="Btn_DelENVoicePlugin" translatable="false">刪除英語插件</string>
     <string name="Btn_DelJPVoicePlugin" translatable="false">刪除日語插件</string>
+    <string name="Btn_DelTaiVoicePlugin" translatable="false">刪除泰語插件</string>
+    <string name="Btn_DelVNVoicePlugin" translatable="false">刪除越南語插件</string>
     <string name="Btn_RecoveryVoiceMod" translatable="false">還原語音修改</string>
     <string name="WaitTillDownloadCompletelyToast" translatable="false">請耐心等候下載完畢\n再次點擊即可啟用</string>
     <string name="DownloadManagerProgressSeeStatusBarToast" translatable="false">下載進度於\n上方狀態欄</string>
