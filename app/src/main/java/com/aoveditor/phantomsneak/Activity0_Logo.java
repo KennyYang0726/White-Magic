@@ -1,5 +1,6 @@
 package com.aoveditor.phantomsneak;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -64,6 +65,13 @@ public class Activity0_Logo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity0_logo);
         initialize(savedInstanceState);
+        // onBackPressed 邏輯已在 SDK36 棄用，改用這個
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                BackPressed();
+            }
+        });
         // 請求權限
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED
@@ -123,10 +131,9 @@ public class Activity0_Logo extends AppCompatActivity {
             }
         }
     }
-    @Override
-    public void onBackPressed() {
+
+    private void BackPressed() {
         if (false) { // 為了讓這裡沒法按返回退出應用
-            super.onBackPressed();
         }
     }
     @Override

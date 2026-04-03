@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 
@@ -69,11 +71,17 @@ public class Activity1_ChooseUtils extends AppCompatActivity {
         setContentView(R.layout.activity1_chooseutils);
         initialize(savedInstanceState);
         initializeLogic();
+        // onBackPressed 邏輯已在 SDK36 棄用，改用這個
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                BackPressed();
+            }
+        });
     }
-    @Override
-    public void onBackPressed() {
+    
+    private void BackPressed() {
         if (false) { // 為了讓這裡沒法按返回退出應用
-            super.onBackPressed();
         }
     }
     // SAF 授權檢查

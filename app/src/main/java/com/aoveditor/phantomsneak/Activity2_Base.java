@@ -14,6 +14,8 @@ import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -137,12 +139,19 @@ public class Activity2_Base extends AppCompatActivity {
         setContentView(R.layout.activity2_base);
         initialize(savedInstanceState);
         initializeLogic();
+        // onBackPressed 邏輯已在 SDK36 棄用，改用這個
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                BackPressed();
+            }
+        });
     }
-    @Override
-    public void onBackPressed() {
+
+    private void BackPressed() {
         if (!quit) { // 詢問退出程序
             showMessage(getResources().getString(R.string.back_again));
-            new Timer(true).schedule(new TimerTask() { // 啟動定時任務
+            new Timer(true).schedule(new TimerTask() {//啟動定時任務
                 @Override
                 public void run() {
                     quit = false; // 重置退出標示
@@ -150,10 +159,10 @@ public class Activity2_Base extends AppCompatActivity {
             }, 2000); // 2秒後執行run()方法
             quit = true;
         } else { // 確認退出應用
-            super.onBackPressed();
             finishAffinity();
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

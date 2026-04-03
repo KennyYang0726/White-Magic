@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 
 import rikka.shizuku.Shizuku;
 
+import com.aoveditor.phantomsneak.AlertDialog.CustomAlertDialog_ChooseTemplete;
 import com.aoveditor.phantomsneak.ModdingVeryHighFrame.ModdingVeryHighFrame;
 import com.aoveditor.phantomsneak.Services.AdmobService;
 import com.google.android.gms.ads.AdView;
@@ -65,6 +66,9 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
     private Button Mod_Monster;
     private Button button_recovery_monster_modified;
     private ImageView Mod_FPS;
+    // 選擇幀率
+
+
 
     /**Components*/
     private SharedPreferences AppSettings; // 儲存 主題色, SAF授權目錄, AccessMethod, ...
@@ -532,12 +536,11 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
         if (open120()) {
             FileUtil.makeDir(FileUtil.getPackageDataDir(requireActivity())+"/tmp");
             saveAssets("高幀率.png", FileUtil.getPackageDataDir(requireActivity())+"/tmp/", "VeryHighFrameModeBlackList.bytes");
-            String Device_ID = ModdingVeryHighFrame.getDeviceName();
             CustomAlertDialog2.showDialog(
                     requireContext(),
                     false,
                     "注意！",
-                    "◑開啟超高幀率模式(120FPS)將擁有更加流暢的遊戲體驗，但可能加快手機耗電、發熱。\n◑啟用該功能並不會直接幫你啟用至120FPS，而是使120FPS選項出現，須手動去戰場設置中開啟\n◑若已開啟超高幀率，但遊戲顯示幀率仍為60，代表您的手機可能有鎖幀的問題，須查閱相關資料\n◑不能保證100%修改成功",
+                    "◑開啟超高幀率模式(120FPS)可能加快手機耗電、發熱。\n◑啟用該功能後，須手動去戰場設置中開啟\n◑若已開啟該功能，但遊戲幀率仍上不去，代表您的手機可能有鎖幀的問題\n◑若手機有 Game Turbo，溫控系統，遊戲管家，助手...等內建應用\n  都可能導致鎖幀現象，須查閱相關資料",
                     getString(R.string.DialogCancel),
                     getString(R.string.DialogOK),
                     0,
@@ -546,51 +549,46 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
                         @Override
                         public void onResult(boolean isConfirmed) {
                             if (isConfirmed) {
-                                // 顯示獎勵廣告
-                                admobService.showRewardedAd(completed -> {
-                                    if (completed) {
-                                        ModdingVeryHighFrame.Decrypt(requireContext());
-                                        // 創建並執行 BackgroundTask，傳入具體的背景任務
-                                        new BackgroundTask(requireActivity(), () -> {
-                                            ModdingVeryHighFrame.ModDevice(requireContext(), Device_ID);
-                                            if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
-                                                java.io.File inp = new java.io.File(FileUtil.getPackageDataDir(requireContext()).concat("/tmp/VeryHighFrameModeBlackList0.bytes"));
-                                                java.io.File opt = new java.io.File(FileUtil.getPackageDataDir(requireContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
-                                                inp.renameTo(opt);
-                                            } else {
-                                                ModdingVeryHighFrame.ModOffest(requireContext(), Device_ID.length()-("xiaomi M2102J20SG".length()));
+                                // 選擇要的
+                                CustomAlertDialog_ChooseTemplete.showDialog(
+                                        requireContext(),
+                                        false,
+                                        "請選擇要使用的模板",
+                                        getString(R.string.DialogCancel),
+                                        getString(R.string.DialogOK),
+                                        (isConfirmed1, selectedValue) -> {
+                                            String device_ID = ModdingVeryHighFrame.getDeviceName();
+                                            if (!isConfirmed1) {
+                                                return;
                                             }
-                                            ModdingVeryHighFrame.Encrypt(requireContext());
-                                            return "";
-                                        }, "請稍後", result -> {
-                                            // 在這裡處理結果，例如顯示結果到 Toast 或更新 UI
-                                            if (result != null) {
-                                                // 依照存取模式複製進去遊戲
-                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                                    if (AccessMethod.equals("SAF")) {
-                                                        // 在這裡處理 SAF 的邏輯
-                                                    } else if (AccessMethod.equals("Shizuku")) {
-                                                        if (Shizuku.pingBinder()) {
-                                                            if (checkShizukuPermission()) {
-                                                                ShizukuUtil.executeShellCommandWithShizuku("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
-                                                            }
-                                                        } else {
-                                                            showMessage(getResources().getString(R.string.ShizukuPingFailed));
-                                                            Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
-                                                            startActivity(page);
-                                                        }
-                                                    } else if (AccessMethod.equals("Root")) {
-                                                        RootUtil.executeRootCommand("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
-                                                    }
-                                                } else {
-                                                    FileUtil.copyFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp/VeryHighFrameModeBlackList.bytes", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
-                                                }
-                                                showMessage("完成");
-                                                // FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp");
+                                            switch (selectedValue) {
+                                                case 8:
+                                                    // 處理 90
+                                                    adsThenStartModdingFPS(device_ID, 8);
+                                                    break;
+                                                case 16:
+                                                    // 處理 120
+                                                    adsThenStartModdingFPS(device_ID, 16);
+                                                    break;
+                                                case 32:
+                                                    // 處理 144
+                                                    adsThenStartModdingFPS(device_ID, 32);
+                                                    break;
+                                                case 24:
+                                                    // 處理 90+120
+                                                    adsThenStartModdingFPS(device_ID, 24);
+                                                    break;
+                                                case 48:
+                                                    // 處理 120+144
+                                                    adsThenStartModdingFPS(device_ID, 48);
+                                                    break;
+                                                case 56:
+                                                    // 處理 90+120+144
+                                                    adsThenStartModdingFPS(device_ID, 56);
+                                                    break;
                                             }
-                                        }).execute();
-                                    }
-                                });
+                                        }
+                                );
 
                             } else {
                                 FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp");
@@ -614,6 +612,56 @@ public class Activity2_Fragment5_Other_Tab1 extends Fragment {
             }
         }
         return false;
+    }
+
+
+    private void adsThenStartModdingFPS(String Device_ID, int val) {
+        // 顯示獎勵廣告
+        admobService.showRewardedAd(completed -> {
+            if (completed) {
+                ModdingVeryHighFrame.Decrypt(requireContext());
+                // 創建並執行 BackgroundTask，傳入具體的背景任務
+                new BackgroundTask(requireActivity(), () -> {
+                    ModdingVeryHighFrame.ModTemplete(requireContext(), val);
+                    ModdingVeryHighFrame.ModDevice(requireContext(), Device_ID);
+                    if (Device_ID.length()-("xiaomi M2102J20SG".length()) == 0) {
+                        java.io.File inp = new java.io.File(FileUtil.getPackageDataDir(requireContext()).concat("/tmp/VeryHighFrameModeBlackList1.bytes"));
+                        java.io.File opt = new java.io.File(FileUtil.getPackageDataDir(requireContext()).concat("/tmp/VeryHighFrameModeBlackList.bytes"));
+                        inp.renameTo(opt);
+                    } else {
+                        ModdingVeryHighFrame.ModOffest(requireContext(), Device_ID.length()-("xiaomi M2102J20SG".length()));
+                    }
+                    ModdingVeryHighFrame.Encrypt(requireContext());
+                    return "";
+                }, "請稍後", result -> {
+                    // 在這裡處理結果，例如顯示結果到 Toast 或更新 UI
+                    if (result != null) {
+                        // 依照存取模式複製進去遊戲
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            if (AccessMethod.equals("SAF")) {
+                                // 在這裡處理 SAF 的邏輯
+                            } else if (AccessMethod.equals("Shizuku")) {
+                                if (Shizuku.pingBinder()) {
+                                    if (checkShizukuPermission()) {
+                                        ShizukuUtil.executeShellCommandWithShizuku("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
+                                    }
+                                } else {
+                                    showMessage(getResources().getString(R.string.ShizukuPingFailed));
+                                    Intent page = new Intent(getActivity(), Activity1_ChooseUtils.class);
+                                    startActivity(page);
+                                }
+                            } else if (AccessMethod.equals("Root")) {
+                                RootUtil.executeRootCommand("cp /storage/emulated/0/Android/data/com.aoveditor.phantomsneak/files/tmp/VeryHighFrameModeBlackList.bytes" + " " + "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/");
+                            }
+                        } else {
+                            FileUtil.copyFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp/VeryHighFrameModeBlackList.bytes", "/storage/emulated/0/Android/data/com.garena.game.kgtw/files/Resources/" + Game_Ver + "/Databin/Client/Text/VeryHighFrameModeBlackList.bytes");
+                        }
+                        showMessage("完成");
+                        // FileUtil.deleteFile(FileUtil.getPackageDataDir(requireActivity())+"/tmp");
+                    }
+                }).execute();
+            }
+        });
     }
 
     // 解壓縮 Asset (高幀率)

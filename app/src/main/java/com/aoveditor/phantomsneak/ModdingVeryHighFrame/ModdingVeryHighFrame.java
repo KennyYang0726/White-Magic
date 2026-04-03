@@ -36,10 +36,54 @@ public class ModdingVeryHighFrame {
         return s.toLowerCase();
     }
 
-    // 修改檔案機型
-    public static void ModDevice(Context context, String Device) {
+    // 修改選擇旗標
+    public static void ModTemplete(Context context, int templete) {
         String FilePath0 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList.bytes");
         String FilePath1 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList0.bytes");
+
+        byte[] oldTemplete = {0x32, 0x30, 0x53, 0x47, 0x00, 0x38};
+
+        try {
+            FileInputStream fis = new FileInputStream(FilePath0);
+            FileOutputStream fos = new FileOutputStream(FilePath1);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            boolean wordFound;
+
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                for (int i = 0; i < bytesRead; i++) {
+                    // Check if the oldWord starts at the current position
+                    if (buffer[i] == oldTemplete[0]) {
+                        wordFound = true;
+                        for (int j = 1; j < oldTemplete.length; j++) {
+                            // Check if the rest of the oldWord matches
+                            if (i + j >= bytesRead || buffer[i + j] != oldTemplete[j]) {
+                                wordFound = false;
+                                break;
+                            }
+                        }
+
+                        if (wordFound) {
+                            // 只修改最後一個 byte
+                            buffer[i + oldTemplete.length - 1] = (byte) templete;
+                        }
+                    }
+                }
+                fos.write(buffer, 0, bytesRead);
+            }
+
+            fis.close();
+            fos.close();
+            FileUtil.deleteFile(FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList.bytes"));
+        } catch (IOException e) {
+            Log.e("ERR", e.toString());
+        }
+    }
+
+    // 修改檔案機型
+    public static void ModDevice(Context context, String Device) {
+        String FilePath0 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList0.bytes");
+        String FilePath1 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList1.bytes");
 
         byte[] oldDevice = ("xiaomi M2102J20SG").getBytes();
         byte[] newDevice = (Device).getBytes();
@@ -94,7 +138,7 @@ public class ModdingVeryHighFrame {
 
             fis.close();
             fos.close();
-            FileUtil.deleteFile(FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList.bytes"));
+            FileUtil.deleteFile(FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList0.bytes"));
         } catch (IOException e) {
             Log.e("ERR", e.toString());
         }
@@ -102,11 +146,11 @@ public class ModdingVeryHighFrame {
 
     // 修改偏移
     public static void ModOffest(Context context, int len_different) {
-        String FilePath0 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList0.bytes");
+        String FilePath0 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList1.bytes");
         String FilePath1 = FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList.bytes");
 
-        byte[] oldOffest = {0x1b, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x12};
-        byte[] newOffest = {0x1b, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x12};
+        byte[] oldOffest = {0x1b, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x12};
+        byte[] newOffest = {0x1b, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x12};
         newOffest[0] = (byte) (oldOffest[0] + (byte) len_different);
         newOffest[8] = (byte) (oldOffest[8] + (byte) len_different);
 
@@ -141,7 +185,7 @@ public class ModdingVeryHighFrame {
 
             fis.close();
             fos.close();
-            FileUtil.deleteFile(FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList0.bytes"));
+            FileUtil.deleteFile(FileUtil.getPackageDataDir(context)+("/tmp/VeryHighFrameModeBlackList1.bytes"));
         } catch (IOException e) {
             Log.e("ERR", e.toString());
         }
